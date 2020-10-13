@@ -11,8 +11,7 @@ namespace HotelManagement.Models
         public HotelManagementContext(DbContextOptions<HotelManagementContext> options) : base(options) 
         {
         }
-
-
-
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Address> Addresses { get; set; }
     }
 }
