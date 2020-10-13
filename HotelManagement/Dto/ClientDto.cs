@@ -1,19 +1,17 @@
-﻿using System;
+﻿using HotelManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HotelManagement.Models
+namespace HotelManagement.Dto
 {
-    public class Client
+    public class ClientDto
     {
-        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Sex Sex { get; set; }
         public int Age { get; set; }
-        public int AddressId { get; set; }
-        public Address Address { get; set; }
-
+        public AddressDto Address { get; set; }
     }
 }
