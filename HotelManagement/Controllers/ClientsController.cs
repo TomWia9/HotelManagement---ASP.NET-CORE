@@ -35,15 +35,9 @@ namespace HotelManagement.Controllers
                     LastName = client.LastName,
                     Sex = client.Sex,
                     Age = client.Age,
-                    Address = new Address()
-                    {
-                        City = client.Address.City,
-                        Street = client.Address.Street,
-                        HouseNumber = client.Address.HouseNumber,
-                        PostCode = client.Address.PostCode,
-                    }
+                    AddressId = await clientsService.CreateAddress(client.Address),
                 };
-
+                
                 clientsService.Add(newClient);
                 if (await clientsService.SaveChangesAsync())
                 {
@@ -54,7 +48,7 @@ namespace HotelManagement.Controllers
             catch (Exception)
             {
 
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
 
             }
 

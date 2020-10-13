@@ -1,4 +1,5 @@
-﻿using HotelManagement.Models;
+﻿using HotelManagement.Dto;
+using HotelManagement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace HotelManagement.Services
         void Add<T>(T entity) where T : class;
         Task<bool> SaveChangesAsync();
         Task<Client> GetClientAsync(int Id);
+        Task<int> CreateAddress(AddressDto address);
     }
 }
