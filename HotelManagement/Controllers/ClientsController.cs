@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using HotelManagement.Dto;
 using HotelManagement.Models;
 using HotelManagement.Services;
@@ -16,10 +17,12 @@ namespace HotelManagement.Controllers
     {
         private readonly HotelManagementContext _context;
         private readonly ClientsService clientsService;
+        private readonly IMapper _mapper;
 
-        public ClientsController(HotelManagementContext context)
+        public ClientsController(HotelManagementContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
             clientsService = new ClientsService(context);
         }
 
@@ -28,16 +31,9 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                //have to add automapper
-                var newClient = new Client()
-                {
-                    FirstName = client.FirstName,
-                    LastName = client.LastName,
-                    Sex = client.Sex,
-                    Age = client.Age,
-                    AddressId = await clientsService.CreateAddress(client.Address),
-                };
-                
+                var newClient = _mapper.Map<Client>(client);
+                newClient.AddressId = await clientsService.CreateAddress(client.Address);
+
                 clientsService.Add(newClient);
                 if (await clientsService.SaveChangesAsync())
                 {
@@ -47,9 +43,7 @@ namespace HotelManagement.Controllers
             }
             catch (Exception)
             {
-
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
-
             }
 
             return BadRequest();
