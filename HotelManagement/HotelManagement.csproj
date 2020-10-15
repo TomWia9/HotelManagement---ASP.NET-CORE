@@ -7,6 +7,12 @@
   <ItemGroup>
     <Compile Remove="Migrations\20201013084822_test.cs" />
     <Compile Remove="Migrations\20201013084822_test.Designer.cs" />
+    <Compile Remove="Migrations\20201015054510_AddVacancyAndClientsColumnToRoomTable.cs" />
+    <Compile Remove="Migrations\20201015054510_AddVacancyAndClientsColumnToRoomTable.Designer.cs" />
+    <Compile Remove="Migrations\20201015054806_RemoveRelationBetweenRoomsAndClients.cs" />
+    <Compile Remove="Migrations\20201015054806_RemoveRelationBetweenRoomsAndClients.Designer.cs" />
+    <Compile Remove="Migrations\20201015055005_RemoveRelationBetweenRoomsAndClients.cs" />
+    <Compile Remove="Migrations\20201015055005_RemoveRelationBetweenRoomsAndClients.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
