@@ -12,6 +12,7 @@ namespace HotelManagement.Models
         public bool Balcony { get; set; }
         public bool Vacancy { get; set; }
         public string Description { get; set; }
+        public Booking Booking { get; set; }
 
         //public string ImagePath { get; set; }
 

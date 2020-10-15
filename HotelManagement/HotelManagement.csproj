@@ -13,6 +13,12 @@
     <Compile Remove="Migrations\20201015054806_RemoveRelationBetweenRoomsAndClients.Designer.cs" />
     <Compile Remove="Migrations\20201015055005_RemoveRelationBetweenRoomsAndClients.cs" />
     <Compile Remove="Migrations\20201015055005_RemoveRelationBetweenRoomsAndClients.Designer.cs" />
+    <Compile Remove="Migrations\20201015061259_SwapNavigationPropertyInRoomAndBookingRelation.cs" />
+    <Compile Remove="Migrations\20201015061259_SwapNavigationPropertyInRoomAndBookingRelation.Designer.cs" />
+    <Compile Remove="Migrations\20201015062254_test.cs" />
+    <Compile Remove="Migrations\20201015062254_test.Designer.cs" />
+    <Compile Remove="Migrations\20201015062451_RemoveBookingIdFromClientTable.cs" />
+    <Compile Remove="Migrations\20201015062451_RemoveBookingIdFromClientTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
