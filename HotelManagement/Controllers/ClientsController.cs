@@ -24,7 +24,7 @@ namespace HotelManagement.Controllers
             _clientsService = new ClientsService(context);
         }
 
-        [HttpPost]
+        [HttpPost("NewClient")]
         public async Task<ActionResult<Client>> NewClient(ClientDto client)
         {
             try
@@ -46,6 +46,25 @@ namespace HotelManagement.Controllers
 
             return BadRequest();
 
+        }
+
+        [HttpGet("GetClient/{clientId}")]
+        public async Task<ActionResult<ClientDto>> GetClient(int clientId)
+        {
+            try
+            {
+                var client = await _clientsService.GetClientAsync(clientId);
+                if (client != null)
+                {
+                    return Ok(_mapper.Map<ClientDto>(client));
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
         }
     }
 }

@@ -12,6 +12,8 @@ namespace HotelManagement.Dto
         public string LastName { get; set; }
         public Sex Sex { get; set; }
         public int Age { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
         public AddressDto Address { get; set; }
     }
 }

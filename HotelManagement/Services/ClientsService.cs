@@ -57,7 +57,7 @@ namespace HotelManagement.Services
 
         public async Task<Client> GetClientAsync(int Id)
         {
-            return await _context.Clients.FirstOrDefaultAsync(c => c.Id == Id);
+            return await _context.Clients.Include(a => a.Address).FirstOrDefaultAsync(c => c.Id == Id);
         }
 
         public async Task<bool> SaveChangesAsync()
