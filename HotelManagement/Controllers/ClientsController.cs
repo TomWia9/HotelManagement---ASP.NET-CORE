@@ -14,14 +14,14 @@ namespace HotelManagement.Controllers
     public class ClientsController : Controller
     {
         private readonly HotelManagementContext _context;
-        private readonly ClientsService clientsService;
+        private readonly ClientsService _clientsService;
         private readonly IMapper _mapper;
 
         public ClientsController(HotelManagementContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            clientsService = new ClientsService(context);
+            _clientsService = new ClientsService(context);
         }
 
         [HttpPost]
@@ -30,10 +30,10 @@ namespace HotelManagement.Controllers
             try
             {
                 var newClient = _mapper.Map<Client>(client);
-                newClient.AddressId = await clientsService.CreateAddress(client.Address);
+                newClient.AddressId = await _clientsService.CreateAddress(client.Address);
 
-                clientsService.Add(newClient);
-                if (await clientsService.SaveChangesAsync())
+                _clientsService.Add(newClient);
+                if (await _clientsService.SaveChangesAsync())
                 {
                     return Ok();
                 }

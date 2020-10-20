@@ -16,7 +16,6 @@ namespace HotelManagement.Models
         public string Email { get; set; }
         public int AddressId { get; set; }
         public Address Address { get; set; }
-        public int BookingId { get; set; }
         public Booking Booking { get; set; }
     }
 }
