@@ -6,6 +6,7 @@ using HotelManagement.Models;
 using HotelManagement.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelManagement.Controllers
 {
@@ -21,7 +22,7 @@ namespace HotelManagement.Controllers
         {
             _context = context;
             _mapper = mapper;
-            _clientsService = new ClientsService(context);
+            _clientsService = new ClientsService(context, mapper);
         }
 
         [HttpPost("NewClient")]
@@ -30,7 +31,6 @@ namespace HotelManagement.Controllers
             try
             {
                 var newClient = _mapper.Map<Client>(client);
-                newClient.AddressId = await _clientsService.CreateAddress(client.Address);
 
                 _clientsService.Add(newClient);
                 if (await _clientsService.SaveChangesAsync())
@@ -57,6 +57,55 @@ namespace HotelManagement.Controllers
                 if (client != null)
                 {
                     return Ok(_mapper.Map<ClientDto>(client));
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
+        }
+
+        [HttpDelete("RemoveClient/{clientId}")]
+        public async Task<IActionResult> RemoveClient(int clientId)
+        {
+            try
+            {
+                if (await _clientsService.ClientExists(clientId))
+                {
+                    var clientToRemove = await _clientsService.GetClientAsync(clientId);
+                    _clientsService.Remove(clientToRemove);
+                    if (await _clientsService.SaveChangesAsync())
+                    {
+                        return Ok();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPut("UpdateClientData")]
+        public async Task<IActionResult> UpdateClientData(ClientDto client)
+        {
+            try
+            {
+                if (client != null && await _clientsService.ClientExists(client.Id))
+                {
+                    
+                    if (await _clientsService.UpdateClientData(client))
+                    {
+                        if (await _clientsService.SaveChangesAsync())
+                        {
+                            return Ok();
+                        }
+                    }
+                   
                 }
             }
             catch (Exception)

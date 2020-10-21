@@ -19,6 +19,8 @@
     <Compile Remove="Migrations\20201015062254_test.Designer.cs" />
     <Compile Remove="Migrations\20201015062451_RemoveBookingIdFromClientTable.cs" />
     <Compile Remove="Migrations\20201015062451_RemoveBookingIdFromClientTable.Designer.cs" />
+    <Compile Remove="Migrations\20201020211943_ChangeRelationBetweenClientAndAddressToOneToOne.cs" />
+    <Compile Remove="Migrations\20201020211943_ChangeRelationBetweenClientAndAddressToOneToOne.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
