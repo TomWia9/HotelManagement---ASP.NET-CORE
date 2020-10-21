@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HotelManagement.Data.EntityConfiguration;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,13 @@ namespace HotelManagement.Models
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Booking> Bookings { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new ClientConfiguration());           
+            modelBuilder.ApplyConfiguration(new AddressConfiguration());           
+            modelBuilder.ApplyConfiguration(new BookingConfiguration());           
+            modelBuilder.ApplyConfiguration(new RoomConfiguration());           
+        }
     }
 }

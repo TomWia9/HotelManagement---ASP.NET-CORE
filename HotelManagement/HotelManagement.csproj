@@ -21,6 +21,10 @@
     <Compile Remove="Migrations\20201015062451_RemoveBookingIdFromClientTable.Designer.cs" />
     <Compile Remove="Migrations\20201020211943_ChangeRelationBetweenClientAndAddressToOneToOne.cs" />
     <Compile Remove="Migrations\20201020211943_ChangeRelationBetweenClientAndAddressToOneToOne.Designer.cs" />
+    <Compile Remove="Migrations\20201021161425_AddFluentAPIRegulesForClientsAddressesRoomsBookings.cs" />
+    <Compile Remove="Migrations\20201021161425_AddFluentAPIRegulesForClientsAddressesRoomsBookings.Designer.cs" />
+    <Compile Remove="Migrations\20201021161926_AddFluentAPIRegulesForClientsAddressesRoomsBookings.cs" />
+    <Compile Remove="Migrations\20201021161926_AddFluentAPIRegulesForClientsAddressesRoomsBookings.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
