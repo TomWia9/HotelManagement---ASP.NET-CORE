@@ -16,11 +16,13 @@ namespace HotelManagement.Controllers
     public class BookingController : ControllerBase
     {
         private readonly IBookingService _bookingService;
+        private readonly IDbContextService _dbContextService;
         private readonly IMapper _mapper;
 
         public BookingController(HotelManagementContext context, IMapper mapper)
         {
             _bookingService = new BookingService(context);
+            _dbContextService = new DbContextService(context);
             _mapper = mapper;
         }
 
@@ -41,9 +43,9 @@ namespace HotelManagement.Controllers
 
                 Booking newBooking = _mapper.Map<Booking>(booking);
 
-                _bookingService.Add(newBooking);
+                _dbContextService.Add(newBooking);
               
-                if (await _bookingService.ChangeRoomVacancyStatus(booking.RoomId) && await _bookingService.SaveChangesAsync())
+                if (await _bookingService.ChangeRoomVacancyStatus(booking.RoomId) && await _dbContextService.SaveChangesAsync())
                 {
                     return Ok();
                 }

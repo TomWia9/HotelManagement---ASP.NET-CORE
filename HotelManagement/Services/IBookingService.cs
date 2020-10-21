@@ -9,8 +9,8 @@ namespace HotelManagement.Services
 {
     public interface IBookingService
     {
-        void Add<T>(T entity) where T : class;
-        Task<bool> SaveChangesAsync();
+        //void Add<T>(T entity) where T : class;
+       // Task<bool> SaveChangesAsync();
         Task<IEnumerable<Booking>> GetAllBookings();
         Task<Booking> GetBooking(int id);
         Task<bool> CheckIfRoomIsVacancy(int roomId);

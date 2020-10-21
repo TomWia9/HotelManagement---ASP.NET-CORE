@@ -15,7 +15,8 @@ namespace HotelManagement.Controllers
     public class ClientsController : Controller
     {
         private readonly HotelManagementContext _context;
-        private readonly ClientsService _clientsService;
+        private readonly IClientsService _clientsService;
+        private readonly IDbContextService _dbContextService;
         private readonly IMapper _mapper;
 
         public ClientsController(HotelManagementContext context, IMapper mapper)
@@ -23,17 +24,18 @@ namespace HotelManagement.Controllers
             _context = context;
             _mapper = mapper;
             _clientsService = new ClientsService(context, mapper);
+            _dbContextService = new DbContextService(context);
         }
 
         [HttpPost("NewClient")]
-        public async Task<ActionResult<Client>> NewClient(ClientDto client)
+        public async Task<ActionResult<Client>> NewClient(NewClientDto client)
         {
             try
             {
                 var newClient = _mapper.Map<Client>(client);
 
-                _clientsService.Add(newClient);
-                if (await _clientsService.SaveChangesAsync())
+                _dbContextService.Add(newClient);
+                if (await _dbContextService.SaveChangesAsync())
                 {
                     return Ok();
                 }
@@ -75,8 +77,8 @@ namespace HotelManagement.Controllers
                 if (await _clientsService.ClientExists(clientId))
                 {
                     var clientToRemove = await _clientsService.GetClientAsync(clientId);
-                    _clientsService.Remove(clientToRemove);
-                    if (await _clientsService.SaveChangesAsync())
+                    _dbContextService.Remove(clientToRemove);
+                    if (await _dbContextService.SaveChangesAsync())
                     {
                         return Ok();
                     }
@@ -100,7 +102,7 @@ namespace HotelManagement.Controllers
                     
                     if (await _clientsService.UpdateClientData(client))
                     {
-                        if (await _clientsService.SaveChangesAsync())
+                        if (await _dbContextService.SaveChangesAsync())
                         {
                             return Ok();
                         }

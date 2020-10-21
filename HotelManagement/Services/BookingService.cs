@@ -17,11 +17,6 @@ namespace HotelManagement.Services
             _context = context;
         }
 
-        public void Add<T>(T entity) where T : class
-        {
-            _context.Add(entity);
-        }
-
         public async Task<Booking> GetBooking(int id)
         {
             return await _context.Bookings.FirstOrDefaultAsync(b => b.Id == id);
@@ -30,11 +25,6 @@ namespace HotelManagement.Services
         public async Task<IEnumerable<Booking>> GetAllBookings()
         {
             return await _context.Bookings.ToListAsync();
-        }
-
-        public async Task<bool> SaveChangesAsync()
-        {
-            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> CheckIfRoomIsVacancy(int roomId)

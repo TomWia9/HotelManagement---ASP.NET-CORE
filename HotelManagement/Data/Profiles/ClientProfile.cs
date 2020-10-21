@@ -16,8 +16,9 @@ namespace HotelManagement.Data.Profiles
                 .ForMember(a => a.Id, opt => opt.Ignore());
             CreateMap<Address, AddressDto>();
             CreateMap<Client, ClientDto>();
-            CreateMap<ClientDto, Client>()
-                .ForMember(c => c.Id, opt => opt.Ignore());
+            CreateMap<ClientDto, Client>();
+            CreateMap<NewClientDto, Client>();
+
         }
     }
 }

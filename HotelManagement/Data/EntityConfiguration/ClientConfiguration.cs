@@ -41,6 +41,10 @@ namespace HotelManagement.Data.EntityConfiguration
 
             builder.Property(c => c.Age)
                .IsRequired();
+
+            builder.Property(c => c.Sex)
+               .IsRequired()
+               .HasConversion<string>();
         }
     }
 }

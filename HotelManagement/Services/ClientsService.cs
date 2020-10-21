@@ -20,14 +20,6 @@ namespace HotelManagement.Services
             _mapper = mapper;
         }
 
-        public void Add<T>(T entity) where T : class
-        {
-            _context.Add(entity);
-        }
-        public void Remove<T>(T entity) where T : class
-        {
-            _context.Remove(entity);
-        }
         public async Task<bool> ClientExists(int clientId)
         {
             return await _context.Clients.AnyAsync(c => c.Id == clientId);
@@ -36,11 +28,6 @@ namespace HotelManagement.Services
         public async Task<Client> GetClientAsync(int Id)
         {
             return await _context.Clients.Include(a => a.Address).FirstOrDefaultAsync(c => c.Id == Id);
-        }
-
-        public async Task<bool> SaveChangesAsync()
-        {
-            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> UpdateClientData(ClientDto client)

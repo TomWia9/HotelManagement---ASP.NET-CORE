@@ -7,7 +7,7 @@ namespace HotelManagement.Models
 {
     public enum Sex
     {
-        Man,
-        Woman
+        Male,
+        Female
     }
 }
