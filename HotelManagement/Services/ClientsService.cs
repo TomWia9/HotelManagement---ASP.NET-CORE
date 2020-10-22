@@ -25,6 +25,11 @@ namespace HotelManagement.Services
             return await _context.Clients.AnyAsync(c => c.Id == clientId);
         }
 
+        public async Task<IEnumerable<Client>> GetAllClientsAsync()
+        {
+            return await _context.Clients.Include(a => a.Address).ToListAsync();
+        }
+
         public async Task<Client> GetClientAsync(int Id)
         {
             return await _context.Clients.Include(a => a.Address).FirstOrDefaultAsync(c => c.Id == Id);

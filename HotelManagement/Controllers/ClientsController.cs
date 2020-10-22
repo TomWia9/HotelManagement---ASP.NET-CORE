@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using HotelManagement.Dto;
@@ -59,6 +61,25 @@ namespace HotelManagement.Controllers
                 if (client != null)
                 {
                     return Ok(_mapper.Map<ClientDto>(client));
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
+        }
+
+        [HttpGet("GetAllClients")]
+        public async Task<ActionResult<IEnumerable>> GetAllClients()
+        {
+            try
+            {
+                var clients = await _clientsService.GetAllClientsAsync();
+                if (clients != null)
+                {
+                    return Ok(_mapper.Map<IEnumerable<ClientDto>>(clients));
                 }
             }
             catch (Exception)
