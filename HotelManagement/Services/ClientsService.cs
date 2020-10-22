@@ -20,7 +20,7 @@ namespace HotelManagement.Services
             _mapper = mapper;
         }
 
-        public async Task<bool> ClientExists(int clientId)
+        public async Task<bool> CheckIfClientExists(int clientId)
         {
             return await _context.Clients.AnyAsync(c => c.Id == clientId);
         }

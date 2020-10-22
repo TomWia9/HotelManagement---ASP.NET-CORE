@@ -11,7 +11,7 @@ namespace HotelManagement.Services
     {
         Task<Client> GetClientAsync(int Id);
         Task<IEnumerable<Client>> GetAllClientsAsync();
-        Task<bool> ClientExists(int clientId);
+        Task<bool> CheckIfClientExists(int clientId);
         Task<bool> UpdateClientData(ClientDto client);
     }
 }

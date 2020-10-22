@@ -17,29 +17,29 @@ namespace HotelManagement.Services
             _context = context;
         }
 
-        public async Task<Booking> GetBooking(int id)
+        public async Task<Booking> GetBookingAsync(int id)
         {
             return await _context.Bookings.FirstOrDefaultAsync(b => b.Id == id);
         }
 
-        public async Task<IEnumerable<Booking>> GetAllBookings()
+        public async Task<IEnumerable<Booking>> GetAllBookingsAsync()
         {
             return await _context.Bookings.ToListAsync();
         }
 
-        public async Task<bool> CheckIfRoomIsVacancy(int roomId)
+        public async Task<bool> CheckIfRoomIsVacancyAsync(int roomId)
         {
             var query = await _context.Rooms.FirstOrDefaultAsync(r => r.Id == roomId);
 
             return query.Vacancy;
         }
 
-        public async Task<bool> CheckIfRoomExists(int roomId)
+        public async Task<bool> CheckIfRoomExistsAsync(int roomId)
         {
             return await _context.Rooms.AnyAsync(r => r.Id == roomId);
         }
 
-        public async Task<bool> ChangeRoomVacancyStatus(int roomId)
+        public async Task<bool> ChangeRoomVacancyStatusAsync(int roomId)
         {
             try
             {
@@ -54,6 +54,11 @@ namespace HotelManagement.Services
                 return false;
             }
                 
+        }
+
+        public async Task<bool> CheckIfBookingExistsAsync(int id)
+        {
+            return await _context.Bookings.AnyAsync(b => b.Id == id);
         }
     }
 }
