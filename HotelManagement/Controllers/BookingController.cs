@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace HotelManagement.Controllers
         }
 
         [HttpPost("NewBooking")]
-        public async Task<IActionResult> NewBooking(BookingDto booking)
+        public async Task<IActionResult> NewBooking(NewBookingDto booking)
         {
             try
             {
@@ -57,6 +58,44 @@ namespace HotelManagement.Controllers
                     return Ok();
                 }
 
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
+        }
+
+        [HttpGet("GetBooking/{bookingId}")]
+        public async Task<ActionResult<BookingDto>> GetBooking(int bookingId)
+        {
+            try
+            {
+                var booking = await _bookingService.GetBookingAsync(bookingId);
+                if (booking != null)
+                {
+                    return Ok(_mapper.Map<BookingDto>(booking));
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
+        }
+
+        [HttpGet("GetAllBookings")]
+        public async Task<ActionResult<IEnumerable>> GetAllBookings()
+        {
+            try
+            {
+                var bookings = await _bookingService.GetAllBookingsAsync();
+                if (bookings != null)
+                {
+                    return Ok(_mapper.Map<IEnumerable<BookingDto>>(bookings));
+                }
             }
             catch (Exception)
             {
