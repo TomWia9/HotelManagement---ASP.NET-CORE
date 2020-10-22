@@ -9,7 +9,7 @@ namespace HotelManagement.Services
 {
     public interface IClientsService
     {
-        Task<Client> GetClientAsync(int Id);
+        Task<Client> GetClientAsync(int clientId);
         Task<IEnumerable<Client>> GetAllClientsAsync();
         Task<bool> CheckIfClientExists(int clientId);
         Task<bool> UpdateClientData(ClientDto client);

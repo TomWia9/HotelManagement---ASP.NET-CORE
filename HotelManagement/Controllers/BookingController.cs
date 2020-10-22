@@ -30,7 +30,7 @@ namespace HotelManagement.Controllers
         }
 
         [HttpPost("NewBooking")]
-        public async Task<IActionResult> NewBooking(NewBookingDto booking)
+        public async Task<ActionResult<BookingDto>> NewBooking(NewBookingDto booking)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace HotelManagement.Controllers
               
                 if (await _bookingService.ChangeRoomVacancyStatusAsync(booking.RoomId) && await _dbContextService.SaveChangesAsync())
                 {
-                    return Ok();
+                    return CreatedAtAction(nameof(GetBooking), new { bookingId = newBooking.Id }, _mapper.Map<BookingDto>(newBooking));
                 }
 
             }

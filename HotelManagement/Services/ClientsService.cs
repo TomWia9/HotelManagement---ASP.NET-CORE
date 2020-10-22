@@ -30,9 +30,9 @@ namespace HotelManagement.Services
             return await _context.Clients.Include(a => a.Address).ToListAsync();
         }
 
-        public async Task<Client> GetClientAsync(int Id)
+        public async Task<Client> GetClientAsync(int clientId)
         {
-            return await _context.Clients.Include(a => a.Address).FirstOrDefaultAsync(c => c.Id == Id);
+            return await _context.Clients.Include(a => a.Address).FirstOrDefaultAsync(c => c.Id == clientId);
         }
 
         public async Task<bool> UpdateClientData(ClientDto client)

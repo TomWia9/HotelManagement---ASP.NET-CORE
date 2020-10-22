@@ -30,16 +30,17 @@ namespace HotelManagement.Controllers
         }
 
         [HttpPost("NewClient")]
-        public async Task<ActionResult<Client>> NewClient(NewClientDto client)
+        public async Task<ActionResult<ClientDto>> NewClient(NewClientDto client)
         {
             try
             {
                 var newClient = _mapper.Map<Client>(client);
 
                 _dbContextService.Add(newClient);
+
                 if (await _dbContextService.SaveChangesAsync())
                 {
-                    return Ok();
+                    return CreatedAtAction(nameof(GetClient), new { clientId = newClient.Id }, _mapper.Map<ClientDto>(newClient));
                 }
 
             }
