@@ -34,19 +34,17 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if(!await _clientsService.CheckIfClientExists(booking.ClientId))
+                if(!await _clientsService.CheckIfClientExists(booking.ClientId)
+                    || !await _bookingService.CheckIfRoomExistsAsync(booking.RoomId))
                 {
-                    return BadRequest(); //There is no such client
+                    return BadRequest(); 
                 }
 
-                if (!await _bookingService.CheckIfRoomExistsAsync(booking.RoomId))
+                if(await _bookingService.CheckIfClientAlreadyHasABookingAsync(booking.ClientId)
+                    || !await _bookingService.CheckIfRoomIsVacancyAsync(booking.RoomId)
+                    || booking.CheckInDate.Date >= booking.CheckOutDate.Date)
                 {
-                    return BadRequest(); //There is no such room
-                }
-
-                if(!await _bookingService.CheckIfRoomIsVacancyAsync(booking.RoomId))
-                {
-                    return Conflict(); //Room is not vacancy
+                    return Conflict(); 
                 }
 
                 Booking newBooking = _mapper.Map<Booking>(booking);

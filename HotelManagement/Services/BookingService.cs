@@ -60,5 +60,10 @@ namespace HotelManagement.Services
         {
             return await _context.Bookings.AnyAsync(b => b.Id == id);
         }
+
+        public async Task<bool> CheckIfClientAlreadyHasABookingAsync(int clientId)
+        {
+            return await _context.Bookings.AnyAsync(b => b.ClientId == clientId);
+        }
     }
 }

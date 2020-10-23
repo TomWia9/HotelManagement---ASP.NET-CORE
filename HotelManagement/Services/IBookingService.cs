@@ -15,5 +15,6 @@ namespace HotelManagement.Services
         Task<bool> CheckIfRoomIsVacancyAsync(int roomId);
         Task<bool> CheckIfRoomExistsAsync(int roomId);
         Task<bool> ChangeRoomVacancyStatusAsync(int roomId);
+        Task<bool> CheckIfClientAlreadyHasABookingAsync(int clientId);
     }
 }
