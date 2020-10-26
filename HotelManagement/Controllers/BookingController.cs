@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using HotelManagement.Data.Dto;
+using HotelManagement.Dto;
 using HotelManagement.Models;
 using HotelManagement.Services;
 using Microsoft.AspNetCore.Http;
@@ -90,6 +91,25 @@ namespace HotelManagement.Controllers
             try
             {
                 var bookings = await _bookingService.GetAllBookingsAsync();
+                if (bookings != null)
+                {
+                    return Ok(_mapper.Map<IEnumerable<BookingDto>>(bookings));
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
+        }
+
+        [HttpGet("GetCurrentBookings")]
+        public async Task<ActionResult<IEnumerable>> GetCurrentBookings()
+        {
+            try
+            {
+                var bookings = await _bookingService.GetCurrentBookingsAsync();
                 if (bookings != null)
                 {
                     return Ok(_mapper.Map<IEnumerable<BookingDto>>(bookings));

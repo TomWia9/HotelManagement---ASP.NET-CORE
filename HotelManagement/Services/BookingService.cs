@@ -26,6 +26,10 @@ namespace HotelManagement.Services
         {
             return await _context.Bookings.ToListAsync();
         }
+        public async Task<IEnumerable<Booking>> GetCurrentBookingsAsync()
+        {
+            return await _context.Bookings.Where(b => b.CheckInDate <= DateTime.Now && b.CheckOutDate >= DateTime.Now).ToListAsync();
+        }
 
         public async Task<bool> CheckIfRoomIsVacancyAsync(int roomId)
         {
@@ -65,5 +69,6 @@ namespace HotelManagement.Services
         {
             return await _context.Bookings.AnyAsync(b => b.ClientId == clientId);
         }
+
     }
 }
