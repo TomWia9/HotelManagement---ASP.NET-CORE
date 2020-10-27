@@ -11,7 +11,9 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Controllers
 {
-    public class RoomController : ControllerBase
+    [Route("api/[controller]")]
+    [ApiController]
+    public class RoomController : Controller
     {
         private readonly IMapper _mapper;
         private readonly IRoomService _roomService;
