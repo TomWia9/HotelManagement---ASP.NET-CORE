@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 
 namespace HotelManagement
 {
@@ -30,7 +32,18 @@ namespace HotelManagement
             services.AddDbContext<HotelManagementContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("HotelManagementConnection")));
             
-            services.AddControllers();
+            services.AddControllers()
+            .AddNewtonsoftJson(options =>
+            {
+                var dateConverter = new Newtonsoft.Json.Converters.IsoDateTimeConverter
+                {
+                    DateTimeFormat = "dd'-'MM'-'yyyy'T'HH':'mm"
+                };
+
+                options.SerializerSettings.Converters.Add(dateConverter);
+                options.SerializerSettings.Culture = new CultureInfo("en-GB");
+                options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
+            }); ;
             services.AddSwaggerGen();
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
