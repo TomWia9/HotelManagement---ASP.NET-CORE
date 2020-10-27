@@ -70,5 +70,28 @@ namespace HotelManagement.Services
             return await _context.Bookings.AnyAsync(b => b.ClientId == clientId);
         }
 
+        public async Task<bool> EditBookingDatesAsync(int bookingId, DatesDto newDates)
+        {
+            try
+            {
+                var booking = await _context.Bookings.FindAsync(bookingId);
+                booking.CheckInDate = newDates.CheckInDate;
+                booking.CheckOutDate = newDates.CheckOutDate;
+                _context.Update(booking);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool CheckIfDatesAreCorrect(DatesDto newDates)
+        {
+            if (newDates == null)
+                return false;
+
+            return newDates.CheckInDate.Date > DateTime.Now && newDates.CheckOutDate.Date > newDates.CheckInDate.Date;
+        }
     }
 }

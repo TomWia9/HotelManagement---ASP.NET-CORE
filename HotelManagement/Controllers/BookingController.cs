@@ -41,9 +41,9 @@ namespace HotelManagement.Controllers
                     return BadRequest(); 
                 }
 
-                if(await _bookingService.CheckIfClientAlreadyHasABookingAsync(booking.ClientId)
+                if (await _bookingService.CheckIfClientAlreadyHasABookingAsync(booking.ClientId)
                     || !await _bookingService.CheckIfRoomIsVacancyAsync(booking.RoomId)
-                    || booking.CheckInDate.Date >= booking.CheckOutDate.Date)
+                    || !_bookingService.CheckIfDatesAreCorrect(_mapper.Map<DatesDto>(booking)))
                 {
                     return Conflict(); 
                 }
@@ -136,6 +136,32 @@ namespace HotelManagement.Controllers
                     {
                         return Ok();
                     }
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPatch("EditBookingDates/{bookingId}")]
+        public async Task<IActionResult> EditBookingDate(int bookingId, DatesDto newDates)
+        {
+            try
+            {
+                if (await _bookingService.CheckIfBookingExistsAsync(bookingId) && _bookingService.CheckIfDatesAreCorrect(newDates))
+                {
+
+                    if (await _bookingService.EditBookingDatesAsync(bookingId, newDates))
+                    {
+                        if (await _dbContextService.SaveChangesAsync())
+                        {
+                            return NoContent();
+                        }
+                    }
+
                 }
             }
             catch (Exception)

@@ -12,6 +12,7 @@ namespace HotelManagement.Data.Profiles
     {
         public BookingProfile()
         {
+            CreateMap<NewBookingDto, DatesDto>();
             CreateMap<BookingDto, Booking>();
             CreateMap<Booking, BookingDto>();
             CreateMap<NewBookingDto, Booking>();

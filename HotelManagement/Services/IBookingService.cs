@@ -17,5 +17,7 @@ namespace HotelManagement.Services
         Task<bool> ChangeRoomVacancyStatusAsync(int roomId);
         Task<bool> CheckIfClientAlreadyHasABookingAsync(int clientId);
         Task<IEnumerable<Booking>> GetCurrentBookingsAsync();
+        Task<bool> EditBookingDatesAsync(int bookingId, DatesDto newDates);
+        bool CheckIfDatesAreCorrect(DatesDto newDates);
     }
 }

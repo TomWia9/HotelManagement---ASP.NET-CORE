@@ -39,7 +39,7 @@ namespace HotelManagement.Services
         {
             try
             {
-                var clientToUpdate = _mapper.Map<Client>(client);
+                //var clientToUpdate = _mapper.Map<Client>(client);
                 _context.Entry(await _context.Clients.FirstOrDefaultAsync(c => c.Id == client.Id)).CurrentValues.SetValues(client);
                 _context.Entry(await _context.Addresses.FirstOrDefaultAsync(a => a.ClientId == client.Id)).CurrentValues.SetValues(client.Address);
                 return true;
