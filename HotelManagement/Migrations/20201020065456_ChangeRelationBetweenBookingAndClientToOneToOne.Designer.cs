@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HotelManagement.Migrations
 {
-    [DbContext(typeof(HotelManagementContext))]
+    [DbContext(typeof(DatabaseContext))]
     [Migration("20201020065456_ChangeRelationBetweenBookingAndClientToOneToOne")]
     partial class ChangeRelationBetweenBookingAndClientToOneToOne
     {

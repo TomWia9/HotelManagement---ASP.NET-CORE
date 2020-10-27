@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HotelManagement.Migrations
 {
-    [DbContext(typeof(HotelManagementContext))]
+    [DbContext(typeof(DatabaseContext))]
     [Migration("20201021211230_ChangeSexTypeToStringInClientsTable")]
     partial class ChangeSexTypeToStringInClientsTable
     {

@@ -10,9 +10,9 @@ namespace HotelManagement.Services
 {
     public class BookingService : IBookingService
     {
-        private readonly HotelManagementContext _context;
+        private readonly DatabaseContext _context;
 
-        public BookingService(HotelManagementContext context)
+        public BookingService(DatabaseContext context)
         {
             _context = context;
         }

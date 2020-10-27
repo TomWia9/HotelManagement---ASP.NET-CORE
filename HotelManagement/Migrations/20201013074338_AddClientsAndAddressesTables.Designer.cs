@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HotelManagement.Migrations
 {
-    [DbContext(typeof(HotelManagementContext))]
+    [DbContext(typeof(DatabaseContext))]
     [Migration("20201013074338_AddClientsAndAddressesTables")]
     partial class AddClientsAndAddressesTables
     {

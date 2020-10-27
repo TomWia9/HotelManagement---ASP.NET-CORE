@@ -4,20 +4,17 @@ using HotelManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HotelManagement.Services
 {
     public class ClientsService: IClientsService
     {
-        private readonly HotelManagementContext _context;
-        private readonly IMapper _mapper;
+        private readonly DatabaseContext _context;
 
-        public ClientsService(HotelManagementContext context, IMapper mapper)
+        public ClientsService(DatabaseContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public async Task<bool> CheckIfClientExists(int clientId)
@@ -39,7 +36,6 @@ namespace HotelManagement.Services
         {
             try
             {
-                //var clientToUpdate = _mapper.Map<Client>(client);
                 _context.Entry(await _context.Clients.FirstOrDefaultAsync(c => c.Id == client.Id)).CurrentValues.SetValues(client);
                 _context.Entry(await _context.Addresses.FirstOrDefaultAsync(a => a.ClientId == client.Id)).CurrentValues.SetValues(client.Address);
                 return true;

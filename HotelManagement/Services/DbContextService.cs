@@ -8,9 +8,9 @@ namespace HotelManagement.Services
 {
     public class DbContextService : IDbContextService
     {
-        private readonly HotelManagementContext _context;
+        private readonly DatabaseContext _context;
 
-        public DbContextService(HotelManagementContext context)
+        public DbContextService(DatabaseContext context)
         {
             _context = context;
         }

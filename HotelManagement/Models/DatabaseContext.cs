@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Models
 {
-    public class HotelManagementContext: DbContext
+    public class DatabaseContext : DbContext
     {
-        public HotelManagementContext(DbContextOptions<HotelManagementContext> options) : base(options) 
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) 
         {
         }
         public DbSet<Client> Clients { get; set; }

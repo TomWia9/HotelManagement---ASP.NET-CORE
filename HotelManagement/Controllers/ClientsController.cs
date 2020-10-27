@@ -16,16 +16,16 @@ namespace HotelManagement.Controllers
     [ApiController]
     public class ClientsController : Controller
     {
-        private readonly HotelManagementContext _context;
+        private readonly DatabaseContext _context;
         private readonly IClientsService _clientsService;
         private readonly IDbContextService _dbContextService;
         private readonly IMapper _mapper;
 
-        public ClientsController(HotelManagementContext context, IMapper mapper)
+        public ClientsController(DatabaseContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _clientsService = new ClientsService(context, mapper);
+            _clientsService = new ClientsService(context);
             _dbContextService = new DbContextService(context);
         }
 

@@ -22,10 +22,10 @@ namespace HotelManagement.Controllers
         private readonly IDbContextService _dbContextService;
         private readonly IMapper _mapper;
 
-        public BookingController(HotelManagementContext context, IMapper mapper)
+        public BookingController(DatabaseContext context, IMapper mapper)
         {
             _bookingService = new BookingService(context);
-            _clientsService = new ClientsService(context, mapper);
+            _clientsService = new ClientsService(context);
             _dbContextService = new DbContextService(context);
             _mapper = mapper;
         }

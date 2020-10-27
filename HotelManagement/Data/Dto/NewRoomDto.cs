@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Data.Dto
 {
-    public class RoomDto
+    public class NewRoomDto
     {
-        public int Id { get; set; }
         public RoomType Type { get; set; }
         public bool Balcony { get; set; }
         public bool Vacancy { get; set; }
