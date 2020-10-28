@@ -13,7 +13,7 @@ namespace HotelManagement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RoomController : Controller
+    public class RoomController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly IRoomService _roomService;

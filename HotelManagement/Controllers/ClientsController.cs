@@ -14,7 +14,7 @@ namespace HotelManagement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientsController : Controller
+    public class ClientsController : ControllerBase
     {
         private readonly DatabaseContext _context;
         private readonly IClientsService _clientsService;

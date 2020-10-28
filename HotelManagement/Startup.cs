@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using AutoMapper;
 using HotelManagement.Models;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace HotelManagement
 {
@@ -35,7 +37,7 @@ namespace HotelManagement
             services.AddControllers()
             .AddNewtonsoftJson(options =>
             {
-                var dateConverter = new Newtonsoft.Json.Converters.IsoDateTimeConverter
+                var dateConverter = new IsoDateTimeConverter
                 {
                     DateTimeFormat = "dd'-'MM'-'yyyy'T'HH':'mm"
                 };
@@ -43,10 +45,12 @@ namespace HotelManagement
                 options.SerializerSettings.Converters.Add(dateConverter);
                 options.SerializerSettings.Culture = new CultureInfo("en-GB");
                 options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
-            }); ;
+                //options.SerializerSettings.Converters.Add(new StringEnumConverter());
+        });
+
+            services.AddSwaggerGenNewtonsoftSupport();
             services.AddSwaggerGen();
             services.AddAutoMapper(typeof(Startup));
-            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
