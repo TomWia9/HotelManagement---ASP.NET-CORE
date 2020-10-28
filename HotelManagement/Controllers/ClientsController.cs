@@ -126,7 +126,7 @@ namespace HotelManagement.Controllers
                     {
                         if (await _dbContextService.SaveChangesAsync())
                         {
-                            return Ok();
+                            return NoContent();
                         }
                     }
                    

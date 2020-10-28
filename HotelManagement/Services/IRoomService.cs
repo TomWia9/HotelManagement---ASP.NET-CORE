@@ -1,4 +1,5 @@
-﻿using HotelManagement.Models;
+﻿using HotelManagement.Data.Dto;
+using HotelManagement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace HotelManagement.Services
     public interface IRoomService
     {
         Task<Room> GetRoomAsync(int roomId);
-
+        Task<bool> CheckIfRoomExistsAsync(int roomId);
+        Task<bool> UpdateRoomDataAsync(RoomDto room);
     }
 }

@@ -69,7 +69,53 @@ namespace HotelManagement.Controllers
             return BadRequest();
         }
 
+        [HttpDelete("RemoveRoom/{roomId}")]
+        public async Task<IActionResult> RemoveRoom(int roomId)
+        {
+            try
+            {
+                if (await _roomService.CheckIfRoomExistsAsync(roomId))
+                {
+                    var bookingToRemove = await _roomService.GetRoomAsync(roomId);
+                    _dbContextService.Remove(bookingToRemove);
+                    if (await _dbContextService.SaveChangesAsync())
+                    {
+                        return Ok();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
 
+            return BadRequest();
+        }
 
+        [HttpPut("UpdateRoom")]
+        public async Task<IActionResult> UpdateRoom(RoomDto room)
+        {
+            try
+            {
+                if (room != null && await _roomService.CheckIfRoomExistsAsync(room.Id))
+                {
+
+                    if (await _roomService.UpdateRoomDataAsync(room))
+                    {
+                        if (await _dbContextService.SaveChangesAsync())
+                        {
+                            return NoContent();
+                        }
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
+        }
     }
 }
