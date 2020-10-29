@@ -17,7 +17,7 @@ namespace HotelManagement.Services
             _context = context;
         }
 
-        public async Task<bool> CheckIfClientExists(int clientId)
+        public async Task<bool> IsClientExists(int clientId)
         {
             return await _context.Clients.AnyAsync(c => c.Id == clientId);
         }

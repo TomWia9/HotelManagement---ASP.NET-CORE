@@ -31,41 +31,23 @@ namespace HotelManagement.Services
             return await _context.Bookings.Where(b => b.CheckInDate <= DateTime.Now && b.CheckOutDate >= DateTime.Now).ToListAsync();
         }
 
-        public async Task<bool> CheckIfRoomIsVacancyAsync(int roomId)
+        public async Task<bool> IsRoomVacancyAsync(int roomId, DatesDto dates)
         {
-            var query = await _context.Rooms.FirstOrDefaultAsync(r => r.Id == roomId);
-
-            return query.Vacancy;
+            //its not entirely good, have to fix
+            return !await _context.Bookings.AnyAsync(b => b.RoomId == roomId)
+                || !await _context.Bookings.Where(b => b.RoomId == roomId).AnyAsync(b => b.CheckOutDate.Date >= dates.CheckInDate.Date);
         }
 
-        public async Task<bool> CheckIfRoomExistsAsync(int roomId)
+        public async Task<bool> IsRoomExistsAsync(int roomId)
         {
             return await _context.Rooms.AnyAsync(r => r.Id == roomId);
         }
-
-        public async Task<bool> ChangeRoomVacancyStatusAsync(int roomId)
-        {
-            try
-            {
-                var room = await _context.Rooms.FirstOrDefaultAsync(r => r.Id == roomId);
-                room.Vacancy = !room.Vacancy;
-                _context.Rooms.Update(room);
-
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-                
-        }
-
-        public async Task<bool> CheckIfBookingExistsAsync(int id)
+        public async Task<bool> IsBookingExistsAsync(int id)
         {
             return await _context.Bookings.AnyAsync(b => b.Id == id);
         }
 
-        public async Task<bool> CheckIfClientAlreadyHasABookingAsync(int clientId)
+        public async Task<bool> IsClientAlreadyHasABookingAsync(int clientId)
         {
             return await _context.Bookings.AnyAsync(b => b.ClientId == clientId);
         }
@@ -86,7 +68,7 @@ namespace HotelManagement.Services
             }
         }
 
-        public bool CheckIfDatesAreCorrect(DatesDto newDates)
+        public bool AreDatesCorrect(DatesDto newDates)
         {
             if (newDates == null)
                 return false;

@@ -11,7 +11,6 @@ namespace HotelManagement.Data.Dto
         public int Id { get; set; }
         public RoomType Type { get; set; }
         public bool Balcony { get; set; }
-        public bool Vacancy { get; set; }
         public string Description { get; set; }
     }
 }

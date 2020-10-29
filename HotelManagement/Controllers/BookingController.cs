@@ -35,15 +35,16 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if(!await _clientsService.CheckIfClientExists(booking.ClientId)
-                    || !await _bookingService.CheckIfRoomExistsAsync(booking.RoomId))
+                if(!await _clientsService.IsClientExists(booking.ClientId)
+                    || !await _bookingService.IsRoomExistsAsync(booking.RoomId))
                 {
                     return BadRequest(); 
                 }
 
-                if (await _bookingService.CheckIfClientAlreadyHasABookingAsync(booking.ClientId)
-                    || !await _bookingService.CheckIfRoomIsVacancyAsync(booking.RoomId)
-                    || !_bookingService.CheckIfDatesAreCorrect(_mapper.Map<DatesDto>(booking)))
+                if (await _bookingService.IsClientAlreadyHasABookingAsync(booking.ClientId)
+                    || !_bookingService.AreDatesCorrect(_mapper.Map<DatesDto>(booking))
+                    || !await _bookingService.IsRoomVacancyAsync(booking.RoomId, _mapper.Map<DatesDto>(booking))
+                    )
                 {
                     return Conflict(); 
                 }
@@ -52,7 +53,7 @@ namespace HotelManagement.Controllers
 
                 _dbContextService.Add(newBooking);
               
-                if (await _bookingService.ChangeRoomVacancyStatusAsync(booking.RoomId) && await _dbContextService.SaveChangesAsync())
+                if (await _dbContextService.SaveChangesAsync())
                 {
                     return CreatedAtAction(nameof(GetBooking), new { bookingId = newBooking.Id }, _mapper.Map<BookingDto>(newBooking));
                 }
@@ -128,11 +129,11 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if (await _bookingService.CheckIfBookingExistsAsync(bookingId))
+                if (await _bookingService.IsBookingExistsAsync(bookingId))
                 {
                     var bookingToRemove = await _bookingService.GetBookingAsync(bookingId);
                     _dbContextService.Remove(bookingToRemove);
-                    if (await _bookingService.ChangeRoomVacancyStatusAsync(bookingToRemove.RoomId) && await _dbContextService.SaveChangesAsync())
+                    if (await _dbContextService.SaveChangesAsync())
                     {
                         return Ok();
                     }
@@ -151,7 +152,7 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if (await _bookingService.CheckIfBookingExistsAsync(bookingId) && _bookingService.CheckIfDatesAreCorrect(newDates))
+                if (await _bookingService.IsBookingExistsAsync(bookingId) && _bookingService.AreDatesCorrect(newDates))
                 {
 
                     if (await _bookingService.EditBookingDatesAsync(bookingId, newDates))

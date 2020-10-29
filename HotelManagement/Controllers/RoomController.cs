@@ -74,7 +74,7 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if (await _roomService.CheckIfRoomExistsAsync(roomId))
+                if (await _roomService.IsRoomExistsAsync(roomId))
                 {
                     var bookingToRemove = await _roomService.GetRoomAsync(roomId);
                     _dbContextService.Remove(bookingToRemove);
@@ -97,7 +97,7 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if (room != null && await _roomService.CheckIfRoomExistsAsync(room.Id))
+                if (room != null && await _roomService.IsRoomExistsAsync(room.Id))
                 {
 
                     if (await _roomService.UpdateRoomDataAsync(room))

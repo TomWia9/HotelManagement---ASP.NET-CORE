@@ -14,19 +14,11 @@ namespace HotelManagement.Data.EntityConfiguration
         {
             builder.HasKey(r => r.Id);
 
-            builder.HasOne(r => r.Booking)
-                .WithOne(b => b.Room)
-                .HasForeignKey<Booking>(b => b.RoomId);
-                
-
             builder.Property(r => r.Type)
               .IsRequired();
 
             builder.Property(r => r.Balcony)
               .IsRequired();
-
-            builder.Property(r => r.Vacancy)
-             .IsRequired();
 
             builder.Property(r => r.Description)
              .IsRequired();

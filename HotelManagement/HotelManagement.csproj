@@ -25,6 +25,18 @@
     <Compile Remove="Migrations\20201021161425_AddFluentAPIRegulesForClientsAddressesRoomsBookings.Designer.cs" />
     <Compile Remove="Migrations\20201021161926_AddFluentAPIRegulesForClientsAddressesRoomsBookings.cs" />
     <Compile Remove="Migrations\20201021161926_AddFluentAPIRegulesForClientsAddressesRoomsBookings.Designer.cs" />
+    <Compile Remove="Migrations\20201028093728_ChangeOnDeleteToSetNullForRoomBookingRelation.cs" />
+    <Compile Remove="Migrations\20201028093728_ChangeOnDeleteToSetNullForRoomBookingRelation.Designer.cs" />
+    <Compile Remove="Migrations\20201028094657_ChangeOnDeleteToSetNullForRoomBookingRelation.cs" />
+    <Compile Remove="Migrations\20201028094657_ChangeOnDeleteToSetNullForRoomBookingRelation.Designer.cs" />
+    <Compile Remove="Migrations\20201029093650_ChangeRelationBetweenRoomAndBookingToOneToMany.cs" />
+    <Compile Remove="Migrations\20201029093650_ChangeRelationBetweenRoomAndBookingToOneToMany.Designer.cs" />
+    <Compile Remove="Migrations\20201029121515_ChangeOnDeleteToSetNullInRoomBookingRelation.cs" />
+    <Compile Remove="Migrations\20201029121515_ChangeOnDeleteToSetNullInRoomBookingRelation.Designer.cs" />
+    <Compile Remove="Migrations\20201029121904_ChangeOnDeleteToSetNullInRoomBookingRelation.cs" />
+    <Compile Remove="Migrations\20201029121904_ChangeOnDeleteToSetNullInRoomBookingRelation.Designer.cs" />
+    <Compile Remove="Migrations\20201029123001_test.cs" />
+    <Compile Remove="Migrations\20201029123001_test.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

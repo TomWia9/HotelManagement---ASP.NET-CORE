@@ -11,13 +11,12 @@ namespace HotelManagement.Services
     {
         Task<IEnumerable<Booking>> GetAllBookingsAsync();
         Task<Booking> GetBookingAsync(int id);
-        Task<bool> CheckIfBookingExistsAsync(int id);
-        Task<bool> CheckIfRoomIsVacancyAsync(int roomId);
-        Task<bool> CheckIfRoomExistsAsync(int roomId);
-        Task<bool> ChangeRoomVacancyStatusAsync(int roomId);
-        Task<bool> CheckIfClientAlreadyHasABookingAsync(int clientId);
+        Task<bool> IsBookingExistsAsync(int id);
+        Task<bool> IsRoomVacancyAsync(int roomId, DatesDto dates);
+        Task<bool> IsRoomExistsAsync(int roomId);
+        Task<bool> IsClientAlreadyHasABookingAsync(int clientId);
         Task<IEnumerable<Booking>> GetCurrentBookingsAsync();
         Task<bool> EditBookingDatesAsync(int bookingId, DatesDto newDates);
-        bool CheckIfDatesAreCorrect(DatesDto newDates);
+        bool AreDatesCorrect(DatesDto newDates);
     }
 }

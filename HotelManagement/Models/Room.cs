@@ -10,9 +10,8 @@ namespace HotelManagement.Models
         public int Id { get; set; }
         public RoomType Type { get; set; }
         public bool Balcony { get; set; }
-        public bool Vacancy { get; set; }
         public string Description { get; set; }
-        public Booking Booking { get; set; }
+        public List<Booking> Bookings { get; set; }
 
         //public string ImagePath { get; set; }
 

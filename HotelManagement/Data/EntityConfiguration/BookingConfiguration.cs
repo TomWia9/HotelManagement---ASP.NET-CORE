@@ -14,6 +14,9 @@ namespace HotelManagement.Data.EntityConfiguration
         {
             builder.HasKey(b => b.Id);
 
+            builder.HasOne(b => b.Room)
+                .WithMany(r => r.Bookings);
+
             builder.Property(b => b.CheckInDate)
               .IsRequired()
               .HasColumnType("date")

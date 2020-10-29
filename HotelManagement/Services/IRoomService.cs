@@ -10,7 +10,7 @@ namespace HotelManagement.Services
     public interface IRoomService
     {
         Task<Room> GetRoomAsync(int roomId);
-        Task<bool> CheckIfRoomExistsAsync(int roomId);
+        Task<bool> IsRoomExistsAsync(int roomId);
         Task<bool> UpdateRoomDataAsync(RoomDto room);
     }
 }

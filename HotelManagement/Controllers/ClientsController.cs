@@ -96,7 +96,7 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if (await _clientsService.CheckIfClientExists(clientId))
+                if (await _clientsService.IsClientExists(clientId))
                 {
                     var clientToRemove = await _clientsService.GetClientAsync(clientId);
                     _dbContextService.Remove(clientToRemove);
@@ -119,7 +119,7 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if (client != null && await _clientsService.CheckIfClientExists(client.Id))
+                if (client != null && await _clientsService.IsClientExists(client.Id))
                 {
                     
                     if (await _clientsService.UpdateClientData(client))
