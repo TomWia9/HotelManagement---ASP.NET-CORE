@@ -33,9 +33,16 @@ namespace HotelManagement.Services
 
         public async Task<bool> IsRoomVacancyAsync(int roomId, DatesDto dates)
         {
-            //its not entirely good, have to fix
-            return !await _context.Bookings.AnyAsync(b => b.RoomId == roomId)
-                || !await _context.Bookings.Where(b => b.RoomId == roomId).AnyAsync(b => b.CheckOutDate.Date >= dates.CheckInDate.Date);
+            //if in the bookings ther's no room with given id then this room is obviously vacancy
+            if (!await _context.Bookings.AnyAsync(b => b.RoomId == roomId))
+                return true;
+
+            //if given dates colidate with current bookings then this room isn't vacany for these dates
+            if (await _context.Bookings.Where(b => b.RoomId == roomId).AnyAsync(b => !( dates.CheckOutDate.Date < b.CheckInDate.Date || dates.CheckInDate.Date > b.CheckOutDate.Date)))
+                return false;
+
+            return true;
+
         }
 
         public async Task<bool> IsRoomExistsAsync(int roomId)
