@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Services
 {
-    public interface IRoomService
+    public interface IRoomsRepository
     {
         Task<Room> GetRoomAsync(int roomId);
         Task<bool> IsRoomExistsAsync(int roomId);

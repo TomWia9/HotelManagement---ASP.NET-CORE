@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Services
 {
-    public interface IClientsService
+    public interface IClientsRepository
     {
         Task<Client> GetClientAsync(int clientId);
         Task<IEnumerable<Client>> GetAllClientsAsync();

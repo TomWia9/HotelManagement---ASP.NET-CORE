@@ -17,16 +17,16 @@ namespace HotelManagement.Controllers
     [ApiController]
     public class BookingsController : ControllerBase
     {
-        private readonly IBookingService _bookingService;
-        private readonly IClientsService _clientsService;
-        private readonly IDbContextService _dbContextService;
+        private readonly IBookingsRepository _bookingsRepository;
+        private readonly IClientsRepository _clientsRepository;
+        private readonly IDbRepository _dbRepository;
         private readonly IMapper _mapper;
 
-        public BookingsController(DatabaseContext context, IMapper mapper)
+        public BookingsController(IBookingsRepository bookingsRepository, IClientsRepository clientsRepository, IDbRepository dbRepository, IMapper mapper)
         {
-            _bookingService = new BookingService(context);
-            _clientsService = new ClientsService(context);
-            _dbContextService = new DbContextService(context);
+            _bookingsRepository = bookingsRepository;
+            _clientsRepository = clientsRepository;
+            _dbRepository = dbRepository;
             _mapper = mapper;
         }
 
@@ -35,14 +35,14 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if(!await _clientsService.IsClientExists(booking.ClientId)
-                    || !await _bookingService.IsRoomExistsAsync(booking.RoomId))
+                if(!await _clientsRepository.IsClientExists(booking.ClientId)
+                    || !await _bookingsRepository.IsRoomExistsAsync(booking.RoomId))
                 {
                     return BadRequest(); 
                 }
 
-                if (!_bookingService.AreDatesCorrect(_mapper.Map<DatesDTO>(booking))
-                    || !await _bookingService.IsRoomVacancyAsync(booking.RoomId, _mapper.Map<DatesDTO>(booking))
+                if (!_bookingsRepository.AreDatesCorrect(_mapper.Map<DatesDTO>(booking))
+                    || !await _bookingsRepository.IsRoomVacancyAsync(booking.RoomId, _mapper.Map<DatesDTO>(booking))
                     )
                 {
                     return Conflict(); 
@@ -50,9 +50,9 @@ namespace HotelManagement.Controllers
 
                 Booking newBooking = _mapper.Map<Booking>(booking);
 
-                _dbContextService.Add(newBooking);
+                _dbRepository.Add(newBooking);
               
-                if (await _dbContextService.SaveChangesAsync())
+                if (await _dbRepository.SaveChangesAsync())
                 {
                     return CreatedAtAction(nameof(GetBooking), new { bookingId = newBooking.Id }, _mapper.Map<BookingDTO>(newBooking));
                 }
@@ -71,7 +71,7 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                var booking = await _bookingService.GetBookingAsync(bookingId);
+                var booking = await _bookingsRepository.GetBookingAsync(bookingId);
                 if (booking != null)
                 {
                     return Ok(_mapper.Map<BookingDTO>(booking));
@@ -90,7 +90,7 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                var bookings = await _bookingService.GetAllBookingsAsync();
+                var bookings = await _bookingsRepository.GetAllBookingsAsync();
                 if (bookings != null)
                 {
                     return Ok(_mapper.Map<IEnumerable<BookingDTO>>(bookings));
@@ -109,7 +109,7 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                var bookings = await _bookingService.GetCurrentBookingsAsync();
+                var bookings = await _bookingsRepository.GetCurrentBookingsAsync();
                 if (bookings != null)
                 {
                     return Ok(_mapper.Map<IEnumerable<BookingDTO>>(bookings));
@@ -128,11 +128,11 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if (await _bookingService.IsBookingExistsAsync(bookingId))
+                if (await _bookingsRepository.IsBookingExistsAsync(bookingId))
                 {
-                    var bookingToRemove = await _bookingService.GetBookingAsync(bookingId);
-                    _dbContextService.Remove(bookingToRemove);
-                    if (await _dbContextService.SaveChangesAsync())
+                    var bookingToRemove = await _bookingsRepository.GetBookingAsync(bookingId);
+                    _dbRepository.Remove(bookingToRemove);
+                    if (await _dbRepository.SaveChangesAsync())
                     {
                         return Ok();
                     }
@@ -151,12 +151,12 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if (await _bookingService.IsBookingExistsAsync(bookingId) && _bookingService.AreDatesCorrect(newDates))
+                if (await _bookingsRepository.IsBookingExistsAsync(bookingId) && _bookingsRepository.AreDatesCorrect(newDates))
                 {
 
-                    if (await _bookingService.EditBookingDatesAsync(bookingId, newDates))
+                    if (await _bookingsRepository.EditBookingDatesAsync(bookingId, newDates))
                     {
-                        if (await _dbContextService.SaveChangesAsync())
+                        if (await _dbRepository.SaveChangesAsync())
                         {
                             return NoContent();
                         }

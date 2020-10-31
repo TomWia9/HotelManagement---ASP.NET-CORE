@@ -16,14 +16,14 @@ namespace HotelManagement.Controllers
     public class RoomsController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly IRoomService _roomService;
-        private readonly IDbContextService _dbContextService;
+        private readonly IRoomsRepository _roomsRepository;
+        private readonly IDbRepository _dbRepository;
 
-        public RoomsController(IMapper mapper, DatabaseContext context)
+        public RoomsController(IMapper mapper, IRoomsRepository roomsRepository, IDbRepository dbRepository)
         {
             _mapper = mapper;
-            _roomService = new RoomService(context);
-            _dbContextService = new DbContextService(context);
+            _roomsRepository = roomsRepository;
+            _dbRepository = dbRepository;
         }
 
         [HttpPost]
@@ -33,9 +33,9 @@ namespace HotelManagement.Controllers
             {
                 var newRoom = _mapper.Map<Room>(room);
 
-                _dbContextService.Add(newRoom);
+                _dbRepository.Add(newRoom);
 
-                if (await _dbContextService.SaveChangesAsync())
+                if (await _dbRepository.SaveChangesAsync())
                 {
                     return CreatedAtAction(nameof(GetRoom), new { roomId = newRoom.Id }, _mapper.Map<RoomDTO>(newRoom));
                 }
@@ -55,7 +55,7 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                var room = await _roomService.GetRoomAsync(roomId);
+                var room = await _roomsRepository.GetRoomAsync(roomId);
                 if (room != null)
                 {
                     return Ok(_mapper.Map<RoomDTO>(room));
@@ -74,11 +74,11 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if (await _roomService.IsRoomExistsAsync(roomId))
+                if (await _roomsRepository.IsRoomExistsAsync(roomId))
                 {
-                    var bookingToRemove = await _roomService.GetRoomAsync(roomId);
-                    _dbContextService.Remove(bookingToRemove);
-                    if (await _dbContextService.SaveChangesAsync())
+                    var bookingToRemove = await _roomsRepository.GetRoomAsync(roomId);
+                    _dbRepository.Remove(bookingToRemove);
+                    if (await _dbRepository.SaveChangesAsync())
                     {
                         return Ok();
                     }
@@ -97,12 +97,12 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if (room != null && await _roomService.IsRoomExistsAsync(room.Id))
+                if (room != null && await _roomsRepository.IsRoomExistsAsync(room.Id))
                 {
 
-                    if (await _roomService.UpdateRoomDataAsync(room))
+                    if (await _roomsRepository.UpdateRoomDataAsync(room))
                     {
-                        if (await _dbContextService.SaveChangesAsync())
+                        if (await _dbRepository.SaveChangesAsync())
                         {
                             return NoContent();
                         }

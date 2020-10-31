@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Services
 {
-    public class DbContextService : IDbContextService
+    public class DbRepository : IDbRepository
     {
         private readonly DatabaseContext _context;
 
-        public DbContextService(DatabaseContext context)
+        public DbRepository(DatabaseContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public void Add<T>(T entity) where T : class

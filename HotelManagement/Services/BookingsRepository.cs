@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Services
 {
-    public class BookingService : IBookingService
+    public class BookingsRepository : IBookingsRepository
     {
         private readonly DatabaseContext _context;
 
-        public BookingService(DatabaseContext context)
+        public BookingsRepository(DatabaseContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task<Booking> GetBookingAsync(int id)

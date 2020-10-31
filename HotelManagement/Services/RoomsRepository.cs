@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Services
 {
-    public class RoomService : IRoomService
+    public class RoomsRepository : IRoomsRepository
     {
         private readonly DatabaseContext _context;
-        public RoomService(DatabaseContext context)
+        public RoomsRepository(DatabaseContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task<bool> IsRoomExistsAsync(int roomId)

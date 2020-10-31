@@ -16,17 +16,15 @@ namespace HotelManagement.Controllers
     [ApiController]
     public class ClientsController : ControllerBase
     {
-        private readonly DatabaseContext _context;
-        private readonly IClientsService _clientsService;
-        private readonly IDbContextService _dbContextService;
+        private readonly IClientsRepository _clientsRepository;
+        private readonly IDbRepository _dbRepository;
         private readonly IMapper _mapper;
 
-        public ClientsController(DatabaseContext context, IMapper mapper)
+        public ClientsController(IClientsRepository clientsRepository, IDbRepository dbRepository, IMapper mapper)
         {
-            _context = context;
             _mapper = mapper;
-            _clientsService = new ClientsService(context);
-            _dbContextService = new DbContextService(context);
+            _clientsRepository = clientsRepository;
+            _dbRepository = dbRepository;
         }
 
         [HttpPost]
@@ -36,9 +34,9 @@ namespace HotelManagement.Controllers
             {
                 var newClient = _mapper.Map<Client>(client);
 
-                _dbContextService.Add(newClient);
+                _dbRepository.Add(newClient);
 
-                if (await _dbContextService.SaveChangesAsync())
+                if (await _dbRepository.SaveChangesAsync())
                 {
                     return CreatedAtAction(nameof(GetClient), new { clientId = newClient.Id }, _mapper.Map<ClientDTO>(newClient));
                 }
@@ -58,7 +56,7 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                var client = await _clientsService.GetClientAsync(clientId);
+                var client = await _clientsRepository.GetClientAsync(clientId);
                 if (client != null)
                 {
                     return Ok(_mapper.Map<ClientDTO>(client));
@@ -77,7 +75,7 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                var clients = await _clientsService.GetAllClientsAsync();
+                var clients = await _clientsRepository.GetAllClientsAsync();
                 if (clients != null)
                 {
                     return Ok(_mapper.Map<IEnumerable<ClientDTO>>(clients));
@@ -96,11 +94,11 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if (await _clientsService.IsClientExists(clientId))
+                if (await _clientsRepository.IsClientExists(clientId))
                 {
-                    var clientToRemove = await _clientsService.GetClientAsync(clientId);
-                    _dbContextService.Remove(clientToRemove);
-                    if (await _dbContextService.SaveChangesAsync())
+                    var clientToRemove = await _clientsRepository.GetClientAsync(clientId);
+                    _dbRepository.Remove(clientToRemove);
+                    if (await _dbRepository.SaveChangesAsync())
                     {
                         return Ok();
                     }
@@ -119,12 +117,12 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if (client != null && await _clientsService.IsClientExists(client.Id))
+                if (client != null && await _clientsRepository.IsClientExists(client.Id))
                 {
                     
-                    if (await _clientsService.UpdateClientData(client))
+                    if (await _clientsRepository.UpdateClientData(client))
                     {
-                        if (await _dbContextService.SaveChangesAsync())
+                        if (await _dbRepository.SaveChangesAsync())
                         {
                             return NoContent();
                         }
