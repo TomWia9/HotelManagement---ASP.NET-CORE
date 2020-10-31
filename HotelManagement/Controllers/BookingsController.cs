@@ -15,14 +15,14 @@ namespace HotelManagement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookingController : ControllerBase
+    public class BookingsController : ControllerBase
     {
         private readonly IBookingService _bookingService;
         private readonly IClientsService _clientsService;
         private readonly IDbContextService _dbContextService;
         private readonly IMapper _mapper;
 
-        public BookingController(DatabaseContext context, IMapper mapper)
+        public BookingsController(DatabaseContext context, IMapper mapper)
         {
             _bookingService = new BookingService(context);
             _clientsService = new ClientsService(context);
@@ -30,7 +30,7 @@ namespace HotelManagement.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost("NewBooking")]
+        [HttpPost]
         public async Task<ActionResult<BookingDto>> NewBooking(NewBookingDto booking)
         {
             try
@@ -66,7 +66,7 @@ namespace HotelManagement.Controllers
             return BadRequest();
         }
 
-        [HttpGet("GetBooking/{bookingId}")]
+        [HttpGet("{bookingId}")]
         public async Task<ActionResult<BookingDto>> GetBooking(int bookingId)
         {
             try
@@ -85,7 +85,7 @@ namespace HotelManagement.Controllers
             return BadRequest();
         }
 
-        [HttpGet("GetAllBookings")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable>> GetAllBookings()
         {
             try
@@ -104,7 +104,7 @@ namespace HotelManagement.Controllers
             return BadRequest();
         }
 
-        [HttpGet("GetCurrentBookings")]
+        [HttpGet("CurrentBookings")]//
         public async Task<ActionResult<IEnumerable>> GetCurrentBookings()
         {
             try
@@ -123,7 +123,7 @@ namespace HotelManagement.Controllers
             return BadRequest();
         }
 
-        [HttpDelete("RemoveBooking/{bookingId}")]
+        [HttpDelete("{bookingId}")]
         public async Task<IActionResult> CancelBooking(int bookingId)
         {
             try
@@ -146,8 +146,8 @@ namespace HotelManagement.Controllers
             return BadRequest();
         }
 
-        [HttpPatch("EditBookingDates/{bookingId}")]
-        public async Task<IActionResult> EditBookingDate(int bookingId, DatesDto newDates)
+        [HttpPatch("{bookingId}")]
+        public async Task<IActionResult> EditBookingDates(int bookingId, DatesDto newDates)
         {
             try
             {

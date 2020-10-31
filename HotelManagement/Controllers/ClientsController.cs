@@ -29,7 +29,7 @@ namespace HotelManagement.Controllers
             _dbContextService = new DbContextService(context);
         }
 
-        [HttpPost("NewClient")]
+        [HttpPost]
         public async Task<ActionResult<ClientDto>> NewClient(NewClientDto client)
         {
             try
@@ -53,7 +53,7 @@ namespace HotelManagement.Controllers
 
         }
 
-        [HttpGet("GetClient/{clientId}")]
+        [HttpGet("{clientId}")]
         public async Task<ActionResult<ClientDto>> GetClient(int clientId)
         {
             try
@@ -72,7 +72,7 @@ namespace HotelManagement.Controllers
             return BadRequest();
         }
 
-        [HttpGet("GetAllClients")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable>> GetAllClients()
         {
             try
@@ -91,7 +91,7 @@ namespace HotelManagement.Controllers
             return BadRequest();
         }
 
-        [HttpDelete("RemoveClient/{clientId}")]
+        [HttpDelete("{clientId}")]
         public async Task<IActionResult> RemoveClient(int clientId)
         {
             try
@@ -114,7 +114,7 @@ namespace HotelManagement.Controllers
             return BadRequest();
         }
 
-        [HttpPut("UpdateClientData")]
+        [HttpPut]
         public async Task<IActionResult> UpdateClientData(ClientDto client)
         {
             try

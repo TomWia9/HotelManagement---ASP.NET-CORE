@@ -13,20 +13,20 @@ namespace HotelManagement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RoomController : ControllerBase
+    public class RoomsController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly IRoomService _roomService;
         private readonly IDbContextService _dbContextService;
 
-        public RoomController(IMapper mapper, DatabaseContext context)
+        public RoomsController(IMapper mapper, DatabaseContext context)
         {
             _mapper = mapper;
             _roomService = new RoomService(context);
             _dbContextService = new DbContextService(context);
         }
 
-        [HttpPost("NewRoom")]
+        [HttpPost]
         public async Task<ActionResult<RoomDto>> NewRoom(NewRoomDto room)
         {
             try
@@ -50,7 +50,7 @@ namespace HotelManagement.Controllers
 
         }
 
-        [HttpGet("GetRoom/{roomId}")]
+        [HttpGet("{roomId}")]
         public async Task<ActionResult<RoomDto>> GetRoom(int roomId)
         {
             try
@@ -69,7 +69,7 @@ namespace HotelManagement.Controllers
             return BadRequest();
         }
 
-        [HttpDelete("RemoveRoom/{roomId}")]
+        [HttpDelete("{roomId}")]
         public async Task<IActionResult> RemoveRoom(int roomId)
         {
             try
@@ -92,7 +92,7 @@ namespace HotelManagement.Controllers
             return BadRequest();
         }
 
-        [HttpPut("UpdateRoom")]
+        [HttpPut]
         public async Task<IActionResult> UpdateRoom(RoomDto room)
         {
             try
