@@ -54,11 +54,6 @@ namespace HotelManagement.Services
             return await _context.Bookings.AnyAsync(b => b.Id == id);
         }
 
-        public async Task<bool> IsClientAlreadyHasABookingAsync(int clientId)
-        {
-            return await _context.Bookings.AnyAsync(b => b.ClientId == clientId);
-        }
-
         public async Task<bool> EditBookingDatesAsync(int bookingId, DatesDto newDates)
         {
             try

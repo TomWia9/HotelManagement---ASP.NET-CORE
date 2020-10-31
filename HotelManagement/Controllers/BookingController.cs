@@ -41,8 +41,7 @@ namespace HotelManagement.Controllers
                     return BadRequest(); 
                 }
 
-                if (await _bookingService.IsClientAlreadyHasABookingAsync(booking.ClientId)
-                    || !_bookingService.AreDatesCorrect(_mapper.Map<DatesDto>(booking))
+                if (!_bookingService.AreDatesCorrect(_mapper.Map<DatesDto>(booking))
                     || !await _bookingService.IsRoomVacancyAsync(booking.RoomId, _mapper.Map<DatesDto>(booking))
                     )
                 {
