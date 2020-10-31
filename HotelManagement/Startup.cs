@@ -32,6 +32,12 @@ namespace HotelManagement
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers(setupAction =>
+            {
+                //setupAction.ReturnHttpNotAcceptable = true;
+            })
+             .AddXmlDataContractSerializerFormatters();
+
             services.AddScoped<IClientsRepository, ClientsRepository>();
             services.AddScoped<IBookingsRepository, BookingsRepository>();
             services.AddScoped<IRoomsRepository, RoomsRepository>();
@@ -39,20 +45,6 @@ namespace HotelManagement
 
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("HotelManagementConnection")));
-            
-            services.AddControllers()
-            .AddNewtonsoftJson(options =>
-            {
-                var dateConverter = new IsoDateTimeConverter
-                {
-                    DateTimeFormat = "dd'-'MM'-'yyyy'T'HH':'mm"
-                };
-
-                options.SerializerSettings.Converters.Add(dateConverter);
-                options.SerializerSettings.Culture = new CultureInfo("en-GB");
-                options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
-                //options.SerializerSettings.Converters.Add(new StringEnumConverter());
-        });
 
             services.AddSwaggerGenNewtonsoftSupport();
             services.AddSwaggerGen();
