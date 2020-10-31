@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using HotelManagement.Data.Dto;
+using HotelManagement.Data.DTO;
 using HotelManagement.Models;
 using HotelManagement.Services;
 using Microsoft.AspNetCore.Http;
@@ -27,7 +27,7 @@ namespace HotelManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<RoomDto>> NewRoom(NewRoomDto room)
+        public async Task<ActionResult<RoomDTO>> NewRoom(NewBookingDTO room)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace HotelManagement.Controllers
 
                 if (await _dbContextService.SaveChangesAsync())
                 {
-                    return CreatedAtAction(nameof(GetRoom), new { roomId = newRoom.Id }, _mapper.Map<RoomDto>(newRoom));
+                    return CreatedAtAction(nameof(GetRoom), new { roomId = newRoom.Id }, _mapper.Map<RoomDTO>(newRoom));
                 }
 
             }
@@ -51,14 +51,14 @@ namespace HotelManagement.Controllers
         }
 
         [HttpGet("{roomId}")]
-        public async Task<ActionResult<RoomDto>> GetRoom(int roomId)
+        public async Task<ActionResult<RoomDTO>> GetRoom(int roomId)
         {
             try
             {
                 var room = await _roomService.GetRoomAsync(roomId);
                 if (room != null)
                 {
-                    return Ok(_mapper.Map<RoomDto>(room));
+                    return Ok(_mapper.Map<RoomDTO>(room));
                 }
             }
             catch (Exception)
@@ -93,7 +93,7 @@ namespace HotelManagement.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateRoom(RoomDto room)
+        public async Task<IActionResult> UpdateRoom(RoomDTO room)
         {
             try
             {

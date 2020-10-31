@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HotelManagement.Data.Dto
+namespace HotelManagement.Data.DTO
 {
-    public class RoomDto
+    public class RoomDTO
     {
         public int Id { get; set; }
         public RoomType Type { get; set; }

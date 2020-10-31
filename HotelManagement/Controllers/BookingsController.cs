@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using HotelManagement.Data.Dto;
-using HotelManagement.Dto;
+using HotelManagement.Data.DTO;
+using HotelManagement.DTO;
 using HotelManagement.Models;
 using HotelManagement.Services;
 using Microsoft.AspNetCore.Http;
@@ -31,7 +31,7 @@ namespace HotelManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BookingDto>> NewBooking(NewBookingDto booking)
+        public async Task<ActionResult<BookingDTO>> NewBooking(NewBookingDTO booking)
         {
             try
             {
@@ -41,8 +41,8 @@ namespace HotelManagement.Controllers
                     return BadRequest(); 
                 }
 
-                if (!_bookingService.AreDatesCorrect(_mapper.Map<DatesDto>(booking))
-                    || !await _bookingService.IsRoomVacancyAsync(booking.RoomId, _mapper.Map<DatesDto>(booking))
+                if (!_bookingService.AreDatesCorrect(_mapper.Map<DatesDTO>(booking))
+                    || !await _bookingService.IsRoomVacancyAsync(booking.RoomId, _mapper.Map<DatesDTO>(booking))
                     )
                 {
                     return Conflict(); 
@@ -54,7 +54,7 @@ namespace HotelManagement.Controllers
               
                 if (await _dbContextService.SaveChangesAsync())
                 {
-                    return CreatedAtAction(nameof(GetBooking), new { bookingId = newBooking.Id }, _mapper.Map<BookingDto>(newBooking));
+                    return CreatedAtAction(nameof(GetBooking), new { bookingId = newBooking.Id }, _mapper.Map<BookingDTO>(newBooking));
                 }
 
             }
@@ -67,14 +67,14 @@ namespace HotelManagement.Controllers
         }
 
         [HttpGet("{bookingId}")]
-        public async Task<ActionResult<BookingDto>> GetBooking(int bookingId)
+        public async Task<ActionResult<BookingDTO>> GetBooking(int bookingId)
         {
             try
             {
                 var booking = await _bookingService.GetBookingAsync(bookingId);
                 if (booking != null)
                 {
-                    return Ok(_mapper.Map<BookingDto>(booking));
+                    return Ok(_mapper.Map<BookingDTO>(booking));
                 }
             }
             catch (Exception)
@@ -93,7 +93,7 @@ namespace HotelManagement.Controllers
                 var bookings = await _bookingService.GetAllBookingsAsync();
                 if (bookings != null)
                 {
-                    return Ok(_mapper.Map<IEnumerable<BookingDto>>(bookings));
+                    return Ok(_mapper.Map<IEnumerable<BookingDTO>>(bookings));
                 }
             }
             catch (Exception)
@@ -112,7 +112,7 @@ namespace HotelManagement.Controllers
                 var bookings = await _bookingService.GetCurrentBookingsAsync();
                 if (bookings != null)
                 {
-                    return Ok(_mapper.Map<IEnumerable<BookingDto>>(bookings));
+                    return Ok(_mapper.Map<IEnumerable<BookingDTO>>(bookings));
                 }
             }
             catch (Exception)
@@ -147,7 +147,7 @@ namespace HotelManagement.Controllers
         }
 
         [HttpPatch("{bookingId}")]
-        public async Task<IActionResult> EditBookingDates(int bookingId, DatesDto newDates)
+        public async Task<IActionResult> EditBookingDates(int bookingId, DatesDTO newDates)
         {
             try
             {

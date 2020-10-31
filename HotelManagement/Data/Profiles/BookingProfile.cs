@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using HotelManagement.Data.Dto;
+using HotelManagement.Data.DTO;
 using HotelManagement.Models;
 using System;
 using System.Collections.Generic;
@@ -12,10 +12,10 @@ namespace HotelManagement.Data.Profiles
     {
         public BookingProfile()
         {
-            CreateMap<NewBookingDto, DatesDto>();
-            CreateMap<BookingDto, Booking>();
-            CreateMap<Booking, BookingDto>();
-            CreateMap<NewBookingDto, Booking>();
+            CreateMap<NewBookingDTO, DatesDTO>();
+            CreateMap<BookingDTO, Booking>();
+            CreateMap<Booking, BookingDTO>();
+            CreateMap<NewBookingDTO, Booking>();
         }
     }
 }

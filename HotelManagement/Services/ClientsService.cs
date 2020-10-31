@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using HotelManagement.Dto;
+using HotelManagement.DTO;
 using HotelManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -32,7 +32,7 @@ namespace HotelManagement.Services
             return await _context.Clients.Include(a => a.Address).FirstOrDefaultAsync(c => c.Id == clientId);
         }
 
-        public async Task<bool> UpdateClientData(ClientDto client)
+        public async Task<bool> UpdateClientData(ClientDTO client)
         {
             try
             {

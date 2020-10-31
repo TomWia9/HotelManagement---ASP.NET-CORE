@@ -1,4 +1,4 @@
-﻿using HotelManagement.Data.Dto;
+﻿using HotelManagement.Data.DTO;
 using HotelManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -31,7 +31,7 @@ namespace HotelManagement.Services
             return await _context.Bookings.Where(b => b.CheckInDate <= DateTime.Now && b.CheckOutDate >= DateTime.Now).ToListAsync();
         }
 
-        public async Task<bool> IsRoomVacancyAsync(int roomId, DatesDto dates)
+        public async Task<bool> IsRoomVacancyAsync(int roomId, DatesDTO dates)
         {
             //if in the bookings ther's no room with given id then this room is obviously vacancy
             if (!await _context.Bookings.AnyAsync(b => b.RoomId == roomId))
@@ -54,7 +54,7 @@ namespace HotelManagement.Services
             return await _context.Bookings.AnyAsync(b => b.Id == id);
         }
 
-        public async Task<bool> EditBookingDatesAsync(int bookingId, DatesDto newDates)
+        public async Task<bool> EditBookingDatesAsync(int bookingId, DatesDTO newDates)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace HotelManagement.Services
             }
         }
 
-        public bool AreDatesCorrect(DatesDto newDates)
+        public bool AreDatesCorrect(DatesDTO newDates)
         {
             if (newDates == null)
                 return false;

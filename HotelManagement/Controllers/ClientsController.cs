@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using HotelManagement.Dto;
+using HotelManagement.DTO;
 using HotelManagement.Models;
 using HotelManagement.Services;
 using Microsoft.AspNetCore.Http;
@@ -30,7 +30,7 @@ namespace HotelManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ClientDto>> NewClient(NewClientDto client)
+        public async Task<ActionResult<ClientDTO>> NewClient(NewClientDTO client)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace HotelManagement.Controllers
 
                 if (await _dbContextService.SaveChangesAsync())
                 {
-                    return CreatedAtAction(nameof(GetClient), new { clientId = newClient.Id }, _mapper.Map<ClientDto>(newClient));
+                    return CreatedAtAction(nameof(GetClient), new { clientId = newClient.Id }, _mapper.Map<ClientDTO>(newClient));
                 }
 
             }
@@ -54,14 +54,14 @@ namespace HotelManagement.Controllers
         }
 
         [HttpGet("{clientId}")]
-        public async Task<ActionResult<ClientDto>> GetClient(int clientId)
+        public async Task<ActionResult<ClientDTO>> GetClient(int clientId)
         {
             try
             {
                 var client = await _clientsService.GetClientAsync(clientId);
                 if (client != null)
                 {
-                    return Ok(_mapper.Map<ClientDto>(client));
+                    return Ok(_mapper.Map<ClientDTO>(client));
                 }
             }
             catch (Exception)
@@ -80,7 +80,7 @@ namespace HotelManagement.Controllers
                 var clients = await _clientsService.GetAllClientsAsync();
                 if (clients != null)
                 {
-                    return Ok(_mapper.Map<IEnumerable<ClientDto>>(clients));
+                    return Ok(_mapper.Map<IEnumerable<ClientDTO>>(clients));
                 }
             }
             catch (Exception)
@@ -115,7 +115,7 @@ namespace HotelManagement.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateClientData(ClientDto client)
+        public async Task<IActionResult> UpdateClientData(ClientDTO client)
         {
             try
             {

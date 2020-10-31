@@ -1,4 +1,4 @@
-﻿using HotelManagement.Data.Dto;
+﻿using HotelManagement.Data.DTO;
 using HotelManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,7 +26,7 @@ namespace HotelManagement.Services
             return await _context.Rooms.FirstOrDefaultAsync(r => r.Id == roomId);
         }
 
-        public async Task<bool> UpdateRoomDataAsync(RoomDto room)
+        public async Task<bool> UpdateRoomDataAsync(RoomDTO room)
         {
             try
             {

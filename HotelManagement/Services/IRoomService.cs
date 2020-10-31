@@ -1,4 +1,4 @@
-﻿using HotelManagement.Data.Dto;
+﻿using HotelManagement.Data.DTO;
 using HotelManagement.Models;
 using System;
 using System.Collections.Generic;
@@ -11,6 +11,6 @@ namespace HotelManagement.Services
     {
         Task<Room> GetRoomAsync(int roomId);
         Task<bool> IsRoomExistsAsync(int roomId);
-        Task<bool> UpdateRoomDataAsync(RoomDto room);
+        Task<bool> UpdateRoomDataAsync(RoomDTO room);
     }
 }
