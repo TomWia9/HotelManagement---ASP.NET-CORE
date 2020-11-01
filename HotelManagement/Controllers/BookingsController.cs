@@ -11,6 +11,7 @@ using HotelManagement.ResourceParameters;
 using HotelManagement.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 
 namespace HotelManagement.Controllers
 {
@@ -153,17 +154,23 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if (await _bookingsRepository.IsBookingExistsAsync(bookingId) && _bookingsRepository.AreDatesCorrect(newDates))
+                if (!await _bookingsRepository.IsBookingExistsAsync(bookingId))
                 {
+                    return NotFound();
+                }
 
-                    if (await _bookingsRepository.EditBookingDatesAsync(bookingId, newDates))
+                if (!_bookingsRepository.AreDatesCorrect(newDates)
+                    || !await _bookingsRepository.IsRoomVacancyAsync(await _bookingsRepository.GetBookingRoomId(bookingId), newDates, bookingId))
+                {
+                    return Conflict();
+                }
+
+                if (await _bookingsRepository.EditBookingDatesAsync(bookingId, newDates))
+                {
+                    if (await _dbRepository.SaveChangesAsync())
                     {
-                        if (await _dbRepository.SaveChangesAsync())
-                        {
-                            return NoContent();
-                        }
+                        return NoContent();
                     }
-
                 }
             }
             catch (Exception)
@@ -173,7 +180,6 @@ namespace HotelManagement.Controllers
 
             return NotFound();
         }
-
 
     }
 }

@@ -13,8 +13,9 @@ namespace HotelManagement.Services
         Task<IEnumerable<Booking>> GetBookingsAsync();
         Task<IEnumerable<Booking>> GetBookingsAsync(BookingsResourceParameters bookingsResourceParameters);
         Task<Booking> GetBookingAsync(int id);
+        Task<int> GetBookingRoomId(int bookingId);
         Task<bool> IsBookingExistsAsync(int id);
-        Task<bool> IsRoomVacancyAsync(int roomId, DatesDTO dates);
+        Task<bool> IsRoomVacancyAsync(int roomId, DatesDTO dates, int? bookingId = null);
         Task<bool> IsRoomExistsAsync(int roomId);
         Task<IEnumerable<Booking>> GetCurrentBookingsAsync();
         Task<bool> EditBookingDatesAsync(int bookingId, DatesDTO newDates);

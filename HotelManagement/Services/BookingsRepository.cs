@@ -17,6 +17,11 @@ namespace HotelManagement.Services
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
+        public async Task<int> GetBookingRoomId(int bookingId)
+        {
+            var booking = await _context.Bookings.FindAsync(bookingId);
+            return booking.RoomId;
+        }
 
         public async Task<Booking> GetBookingAsync(int id)
         {
@@ -54,14 +59,14 @@ namespace HotelManagement.Services
             return await _context.Bookings.Where(b => b.CheckInDate <= DateTime.Now && b.CheckOutDate >= DateTime.Now).ToListAsync();
         }
 
-        public async Task<bool> IsRoomVacancyAsync(int roomId, DatesDTO dates)
+        public async Task<bool> IsRoomVacancyAsync(int roomId, DatesDTO dates, int? bookingId = null)
         {
             //if in the bookings ther's no room with given id then this room is obviously vacancy
-            if (!await _context.Bookings.AnyAsync(b => b.RoomId == roomId))
+            if (!await _context.Bookings.AnyAsync(b => b.RoomId == roomId && b.Id != bookingId))
                 return true;
 
             //if given dates colidate with current bookings then this room isn't vacany for these dates
-            if (await _context.Bookings.Where(b => b.RoomId == roomId).AnyAsync(b => !( dates.CheckOutDate.Date < b.CheckInDate.Date || dates.CheckInDate.Date > b.CheckOutDate.Date)))
+            if (await _context.Bookings.Where(b => b.RoomId == roomId && b.Id != bookingId).AnyAsync(b => !( dates.CheckOutDate.Date < b.CheckInDate.Date || dates.CheckInDate.Date > b.CheckOutDate.Date)))
                 return false;
 
             return true;
@@ -100,5 +105,6 @@ namespace HotelManagement.Services
 
             return newDates.CheckInDate.Date > DateTime.Now && newDates.CheckOutDate.Date > newDates.CheckInDate.Date;
         }
+
     }
 }
