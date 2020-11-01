@@ -38,7 +38,7 @@ namespace HotelManagement.Controllers
                 if(!await _clientsRepository.IsClientExists(booking.ClientId)
                     || !await _bookingsRepository.IsRoomExistsAsync(booking.RoomId))
                 {
-                    return BadRequest(); 
+                    return NotFound(); 
                 }
 
                 if (!_bookingsRepository.AreDatesCorrect(_mapper.Map<DatesDTO>(booking))
@@ -82,7 +82,7 @@ namespace HotelManagement.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
 
-            return BadRequest();
+            return NotFound();
         }
 
         [HttpGet]
@@ -101,7 +101,7 @@ namespace HotelManagement.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
 
-            return BadRequest();
+            return NotFound();
         }
 
         [HttpGet("CurrentBookings")]//
@@ -120,7 +120,7 @@ namespace HotelManagement.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
 
-            return BadRequest();
+            return NotFound();
         }
 
         [HttpDelete("{bookingId}")]
@@ -128,14 +128,15 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if (await _bookingsRepository.IsBookingExistsAsync(bookingId))
+                var bookingToRemove = await _bookingsRepository.GetBookingAsync(bookingId);
+                if(bookingToRemove == null)
                 {
-                    var bookingToRemove = await _bookingsRepository.GetBookingAsync(bookingId);
-                    _dbRepository.Remove(bookingToRemove);
-                    if (await _dbRepository.SaveChangesAsync())
-                    {
-                        return Ok();
-                    }
+                    return NotFound();
+                }
+                _dbRepository.Remove(bookingToRemove);
+                if (await _dbRepository.SaveChangesAsync())
+                {
+                   return Ok();
                 }
             }
             catch (Exception)
@@ -143,7 +144,7 @@ namespace HotelManagement.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
 
-            return BadRequest();
+            return NotFound();
         }
 
         [HttpPatch("{bookingId}")]
@@ -169,7 +170,7 @@ namespace HotelManagement.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
 
-            return BadRequest();
+            return NotFound();
         }
 
 

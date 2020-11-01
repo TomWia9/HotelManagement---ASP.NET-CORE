@@ -67,7 +67,7 @@ namespace HotelManagement.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
 
-            return BadRequest();
+            return NotFound();
         }
 
         [HttpGet]
@@ -86,7 +86,7 @@ namespace HotelManagement.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
 
-            return BadRequest();
+            return NotFound();
         }
 
         [HttpDelete("{clientId}")]
@@ -94,15 +94,18 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if (await _clientsRepository.IsClientExists(clientId))
-                {
-                    var clientToRemove = await _clientsRepository.GetClientAsync(clientId);
-                    _dbRepository.Remove(clientToRemove);
-                    if (await _dbRepository.SaveChangesAsync())
-                    {
-                        return Ok();
-                    }
-                }
+               var clientToRemove = await _clientsRepository.GetClientAsync(clientId);
+
+               if(clientToRemove == null)
+               {
+                  return NotFound();
+               }
+
+               _dbRepository.Remove(clientToRemove);
+               if (await _dbRepository.SaveChangesAsync())
+               {
+                  return Ok();
+               }
             }
             catch (Exception)
             {
@@ -135,7 +138,7 @@ namespace HotelManagement.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
 
-            return BadRequest();
+            return NotFound();
         }
     }
 }

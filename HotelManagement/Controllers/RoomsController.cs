@@ -66,7 +66,7 @@ namespace HotelManagement.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
 
-            return BadRequest();
+            return NotFound();
         }
 
         [HttpDelete("{roomId}")]
@@ -74,15 +74,16 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if (await _roomsRepository.IsRoomExistsAsync(roomId))
+                var bookingToRemove = await _roomsRepository.GetRoomAsync(roomId);
+                if(bookingToRemove == null)
                 {
-                    var bookingToRemove = await _roomsRepository.GetRoomAsync(roomId);
-                    _dbRepository.Remove(bookingToRemove);
-                    if (await _dbRepository.SaveChangesAsync())
-                    {
-                        return Ok();
-                    }
+                    return NotFound();
                 }
+                 _dbRepository.Remove(bookingToRemove);
+                 if (await _dbRepository.SaveChangesAsync())
+                 {
+                     return Ok();
+                 }
             }
             catch (Exception)
             {
