@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using HotelManagement.Data.DTO;
 using HotelManagement.Models;
+using HotelManagement.ResourceParameters;
 using HotelManagement.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,6 +61,25 @@ namespace HotelManagement.Controllers
                 if (room != null)
                 {
                     return Ok(_mapper.Map<RoomDTO>(room));
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return NotFound();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable>> GetClients([FromQuery] RoomsResourceParameters roomsResourceParameters)
+        {
+            try
+            {
+                var rooms = await _roomsRepository.GetRoomsAsync(roomsResourceParameters);
+                if (rooms != null)
+                {
+                    return Ok(_mapper.Map<IEnumerable<RoomDTO>>(rooms));
                 }
             }
             catch (Exception)
