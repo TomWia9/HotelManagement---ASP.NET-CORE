@@ -7,6 +7,7 @@ using AutoMapper;
 using HotelManagement.Data.DTO;
 using HotelManagement.DTO;
 using HotelManagement.Models;
+using HotelManagement.ResourceParameters;
 using HotelManagement.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -86,12 +87,12 @@ namespace HotelManagement.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable>> GetAllBookings()
+        public async Task<ActionResult<IEnumerable>> GetBookings([FromQuery] BookingsResourceParameters bookingsResourceParameters)
         {
             try
             {
-                var bookings = await _bookingsRepository.GetAllBookingsAsync();
-                if (bookings != null)
+                var bookings = await _bookingsRepository.GetBookingsAsync(bookingsResourceParameters);
+                if (bookings != null && bookings.Any())
                 {
                     return Ok(_mapper.Map<IEnumerable<BookingDTO>>(bookings));
                 }

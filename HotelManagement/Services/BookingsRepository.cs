@@ -1,5 +1,6 @@
 ﻿using HotelManagement.Data.DTO;
 using HotelManagement.Models;
+using HotelManagement.ResourceParameters;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,31 @@ namespace HotelManagement.Services
             return await _context.Bookings.FirstOrDefaultAsync(b => b.Id == id);
         }
 
-        public async Task<IEnumerable<Booking>> GetAllBookingsAsync()
+        public async Task<IEnumerable<Booking>> GetBookingsAsync()
         {
             return await _context.Bookings.ToListAsync();
+        }
+        public async Task<IEnumerable<Booking>> GetBookingsAsync(BookingsResourceParameters bookingsResourceParameters)
+        {
+            if (bookingsResourceParameters == null)
+            {
+                throw new ArgumentNullException(nameof(bookingsResourceParameters));
+            }
+
+            if (string.IsNullOrWhiteSpace(bookingsResourceParameters.RoomId))
+            {
+                return await GetBookingsAsync();
+            }
+
+            if (int.TryParse(bookingsResourceParameters.RoomId, out int roomId))
+            {
+                var collection = _context.Bookings as IQueryable<Booking>;
+                collection = collection.Where(b => b.RoomId == roomId);
+                return await collection.ToListAsync();
+            }
+
+            return null;
+
         }
         public async Task<IEnumerable<Booking>> GetCurrentBookingsAsync()
         {

@@ -1,5 +1,6 @@
 ﻿using HotelManagement.Data.DTO;
 using HotelManagement.Models;
+using HotelManagement.ResourceParameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ namespace HotelManagement.Services
 {
     public interface IBookingsRepository
     {
-        Task<IEnumerable<Booking>> GetAllBookingsAsync();
+        Task<IEnumerable<Booking>> GetBookingsAsync();
+        Task<IEnumerable<Booking>> GetBookingsAsync(BookingsResourceParameters bookingsResourceParameters);
         Task<Booking> GetBookingAsync(int id);
         Task<bool> IsBookingExistsAsync(int id);
         Task<bool> IsRoomVacancyAsync(int roomId, DatesDTO dates);
