@@ -12,9 +12,11 @@ namespace HotelManagement.Services
     public class RoomsRepository : IRoomsRepository
     {
         private readonly DatabaseContext _context;
-        public RoomsRepository(DatabaseContext context)
+        private readonly IBookingsRepository _bookingsRepository;
+        public RoomsRepository(DatabaseContext context, IBookingsRepository bookingsRepository)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
+            _bookingsRepository = bookingsRepository;
         }
 
         public async Task<bool> IsRoomExistsAsync(int roomId)
@@ -26,6 +28,23 @@ namespace HotelManagement.Services
         {
             return await _context.Rooms.FirstOrDefaultAsync(r => r.Id == roomId);
         }
+
+        private async Task<IEnumerable<int>> GetVacancyRoomsAsync(DatesDTO dates)
+        {
+            var rooms = await GetRoomsAsync();
+            List<int> roomsIds = new List<int>();
+
+            foreach (var room in rooms)
+            {
+                if(await _bookingsRepository.IsRoomVacancyAsync(room.Id, dates))
+                {
+                    roomsIds.Add(room.Id);
+                }
+            }
+
+            return roomsIds;
+        }
+
         public async Task<IEnumerable<Room>> GetRoomsAsync()
         {
             return await _context.Rooms.ToListAsync();
@@ -40,6 +59,7 @@ namespace HotelManagement.Services
 
             if (roomsResourceParameters.Balcony == null
                  && roomsResourceParameters.RoomType == null
+                 && roomsResourceParameters.VacancyInDays == null
                  && string.IsNullOrWhiteSpace(roomsResourceParameters.SearchQuery))
             {
                 return await GetRoomsAsync();
@@ -57,6 +77,17 @@ namespace HotelManagement.Services
             {
                 var roomType = roomsResourceParameters.RoomType;
                 collection = collection.Where(r => r.Type == roomType);
+            }
+
+            if (!(roomsResourceParameters.VacancyInDays == null))
+            {
+                if (!_bookingsRepository.AreDatesCorrect(roomsResourceParameters.VacancyInDays))
+                {
+                    return null;
+                }
+                   
+                var roomsIds = await GetVacancyRoomsAsync(roomsResourceParameters.VacancyInDays);
+                collection = collection.Where(r => roomsIds.Contains(r.Id));
             }
 
             if (!string.IsNullOrWhiteSpace(roomsResourceParameters.SearchQuery))
@@ -82,5 +113,6 @@ namespace HotelManagement.Services
             }
         }
 
+      
     }
 }

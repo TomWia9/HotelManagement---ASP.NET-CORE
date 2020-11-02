@@ -1,4 +1,5 @@
-﻿using HotelManagement.Models;
+﻿using HotelManagement.Data.DTO;
+using HotelManagement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace HotelManagement.ResourceParameters
     {
         public bool? Balcony { get; set; }
         public RoomType? RoomType { get; set; }
+        public DatesDTO VacancyInDays { get; set; }
     }
 }

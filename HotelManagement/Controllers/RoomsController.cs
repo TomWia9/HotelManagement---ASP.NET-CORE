@@ -72,7 +72,7 @@ namespace HotelManagement.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable>> GetClients([FromQuery] RoomsResourceParameters roomsResourceParameters)
+        public async Task<ActionResult<IEnumerable>> GetRooms([FromQuery] RoomsResourceParameters roomsResourceParameters)
         {
             try
             {
