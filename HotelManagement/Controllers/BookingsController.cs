@@ -106,25 +106,6 @@ namespace HotelManagement.Controllers
             return NotFound();
         }
 
-        [HttpGet("CurrentBookings")]//
-        public async Task<ActionResult<IEnumerable>> GetCurrentBookings()
-        {
-            try
-            {
-                var bookings = await _bookingsRepository.GetCurrentBookingsAsync();
-                if (bookings != null)
-                {
-                    return Ok(_mapper.Map<IEnumerable<BookingDTO>>(bookings));
-                }
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
-            }
-
-            return NotFound();
-        }
-
         [HttpDelete("{bookingId}")]
         public async Task<IActionResult> CancelBooking(int bookingId)
         {

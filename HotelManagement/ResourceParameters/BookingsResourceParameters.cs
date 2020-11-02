@@ -7,6 +7,7 @@ namespace HotelManagement.ResourceParameters
 {
     public class BookingsResourceParameters
     {
-        public string RoomId { get; set; }
+        public int? RoomId { get; set; }
+        public bool? CurrentBookings { get; set; }
     }
 }

@@ -39,24 +39,24 @@ namespace HotelManagement.Services
                 throw new ArgumentNullException(nameof(bookingsResourceParameters));
             }
 
-            if (string.IsNullOrWhiteSpace(bookingsResourceParameters.RoomId))
+            if (bookingsResourceParameters.RoomId == null && bookingsResourceParameters.CurrentBookings == null)
             {
                 return await GetBookingsAsync();
             }
 
-            if (int.TryParse(bookingsResourceParameters.RoomId, out int roomId))
+            var collection = _context.Bookings as IQueryable<Booking>;
+
+            if (!(bookingsResourceParameters.RoomId == null))
             {
-                var collection = _context.Bookings as IQueryable<Booking>;
-                collection = collection.Where(b => b.RoomId == roomId);
-                return await collection.ToListAsync();
+                collection = collection.Where(b => b.RoomId == bookingsResourceParameters.RoomId);
             }
 
-            return null;
+            if (!(bookingsResourceParameters.CurrentBookings == null || bookingsResourceParameters.CurrentBookings == false))
+            {
+                collection = collection.Where(b => b.CheckOutDate.Date >= DateTime.Now.Date && b.CheckInDate.Date <= DateTime.Now.Date);
+            }
 
-        }
-        public async Task<IEnumerable<Booking>> GetCurrentBookingsAsync()
-        {
-            return await _context.Bookings.Where(b => b.CheckInDate <= DateTime.Now && b.CheckOutDate >= DateTime.Now).ToListAsync();
+            return await collection.ToListAsync();
         }
 
         public async Task<bool> IsRoomVacancyAsync(int roomId, DatesDTO dates, int? bookingId = null)
