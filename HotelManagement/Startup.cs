@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation.AspNetCore;
+using HotelManagement.Filters;
 using HotelManagement.Models;
 using HotelManagement.Services;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +39,16 @@ namespace HotelManagement
                 //setupAction.ReturnHttpNotAcceptable = true;
             })
              .AddXmlDataContractSerializerFormatters();
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new ValidationFilter());
+            })
+            .AddFluentValidation(options =>
+            {
+                options.RegisterValidatorsFromAssemblyContaining<Startup>();
+                options.ValidatorOptions.LanguageManager.Enabled = false;
+            });
 
             services.AddScoped<IClientsRepository, ClientsRepository>();
             services.AddScoped<IBookingsRepository, BookingsRepository>();

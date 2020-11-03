@@ -33,7 +33,7 @@ namespace HotelManagement.Data.EntityConfiguration
 
             builder.Property(c => c.PhoneNumber)
                .IsRequired()
-               .HasMaxLength(13);
+               .HasMaxLength(17);
 
             builder.Property(c => c.Age)
                .IsRequired();

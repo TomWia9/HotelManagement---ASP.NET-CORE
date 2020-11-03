@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using FluentValidation.Results;
 using HotelManagement.DTO;
 using HotelManagement.Models;
 using HotelManagement.ResourceParameters;
 using HotelManagement.Services;
+using HotelManagement.Validators;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,14 +35,16 @@ namespace HotelManagement.Controllers
         {
             try
             {
+                
                 var newClient = _mapper.Map<Client>(client);
 
                 _dbRepository.Add(newClient);
 
                 if (await _dbRepository.SaveChangesAsync())
                 {
-                    return CreatedAtAction(nameof(GetClient), new { clientId = newClient.Id }, _mapper.Map<ClientDTO>(newClient));
+                     return CreatedAtAction(nameof(GetClient), new { clientId = newClient.Id }, _mapper.Map<ClientDTO>(newClient));
                 }
+
 
             }
             catch (Exception)
@@ -49,6 +53,7 @@ namespace HotelManagement.Controllers
             }
 
             return BadRequest();
+
 
         }
 
