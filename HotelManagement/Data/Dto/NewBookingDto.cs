@@ -7,8 +7,7 @@ namespace HotelManagement.Data.DTO
 {
     public class NewBookingDTO
     {
-        public DateTime CheckInDate { get; set; }
-        public DateTime CheckOutDate { get; set; }
+        public DatesDTO BookingDates { get; set; }
         public int ClientId { get; set; }
         public int RoomId { get; set; }
     }

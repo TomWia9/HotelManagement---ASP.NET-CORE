@@ -12,10 +12,13 @@ namespace HotelManagement.Data.Profiles
     {
         public BookingProfile()
         {
-            CreateMap<NewBookingDTO, DatesDTO>();
             CreateMap<BookingDTO, Booking>();
             CreateMap<Booking, BookingDTO>();
-            CreateMap<NewBookingDTO, Booking>();
+            CreateMap<NewBookingDTO, Booking>()
+                .ForMember(b => b.CheckInDate,
+                opts => opts.MapFrom(src => src.BookingDates.CheckInDate))
+                .ForMember(b => b.CheckOutDate,
+                opts => opts.MapFrom(src => src.BookingDates.CheckOutDate));
         }
     }
 }

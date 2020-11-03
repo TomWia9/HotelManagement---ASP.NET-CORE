@@ -19,7 +19,7 @@ namespace HotelManagement.Services
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<bool> IsClientExists(int clientId)
+        public async Task<bool> IsClientExistsAsync(int clientId)
         {
             return await _context.Clients.AnyAsync(c => c.Id == clientId);
         }
@@ -69,7 +69,7 @@ namespace HotelManagement.Services
             return await _context.Clients.Include(a => a.Address).FirstOrDefaultAsync(c => c.Id == clientId);
         }
 
-        public async Task<bool> UpdateClientData(ClientDTO client)
+        public async Task<bool> UpdateClientDataAsync(ClientDTO client)
         {
             try
             {

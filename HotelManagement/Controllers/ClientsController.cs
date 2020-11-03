@@ -126,10 +126,10 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if (client != null && await _clientsRepository.IsClientExists(client.Id))
+                if (client != null && await _clientsRepository.IsClientExistsAsync(client.Id))
                 {
                     
-                    if (await _clientsRepository.UpdateClientData(client))
+                    if (await _clientsRepository.UpdateClientDataAsync(client))
                     {
                         if (await _dbRepository.SaveChangesAsync())
                         {

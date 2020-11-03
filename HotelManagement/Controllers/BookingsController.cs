@@ -37,15 +37,7 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if(!await _clientsRepository.IsClientExists(booking.ClientId)
-                    || !await _bookingsRepository.IsRoomExistsAsync(booking.RoomId))
-                {
-                    return NotFound(); 
-                }
-
-                if (!_bookingsRepository.AreDatesCorrect(_mapper.Map<DatesDTO>(booking))
-                    || !await _bookingsRepository.IsRoomVacancyAsync(booking.RoomId, _mapper.Map<DatesDTO>(booking))
-                    )
+                if (!await _bookingsRepository.IsRoomVacancyAsync(booking.RoomId, booking.BookingDates))
                 {
                     return Conflict(); 
                 }
@@ -140,8 +132,7 @@ namespace HotelManagement.Controllers
                     return NotFound();
                 }
 
-                if (!_bookingsRepository.AreDatesCorrect(newDates)
-                    || !await _bookingsRepository.IsRoomVacancyAsync(await _bookingsRepository.GetBookingRoomId(bookingId), newDates, bookingId))
+                if (!await _bookingsRepository.IsRoomVacancyAsync(await _bookingsRepository.GetBookingRoomId(bookingId), newDates, bookingId))
                 {
                     return Conflict();
                 }
