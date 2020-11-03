@@ -12,7 +12,7 @@ namespace HotelManagement.Validators
         public ClientValidator()
         {
             RuleFor(client => client.FirstName).Cascade(CascadeMode.Stop).NotEmpty().Length(2, 25).MatchName();
-            RuleFor(client => client.Sex).NotNull().IsInEnum(); ;
+            RuleFor(client => client.Sex).NotNull().IsInEnum();
             RuleFor(client => client.LastName).Cascade(CascadeMode.Stop).NotEmpty().Length(2, 25).MatchName();
             RuleFor(client => client.Age).NotEmpty().InclusiveBetween(18,120);
             RuleFor(client => client.PhoneNumber).NotEmpty().MatchPhoneNumber();

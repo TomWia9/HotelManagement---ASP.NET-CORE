@@ -21,7 +21,8 @@ namespace HotelManagement.Data.EntityConfiguration
               .IsRequired();
 
             builder.Property(r => r.Description)
-             .IsRequired();
+             .IsRequired()
+             .HasMaxLength(250);
         }
     }
 }
