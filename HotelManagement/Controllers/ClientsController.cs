@@ -127,26 +127,11 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if (!await _clientsRepository.IsClientExistsAsync(clientId))
-                {
-                    return NotFound();
-                }
-
                 var clientFromRepo = await _clientsRepository.GetClientAsync(clientId);
 
                 if(clientFromRepo == null)
                 {
-                    var clientToAdd = _mapper.Map<Client>(client);
-                    clientToAdd.Id = clientId;
-                    _dbRepository.Add(clientToAdd);
-
-                    if (await _dbRepository.SaveChangesAsync())
-                    {
-                        var clientToReturn = _mapper.Map<ClientDTO>(clientToAdd);
-
-                        return CreatedAtRoute(nameof(GetClient), new { clientId }, clientToReturn);
-                    }
-                    
+                    return NotFound();
                 }
 
                 _mapper.Map(client, clientFromRepo);
