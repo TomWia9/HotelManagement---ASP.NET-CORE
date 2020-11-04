@@ -69,19 +69,9 @@ namespace HotelManagement.Services
             return await _context.Clients.Include(a => a.Address).FirstOrDefaultAsync(c => c.Id == clientId);
         }
 
-        public async Task<bool> UpdateClientDataAsync(ClientDTO client)
+        public void UpdateClient(Client client)
         {
-            try
-            {
-                _context.Entry(await _context.Clients.FirstOrDefaultAsync(c => c.Id == client.Id)).CurrentValues.SetValues(client);
-                _context.Entry(await _context.Addresses.FirstOrDefaultAsync(a => a.ClientId == client.Id)).CurrentValues.SetValues(client.Address);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-            
+            //no code in this implementation
         }
     }
 }

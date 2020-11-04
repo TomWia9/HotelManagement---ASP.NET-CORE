@@ -33,7 +33,7 @@ namespace HotelManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BookingDTO>> NewBooking(NewBookingDTO booking)
+        public async Task<ActionResult<BookingDTO>> NewBooking(BookingForCreationDTO booking)
         {
             try
             {

@@ -2,14 +2,13 @@
 using HotelManagement.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HotelManagement.DTO
+namespace HotelManagement.Data.DTO
 {
-    public class NewClientDTO
-    { 
+    public abstract class ClientForManipulationDTO
+    {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Sex Sex { get; set; }

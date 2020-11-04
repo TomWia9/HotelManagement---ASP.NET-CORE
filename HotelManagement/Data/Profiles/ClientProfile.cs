@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HotelManagement.Data.DTO;
 using HotelManagement.DTO;
 using HotelManagement.Models;
 using System;
@@ -17,7 +18,8 @@ namespace HotelManagement.Data.Profiles
             CreateMap<Address, AddressDTO>();
             CreateMap<Client, ClientDTO>();
             CreateMap<ClientDTO, Client>();
-            CreateMap<NewClientDTO, Client>();
+            CreateMap<ClientForCreationDTO, Client>();
+            CreateMap<ClientForUpdateDTO, Client>();
 
         }
     }

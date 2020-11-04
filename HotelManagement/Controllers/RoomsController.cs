@@ -29,7 +29,7 @@ namespace HotelManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<RoomDTO>> NewRoom(NewRoomDTO room)
+        public async Task<ActionResult<RoomDTO>> NewRoom(RoomForCreationDTO room)
         {
             try
             {

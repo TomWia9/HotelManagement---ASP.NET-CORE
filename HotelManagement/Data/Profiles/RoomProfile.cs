@@ -13,7 +13,7 @@ namespace HotelManagement.Data.Profiles
         public RoomProfile()
         {
             CreateMap<RoomDTO, Room>();
-            CreateMap<NewRoomDTO, Room>();
+            CreateMap<RoomForCreationDTO, Room>();
             CreateMap<Room, RoomDTO>();
 
         }

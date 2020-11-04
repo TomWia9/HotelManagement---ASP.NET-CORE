@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation.Results;
+using HotelManagement.Data.DTO;
 using HotelManagement.DTO;
 using HotelManagement.Models;
 using HotelManagement.ResourceParameters;
@@ -31,7 +32,7 @@ namespace HotelManagement.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ClientDTO>> NewClient(NewClientDTO client)
+        public async Task<ActionResult<ClientDTO>> NewClient(ClientForCreationDTO client)
         {
             try
             {
@@ -121,30 +122,48 @@ namespace HotelManagement.Controllers
             return BadRequest();
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateClientData(ClientDTO client)
+        [HttpPut("{clientId}")]
+        public async Task<IActionResult> UpdateClient(int clientId, ClientForUpdateDTO client)
         {
             try
             {
-                if (client != null && await _clientsRepository.IsClientExistsAsync(client.Id))
+                if (!await _clientsRepository.IsClientExistsAsync(clientId))
                 {
-                    
-                    if (await _clientsRepository.UpdateClientDataAsync(client))
-                    {
-                        if (await _dbRepository.SaveChangesAsync())
-                        {
-                            return NoContent();
-                        }
-                    }
-                   
+                    return NotFound();
                 }
+
+                var clientFromRepo = await _clientsRepository.GetClientAsync(clientId);
+
+                if(clientFromRepo == null)
+                {
+                    var clientToAdd = _mapper.Map<Client>(client);
+                    clientToAdd.Id = clientId;
+                    _dbRepository.Add(clientToAdd);
+
+                    if (await _dbRepository.SaveChangesAsync())
+                    {
+                        var clientToReturn = _mapper.Map<ClientDTO>(clientToAdd);
+
+                        return CreatedAtRoute(nameof(GetClient), new { clientId }, clientToReturn);
+                    }
+                    
+                }
+
+                _mapper.Map(client, clientFromRepo);
+                _clientsRepository.UpdateClient(clientFromRepo);
+
+                if(await _dbRepository.SaveChangesAsync())
+                {
+                    return NoContent();
+                }
+
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
 
-            return NotFound();
+            return BadRequest();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace HotelManagement.Data.Profiles
         {
             CreateMap<BookingDTO, Booking>();
             CreateMap<Booking, BookingDTO>();
-            CreateMap<NewBookingDTO, Booking>()
+            CreateMap<BookingForCreationDTO, Booking>()
                 .ForMember(b => b.CheckInDate,
                 opts => opts.MapFrom(src => src.BookingDates.CheckInDate))
                 .ForMember(b => b.CheckOutDate,

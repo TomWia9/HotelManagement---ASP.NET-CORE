@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Validators
 {
-    public class RoomValidator : AbstractValidator<NewRoomDTO>
+    public class RoomValidator : AbstractValidator<RoomForCreationDTO>
     {
         public RoomValidator()
         {
