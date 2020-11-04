@@ -19,5 +19,6 @@ namespace HotelManagement.Services
         Task<bool> IsRoomExistsAsync(int roomId);
         Task<bool> EditBookingDatesAsync(int bookingId, DatesDTO newDates);
         bool AreDatesCorrect(DatesDTO newDates);
+        void UpdateBooking(Booking booking);
     }
 }

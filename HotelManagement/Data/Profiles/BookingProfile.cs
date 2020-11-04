@@ -19,6 +19,13 @@ namespace HotelManagement.Data.Profiles
                 opts => opts.MapFrom(src => src.BookingDates.CheckInDate))
                 .ForMember(b => b.CheckOutDate,
                 opts => opts.MapFrom(src => src.BookingDates.CheckOutDate));
+
+            CreateMap<BookingForUpdateDTO, Booking>()
+               .ForMember(b => b.CheckInDate,
+               opts => opts.MapFrom(src => src.BookingDates.CheckInDate))
+               .ForMember(b => b.CheckOutDate,
+               opts => opts.MapFrom(src => src.BookingDates.CheckOutDate));
+
         }
     }
 }

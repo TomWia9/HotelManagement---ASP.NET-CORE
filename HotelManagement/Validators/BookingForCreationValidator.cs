@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Validators
 {
-    public class BookingValidator : AbstractValidator<BookingForCreationDTO>
+    public class BookingForCreationValidator : AbstractValidator<BookingForCreationDTO>
     {
         private readonly IClientsRepository _clientsRepository;
         private readonly IRoomsRepository _roomsRepository;
         private readonly IBookingsRepository _bookingsRepository;
-        public BookingValidator(IClientsRepository clientsRepository, IRoomsRepository roomsRepository, IBookingsRepository bookingsRepository)
+        public BookingForCreationValidator(IClientsRepository clientsRepository, IRoomsRepository roomsRepository, IBookingsRepository bookingsRepository)
         {
             _clientsRepository = clientsRepository;
             _roomsRepository = roomsRepository;

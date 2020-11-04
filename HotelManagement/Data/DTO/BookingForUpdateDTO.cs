@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Data.DTO
 {
-    public class BookingForCreationDTO : BookingForManipulationDTO
+    public class BookingForUpdateDTO : BookingForManipulationDTO
     {
-       
     }
 }

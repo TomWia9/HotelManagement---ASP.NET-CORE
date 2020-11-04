@@ -10,6 +10,7 @@ using HotelManagement.Models;
 using HotelManagement.ResourceParameters;
 using HotelManagement.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
@@ -122,36 +123,38 @@ namespace HotelManagement.Controllers
             return NotFound();
         }
 
-        [HttpPatch("{bookingId}")]
-        public async Task<IActionResult> EditBookingDates(int bookingId, DatesDTO newDates)
+        [HttpPut("{bookingId}")]
+        public async Task<IActionResult> UpdateBooking(int bookingId, BookingForUpdateDTO booking)
         {
             try
             {
-                if (!await _bookingsRepository.IsBookingExistsAsync(bookingId))
+                var bookingFromRepo = await _bookingsRepository.GetBookingAsync(bookingId);
+
+                if (bookingFromRepo == null)
                 {
                     return NotFound();
                 }
 
-                if (!await _bookingsRepository.IsRoomVacancyAsync(await _bookingsRepository.GetBookingRoomId(bookingId), newDates, bookingId))
+                if (!await _bookingsRepository.IsRoomVacancyAsync(booking.RoomId, booking.BookingDates, bookingId))
                 {
                     return Conflict();
                 }
 
-                if (await _bookingsRepository.EditBookingDatesAsync(bookingId, newDates))
+                _mapper.Map(booking, bookingFromRepo);
+                _bookingsRepository.UpdateBooking(bookingFromRepo);
+
+                if (await _dbRepository.SaveChangesAsync())
                 {
-                    if (await _dbRepository.SaveChangesAsync())
-                    {
-                        return NoContent();
-                    }
+                    return NoContent();
                 }
+
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
 
-            return NotFound();
+            return BadRequest();
         }
-
     }
 }

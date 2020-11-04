@@ -106,5 +106,9 @@ namespace HotelManagement.Services
             return newDates.CheckInDate.Date > DateTime.Now && newDates.CheckOutDate.Date > newDates.CheckInDate.Date;
         }
 
+        public void UpdateBooking(Booking booking)
+        {
+            //no code for this implementation
+        }
     }
 }
