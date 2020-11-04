@@ -14,6 +14,6 @@ namespace HotelManagement.Services
         Task<IEnumerable<Room>> GetRoomsAsync();
         Task<IEnumerable<Room>> GetRoomsAsync(RoomsResourceParameters roomsResourceParameters);
         Task<bool> IsRoomExistsAsync(int roomId);
-        Task<bool> UpdateRoomDataAsync(RoomDTO room);
+        void UpdateRoom(Room room);
     }
 }

@@ -100,19 +100,11 @@ namespace HotelManagement.Services
             return await collection.ToListAsync();
         }
 
-        public async Task<bool> UpdateRoomDataAsync(RoomDTO room)
+        public void UpdateRoom(Room room)
         {
-            try
-            {
-                _context.Entry(await _context.Rooms.FirstOrDefaultAsync(r => r.Id == room.Id)).CurrentValues.SetValues(room);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            //no code in this implementation
         }
 
-      
+
     }
 }

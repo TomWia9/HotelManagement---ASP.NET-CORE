@@ -180,8 +180,6 @@ namespace HotelManagement.Controllers
             }
 
             return BadRequest();
-
-
         }
 
     }

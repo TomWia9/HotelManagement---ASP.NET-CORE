@@ -15,6 +15,8 @@ namespace HotelManagement.Data.Profiles
             CreateMap<RoomDTO, Room>();
             CreateMap<RoomForCreationDTO, Room>();
             CreateMap<Room, RoomDTO>();
+            CreateMap<RoomForUpdateDTO, Room>();
+            CreateMap<Room, RoomForUpdateDTO>();
 
         }
     }

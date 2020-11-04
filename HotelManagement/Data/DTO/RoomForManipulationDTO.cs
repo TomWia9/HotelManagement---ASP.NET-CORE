@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Data.DTO
 {
-    public class RoomForCreationDTO : RoomForManipulationDTO
+    public abstract class RoomForManipulationDTO
     {
-        
+        public RoomType Type { get; set; }
+        public bool Balcony { get; set; }
+        public string Description { get; set; }
     }
 }

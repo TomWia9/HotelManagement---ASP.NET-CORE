@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Validators
 {
-    public class NewClientValidator : AbstractValidator<ClientForCreationDTO>
+    public class ClientForCreationValidator : AbstractValidator<ClientForCreationDTO>
     {
-        public NewClientValidator()
+        public ClientForCreationValidator()
         {
             RuleFor(client => client.FirstName).Cascade(CascadeMode.Stop).NotEmpty().Length(2, 25).MatchName();
             RuleFor(client => client.Sex).NotNull().IsInEnum();

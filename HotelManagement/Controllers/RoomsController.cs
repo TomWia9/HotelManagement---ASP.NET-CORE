@@ -4,6 +4,7 @@ using HotelManagement.Models;
 using HotelManagement.ResourceParameters;
 using HotelManagement.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections;
@@ -114,22 +115,54 @@ namespace HotelManagement.Controllers
             return BadRequest();
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateRoom(RoomDTO room)
+        [HttpPut("{roomId}")]
+        public async Task<IActionResult> UpdateRoom(int roomId, RoomForUpdateDTO room)
         {
             try
             {
-                if (room != null && await _roomsRepository.IsRoomExistsAsync(room.Id))
+                var roomFromRepo = await _roomsRepository.GetRoomAsync(roomId);
+
+                if (roomFromRepo == null)
                 {
+                    return NotFound();
+                }
 
-                    if (await _roomsRepository.UpdateRoomDataAsync(room))
-                    {
-                        if (await _dbRepository.SaveChangesAsync())
-                        {
-                            return NoContent();
-                        }
-                    }
+                _mapper.Map(room, roomFromRepo);
+                _roomsRepository.UpdateRoom(roomFromRepo);
+                if (await _dbRepository.SaveChangesAsync())
+                {
+                    return NoContent();
+                }
 
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPatch("{roomId}")]
+        public async Task<IActionResult> PartiallyUpdateRoom(int roomId, JsonPatchDocument<RoomForUpdateDTO> patchDocument)
+        {
+            try
+            {
+                var roomFromRepo = await _roomsRepository.GetRoomAsync(roomId);
+
+                if (roomFromRepo == null)
+                {
+                    return NotFound();
+                }
+
+                var roomToPatch = _mapper.Map<RoomForUpdateDTO>(roomFromRepo);
+                patchDocument.ApplyTo(roomToPatch, ModelState);
+                _mapper.Map(roomToPatch, roomFromRepo);
+                _roomsRepository.UpdateRoom(roomFromRepo);
+
+                if (await _dbRepository.SaveChangesAsync())
+                {
+                    return NoContent();
                 }
             }
             catch (Exception)
@@ -138,6 +171,8 @@ namespace HotelManagement.Controllers
             }
 
             return BadRequest();
+
+
         }
     }
 }

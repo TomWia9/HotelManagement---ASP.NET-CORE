@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Validators
 {
-    public class RoomValidator : AbstractValidator<RoomForCreationDTO>
+    public class RoomForUpdateValidator : AbstractValidator<RoomForUpdateDTO>
     {
-        public RoomValidator()
+        public RoomForUpdateValidator()
         {
             RuleFor(room => room.Balcony).NotNull();
             RuleFor(room => room.Type).NotNull().IsInEnum();
