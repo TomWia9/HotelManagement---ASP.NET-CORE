@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.ResourceParameters
 {
-    public class ResourceParameters
+    public abstract class ResourceParameters
     {
         public string SearchQuery { get; set; }
     }
