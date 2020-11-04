@@ -112,7 +112,7 @@ namespace HotelManagement.Controllers
                 _dbRepository.Remove(bookingToRemove);
                 if (await _dbRepository.SaveChangesAsync())
                 {
-                   return Ok();
+                   return NoContent();
                 }
             }
             catch (Exception)
