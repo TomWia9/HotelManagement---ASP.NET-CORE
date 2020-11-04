@@ -11,6 +11,7 @@ using HotelManagement.ResourceParameters;
 using HotelManagement.Services;
 using HotelManagement.Validators;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -150,5 +151,38 @@ namespace HotelManagement.Controllers
 
             return BadRequest();
         }
+
+        [HttpPatch("{clientId}")]
+        public async Task<IActionResult> PartiallyUpdateClient(int clientId, JsonPatchDocument<ClientForUpdateDTO> patchDocument)
+        {
+            try
+            {
+                var clientFromRepo = await _clientsRepository.GetClientAsync(clientId);
+
+                if (clientFromRepo == null)
+                {
+                    return NotFound();
+                }
+
+                var clientToPatch = _mapper.Map<ClientForUpdateDTO>(clientFromRepo);
+                patchDocument.ApplyTo(clientToPatch, ModelState);
+                _mapper.Map(clientToPatch, clientFromRepo);
+                _clientsRepository.UpdateClient(clientFromRepo);
+
+                if (await _dbRepository.SaveChangesAsync())
+                {
+                    return NoContent();
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
+
+
+        }
+
     }
 }

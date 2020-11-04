@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace HotelManagement
 {
@@ -37,6 +38,10 @@ namespace HotelManagement
             services.AddControllers(setupAction =>
             {
                 //setupAction.ReturnHttpNotAcceptable = true;
+            }).AddNewtonsoftJson(setupAction =>
+            {
+                setupAction.SerializerSettings.ContractResolver =
+                   new CamelCasePropertyNamesContractResolver();
             })
              .AddXmlDataContractSerializerFormatters();
 

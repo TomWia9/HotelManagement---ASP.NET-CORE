@@ -20,6 +20,7 @@ namespace HotelManagement.Data.Profiles
             CreateMap<ClientDTO, Client>();
             CreateMap<ClientForCreationDTO, Client>();
             CreateMap<ClientForUpdateDTO, Client>();
+            CreateMap<Client, ClientForUpdateDTO>();
 
         }
     }
