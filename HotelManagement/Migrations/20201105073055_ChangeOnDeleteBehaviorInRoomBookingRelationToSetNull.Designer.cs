@@ -4,14 +4,16 @@ using HotelManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HotelManagement.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class HotelManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20201105073055_ChangeOnDeleteBehaviorInRoomBookingRelationToSetNull")]
+    partial class ChangeOnDeleteBehaviorInRoomBookingRelationToSetNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,7 +73,7 @@ namespace HotelManagement.Migrations
                         .HasColumnType("date")
                         .HasMaxLength(20);
 
-                    b.Property<int?>("ClientId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<int?>("RoomId")
@@ -162,7 +164,8 @@ namespace HotelManagement.Migrations
                     b.HasOne("HotelManagement.Models.Client", "Client")
                         .WithMany("Bookings")
                         .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HotelManagement.Models.Room", "Room")
                         .WithMany("Bookings")

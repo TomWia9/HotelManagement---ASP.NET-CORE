@@ -19,6 +19,10 @@ namespace HotelManagement.Data.EntityConfiguration
                 .HasForeignKey<Address>(a => a.ClientId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(c => c.Bookings)
+                .WithOne(b => b.Client)
+                .OnDelete(DeleteBehavior.SetNull);
+
             builder.Property(c => c.FirstName)
               .IsRequired()
               .HasMaxLength(25);

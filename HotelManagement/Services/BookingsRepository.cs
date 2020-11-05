@@ -17,11 +17,6 @@ namespace HotelManagement.Services
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
-        public async Task<int> GetBookingRoomId(int bookingId)
-        {
-            var booking = await _context.Bookings.FindAsync(bookingId);
-            return booking.RoomId;
-        }
 
         public async Task<Booking> GetBookingAsync(int id)
         {

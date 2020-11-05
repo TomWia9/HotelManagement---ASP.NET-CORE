@@ -14,6 +14,10 @@ namespace HotelManagement.Data.EntityConfiguration
         {
             builder.HasKey(r => r.Id);
 
+            builder.HasMany(r => r.Bookings)
+                .WithOne(b => b.Room)
+                .OnDelete(DeleteBehavior.SetNull);
+
             builder.Property(r => r.Type)
               .IsRequired();
 
