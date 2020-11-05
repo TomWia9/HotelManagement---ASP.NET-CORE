@@ -11,6 +11,7 @@ namespace HotelManagement.Models
         public RoomType Type { get; set; }
         public bool Balcony { get; set; }
         public string Description { get; set; }
+        public decimal PriceForDay { get; set; }
         public List<Booking> Bookings { get; set; }
 
         //public string ImagePath { get; set; }

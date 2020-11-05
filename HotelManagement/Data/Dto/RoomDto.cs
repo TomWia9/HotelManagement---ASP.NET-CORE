@@ -12,5 +12,7 @@ namespace HotelManagement.Data.DTO
         public RoomType Type { get; set; }
         public bool Balcony { get; set; }
         public string Description { get; set; }
+        public decimal PriceForDay { get; set; }
+
     }
 }

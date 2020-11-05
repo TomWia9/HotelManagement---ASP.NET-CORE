@@ -27,6 +27,10 @@ namespace HotelManagement.Data.EntityConfiguration
             builder.Property(r => r.Description)
              .IsRequired()
              .HasMaxLength(250);
+
+            builder.Property(r => r.PriceForDay)
+                .IsRequired()
+                .HasColumnType("decimal(18,2)");
         }
     }
 }
