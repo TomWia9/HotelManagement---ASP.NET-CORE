@@ -41,6 +41,8 @@
     <Compile Remove="Migrations\20201105122431_AddTotalPriceColumnToBookingTable.Designer.cs" />
     <Compile Remove="Migrations\20201105122510_AddTotalPriceColumnToBookingTable.cs" />
     <Compile Remove="Migrations\20201105122510_AddTotalPriceColumnToBookingTable.Designer.cs" />
+    <Compile Remove="Migrations\20201105145013_test.cs" />
+    <Compile Remove="Migrations\20201105145013_test.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

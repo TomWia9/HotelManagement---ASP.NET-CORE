@@ -11,11 +11,11 @@ namespace HotelManagement.Validators
     {
         public RoomForUpdateValidator()
         {
-            RuleFor(room => room.Balcony).NotNull();
+            RuleFor(room => room.Balcony).NotEmpty();
             RuleFor(room => room.Type).NotNull().IsInEnum();
             RuleFor(room => room.Description).NotEmpty().Length(10, 250);
-            RuleFor(room => room.PriceForDay).NotNull();
-            RuleFor(room => room.MaxNumberOfPerson).NotNull();
+            RuleFor(room => room.PriceForDay).NotEmpty().GreaterThan(0);
+            RuleFor(room => room.MaxNumberOfPerson).NotEmpty().GreaterThan(0);
         }
     }
 }

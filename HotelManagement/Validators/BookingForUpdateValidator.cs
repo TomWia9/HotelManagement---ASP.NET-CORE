@@ -20,12 +20,14 @@ namespace HotelManagement.Validators
             _bookingsRepository = bookingsRepository;
 
             RuleFor(booking => booking.ClientId)
-                .NotNull()
+                .Cascade(CascadeMode.Stop)
+                .NotEmpty()
                 .MustAsync(async (clientId, cancellation) => { return await _clientsRepository.IsClientExistsAsync(clientId); })
                 .WithMessage("Client with this id doesn't exists.");
 
             RuleFor(booking => booking.RoomId)
-               .NotNull()
+               .Cascade(CascadeMode.Stop)
+               .NotEmpty()
                .MustAsync(async (roomId, cancellation) => { return await _roomsRepository.IsRoomExistsAsync(roomId); })
                .WithMessage("Room with this id doesn't exists.");
 
@@ -35,9 +37,9 @@ namespace HotelManagement.Validators
                .WithMessage("Dates are incorrect");
 
             RuleFor(booking => booking.NumberOfPerson)
-                .NotNull()
-                .LessThanOrEqualTo(booking => GetMaxNumberOfPersonInRoom(booking.RoomId));
-           
+                .NotEmpty()
+                .LessThanOrEqualTo(booking => GetMaxNumberOfPersonInRoom(booking.RoomId))
+                .GreaterThan(0);
 
         }
 
@@ -46,14 +48,13 @@ namespace HotelManagement.Validators
             return _bookingsRepository.AreDatesCorrect(dates);
         }
 
-        protected int Xd(int xd)
-        {
-            return 2;
-        }
-
         protected int GetMaxNumberOfPersonInRoom(int roomId)
         {
             var room = _roomsRepository.GetRoomAsync(roomId).Result;
+            if (room == null)
+            {
+                return 0;
+            }
             return room.MaxNumberOfPerson;
         }
     }
