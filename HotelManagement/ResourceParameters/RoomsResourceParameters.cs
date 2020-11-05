@@ -11,6 +11,8 @@ namespace HotelManagement.ResourceParameters
     {
         public bool? Balcony { get; set; }
         public RoomType? RoomType { get; set; }
+        public decimal? PriceLessThan { get; set; }
+        public int? NumberOfPerson { get; set; }
         public DatesDTO VacancyInDays { get; set; }
     }
 }

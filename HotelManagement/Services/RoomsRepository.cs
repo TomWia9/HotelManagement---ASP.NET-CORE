@@ -60,6 +60,8 @@ namespace HotelManagement.Services
             if (roomsResourceParameters.Balcony == null
                  && roomsResourceParameters.RoomType == null
                  && roomsResourceParameters.VacancyInDays == null
+                 && roomsResourceParameters.PriceLessThan == null
+                 && roomsResourceParameters.NumberOfPerson == null
                  && string.IsNullOrWhiteSpace(roomsResourceParameters.SearchQuery))
             {
                 return await GetRoomsAsync();
@@ -77,6 +79,16 @@ namespace HotelManagement.Services
             {
                 var roomType = roomsResourceParameters.RoomType;
                 collection = collection.Where(r => r.Type == roomType);
+            }
+
+            if (!(roomsResourceParameters.PriceLessThan == null))
+            {
+                collection = collection.Where(r => r.PriceForDay < roomsResourceParameters.PriceLessThan);
+            }
+
+            if (!(roomsResourceParameters.NumberOfPerson == null))
+            {
+                collection = collection.Where(r => r.MaxNumberOfPerson == roomsResourceParameters.NumberOfPerson);
             }
 
             if (!(roomsResourceParameters.VacancyInDays == null))
