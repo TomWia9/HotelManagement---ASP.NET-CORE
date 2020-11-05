@@ -105,5 +105,19 @@ namespace HotelManagement.Services
         {
             //no code for this implementation
         }
+
+        public async Task<decimal> CalculateTotalPrice(int roomId, int numberOfPerson, DatesDTO dates)
+        {
+            var room = await _context.Rooms.FindAsync(roomId);
+
+            if (room == null)
+                return 0;
+
+            //full 24h for example. 12.11 - 14.11 gives 48h (booking from 11 o'clock 12.11 to 11 o'clock 14.11)
+            int days = (dates.CheckOutDate.Date - dates.CheckInDate.Date).Days;
+
+            return (decimal)(room.PriceForDay * numberOfPerson * days);
+
+        }
     }
 }

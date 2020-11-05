@@ -44,7 +44,7 @@ namespace HotelManagement.Controllers
                 }
 
                 Booking newBooking = _mapper.Map<Booking>(booking);
-
+                newBooking.TotalPrice = await _bookingsRepository.CalculateTotalPrice(booking.RoomId, (int)booking.NumberOfPerson, booking.BookingDates);
                 _dbRepository.Add(newBooking);
               
                 if (await _dbRepository.SaveChangesAsync())
@@ -141,6 +141,7 @@ namespace HotelManagement.Controllers
                 }
 
                 _mapper.Map(booking, bookingFromRepo);
+                bookingFromRepo.TotalPrice = await _bookingsRepository.CalculateTotalPrice(booking.RoomId, (int)booking.NumberOfPerson, booking.BookingDates);
                 _bookingsRepository.UpdateBooking(bookingFromRepo);
 
                 if (await _dbRepository.SaveChangesAsync())

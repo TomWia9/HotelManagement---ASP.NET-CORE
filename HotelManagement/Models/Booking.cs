@@ -11,6 +11,7 @@ namespace HotelManagement.Models
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
         public int NumberOfPerson { get; set; }
+        public decimal TotalPrice { get; set; }
         public int? ClientId { get; set; }
         public Client Client { get; set; }
         public int? RoomId { get; set; }

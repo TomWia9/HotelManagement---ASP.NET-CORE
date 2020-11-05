@@ -17,6 +17,7 @@ namespace HotelManagement.Services
         Task<bool> IsRoomVacancyAsync(int roomId, DatesDTO dates, int? bookingId = null);
         Task<bool> IsRoomExistsAsync(int roomId);
         Task<bool> EditBookingDatesAsync(int bookingId, DatesDTO newDates);
+        Task<decimal> CalculateTotalPrice(int roomId, int numberOfPerson, DatesDTO dates);
         bool AreDatesCorrect(DatesDTO newDates);
         void UpdateBooking(Booking booking);
     }

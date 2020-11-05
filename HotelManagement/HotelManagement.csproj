@@ -37,6 +37,10 @@
     <Compile Remove="Migrations\20201029121904_ChangeOnDeleteToSetNullInRoomBookingRelation.Designer.cs" />
     <Compile Remove="Migrations\20201029123001_test.cs" />
     <Compile Remove="Migrations\20201029123001_test.Designer.cs" />
+    <Compile Remove="Migrations\20201105122431_AddTotalPriceColumnToBookingTable.cs" />
+    <Compile Remove="Migrations\20201105122431_AddTotalPriceColumnToBookingTable.Designer.cs" />
+    <Compile Remove="Migrations\20201105122510_AddTotalPriceColumnToBookingTable.cs" />
+    <Compile Remove="Migrations\20201105122510_AddTotalPriceColumnToBookingTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

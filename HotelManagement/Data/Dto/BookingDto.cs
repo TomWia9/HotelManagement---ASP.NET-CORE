@@ -14,5 +14,6 @@ namespace HotelManagement.Data.DTO
         public int NumberOfPerson { get; set; }
         public int? ClientId { get; set; }
         public int? RoomId { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 }
