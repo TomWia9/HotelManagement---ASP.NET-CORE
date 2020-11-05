@@ -8,7 +8,6 @@ namespace HotelManagement.Models
     public enum RoomType
     {
         Single,
-        TwoPerson,
         TwoPersonWithOneBigBed,
         TwoPersonWithTwoBeds,
         ThreePerson

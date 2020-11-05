@@ -15,6 +15,7 @@ namespace HotelManagement.Validators
             RuleFor(room => room.Type).NotNull().IsInEnum();
             RuleFor(room => room.Description).NotEmpty().Length(10, 250);
             RuleFor(room => room.PriceForDay).NotNull();
+            RuleFor(room => room.MaxNumberOfPerson).NotNull();
         }
     }
 }

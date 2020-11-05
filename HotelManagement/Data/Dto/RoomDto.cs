@@ -13,6 +13,8 @@ namespace HotelManagement.Data.DTO
         public bool Balcony { get; set; }
         public string Description { get; set; }
         public decimal PriceForDay { get; set; }
+        public int MaxNumberOfPerson { get; set; }
+
 
     }
 }

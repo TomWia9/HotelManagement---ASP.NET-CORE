@@ -34,11 +34,21 @@ namespace HotelManagement.Validators
                .Must(BeAValidDates)
                .WithMessage("Dates are incorrect");
 
+            RuleFor(booking => booking.NumberOfPerson)
+                .NotNull()
+                .LessThanOrEqualTo(booking => GetMaxNumberOfPersonInRoom(booking.RoomId));
+
         }
 
         protected bool BeAValidDates(DatesDTO dates)
         {
             return _bookingsRepository.AreDatesCorrect(dates);
+        }
+
+        protected int GetMaxNumberOfPersonInRoom(int roomId)
+        {
+            var room = _roomsRepository.GetRoomAsync(roomId).Result;
+            return room.MaxNumberOfPerson;
         }
     }
 }

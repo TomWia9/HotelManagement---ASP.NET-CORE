@@ -4,14 +4,16 @@ using HotelManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HotelManagement.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class HotelManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20201105101436_AddNumberOfPersonColumnInBookingTable")]
+    partial class AddNumberOfPersonColumnInBookingTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,9 +144,6 @@ namespace HotelManagement.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(250)")
                         .HasMaxLength(250);
-
-                    b.Property<int>("MaxNumberOfPerson")
-                        .HasColumnType("int");
 
                     b.Property<decimal>("PriceForDay")
                         .HasColumnType("decimal(18,2)");
