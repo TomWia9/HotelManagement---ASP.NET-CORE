@@ -19,7 +19,6 @@ namespace HotelManagement.Data.EntityConfiguration
               .HasMaxLength(50);
 
             builder.Property(a => a.Street)
-              .IsRequired()
               .HasMaxLength(50);
 
             builder.Property(a => a.HouseNumber)

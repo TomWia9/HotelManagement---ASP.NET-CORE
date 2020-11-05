@@ -35,7 +35,13 @@ namespace HotelManagement.Validators
 
         public static IRuleBuilderInitial<T, string> MatchName<T>(this IRuleBuilder<T, string> ruleBuilder)
         {
+            
             return ruleBuilder.Custom((name, context) => {
+
+                if(name == null)
+                {
+                    return;
+                }
 
                 name = name.Replace(" ", "");
                 name = name.Replace("-", "");
