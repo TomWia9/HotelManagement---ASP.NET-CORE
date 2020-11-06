@@ -7,16 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Validators
 {
-    public class RoomForCreation : AbstractValidator<RoomForCreationDTO>
+    public class RoomForCreation : RoomValidator<RoomForCreationDTO>
     {
-        public RoomForCreation()
-        {
-            RuleFor(room => room.Balcony).NotEmpty();
-            RuleFor(room => room.Type).NotNull().IsInEnum();
-            RuleFor(room => room.Description).NotEmpty().Length(10, 250);
-            RuleFor(room => room.PriceForDay).NotEmpty().GreaterThan(0);
-            RuleFor(room => room.MaxNumberOfPerson).NotEmpty().GreaterThan(0);
-
-        }
     }
 }
