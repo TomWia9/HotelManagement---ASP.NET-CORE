@@ -16,6 +16,7 @@ namespace HotelManagement.Models
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Admin> Administrators { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,6 +24,7 @@ namespace HotelManagement.Models
             modelBuilder.ApplyConfiguration(new AddressConfiguration());           
             modelBuilder.ApplyConfiguration(new BookingConfiguration());           
             modelBuilder.ApplyConfiguration(new RoomConfiguration());           
+            modelBuilder.ApplyConfiguration(new AdminConfiguration());           
         }
     }
 }
