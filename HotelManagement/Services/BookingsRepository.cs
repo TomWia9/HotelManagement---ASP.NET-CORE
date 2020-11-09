@@ -34,7 +34,9 @@ namespace HotelManagement.Services
                 throw new ArgumentNullException(nameof(bookingsResourceParameters));
             }
 
-            if (bookingsResourceParameters.RoomId == null && bookingsResourceParameters.CurrentBookings == null)
+            if (bookingsResourceParameters.RoomId == null
+                && bookingsResourceParameters.ClientId == null
+                && bookingsResourceParameters.CurrentBookings == null)
             {
                 return await GetBookingsAsync();
             }
@@ -44,6 +46,11 @@ namespace HotelManagement.Services
             if (!(bookingsResourceParameters.RoomId == null))
             {
                 collection = collection.Where(b => b.RoomId == bookingsResourceParameters.RoomId);
+            }
+
+            if (!(bookingsResourceParameters.ClientId == null))
+            {
+                collection = collection.Where(b => b.ClientId == bookingsResourceParameters.ClientId);
             }
 
             if (!(bookingsResourceParameters.CurrentBookings == null || bookingsResourceParameters.CurrentBookings == false))
