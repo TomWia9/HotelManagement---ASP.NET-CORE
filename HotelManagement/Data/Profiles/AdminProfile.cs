@@ -16,6 +16,10 @@ namespace HotelManagement.Data.Profiles
                 .ForMember(a => a.Password,
                 opt => opt.Ignore());
 
+            CreateMap<AdminForUpdateDTO, Admin>()
+                .ForMember(a => a.Password,
+                opt => opt.Ignore());
+
             CreateMap<Admin, AdminDTO>();
         }
     }

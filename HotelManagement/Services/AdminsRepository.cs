@@ -56,5 +56,10 @@ namespace HotelManagement.Services
         {
              return !await _context.Administrators.Where(a => a.Email == email).AnyAsync();
         }
+
+        public void UpdateAdmin(Admin admin)
+        {
+            //no code in this implementation
+        }
     }
 }

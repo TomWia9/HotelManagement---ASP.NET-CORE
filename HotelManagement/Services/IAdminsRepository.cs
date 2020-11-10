@@ -13,5 +13,6 @@ namespace HotelManagement.Services
         Task<IEnumerable<Admin>> GetAdminsAsync();
         Task<IEnumerable<Admin>> GetAdminsAsync(AdminsResourceParameters adminsResourceParameters);
         Task<bool> IsEmailFree(string email);
+        void UpdateAdmin(Admin admin);
     }
 }

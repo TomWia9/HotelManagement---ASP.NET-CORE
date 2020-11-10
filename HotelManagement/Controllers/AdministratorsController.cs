@@ -126,6 +126,41 @@ namespace HotelManagement.Controllers
             return BadRequest();
         }
 
+        [HttpPut("{adminId}")]
+        public async Task<IActionResult> UpdateAdmin(int adminId, AdminForUpdateDTO admin)
+        {
+            try
+            {
+                var adminFromRepo = await _adminsRepository.GetAdminAsync(adminId);
+
+                if(! await _adminsRepository.IsEmailFree(admin.Email) && admin.Email != adminFromRepo.Email)
+                {
+                    return Conflict();
+                }
+
+                if (adminFromRepo == null)
+                {
+                    return NotFound();
+                }
+
+                _mapper.Map(admin, adminFromRepo);
+                adminFromRepo.Password = Hash.GetHash(admin.Password);
+                _adminsRepository.UpdateAdmin(adminFromRepo);
+
+                if (await _dbRepository.SaveChangesAsync())
+                {
+                    return NoContent();
+                }
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
+        }
+
 
     }
 }

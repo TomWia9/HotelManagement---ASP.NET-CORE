@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Data.DTO
 {
-    public class AdminForCreationDTO : AdminForManipulationDTO
+    public class AdminForUpdateDTO : AdminForManipulationDTO
     {
-       
+        
     }
 }
