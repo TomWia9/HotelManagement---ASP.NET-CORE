@@ -8,6 +8,7 @@ using HotelManagement.Data.DTO;
 using HotelManagement.Models;
 using HotelManagement.Services;
 using HotelManagement.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +30,7 @@ namespace HotelManagement.Controllers
         }
 
 
+        [Authorize]
         [HttpPost("Register")]
         public async Task<IActionResult> Register(AdminForCreationDTO admin)
         {
