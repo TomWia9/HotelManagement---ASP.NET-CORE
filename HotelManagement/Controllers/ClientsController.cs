@@ -10,6 +10,7 @@ using HotelManagement.Models;
 using HotelManagement.ResourceParameters;
 using HotelManagement.Services;
 using HotelManagement.Validators;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelManagement.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ClientsController : ControllerBase

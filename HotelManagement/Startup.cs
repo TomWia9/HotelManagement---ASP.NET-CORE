@@ -2,13 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using HotelManagement.Filters;
+using HotelManagement.Helpers;
 using HotelManagement.Models;
 using HotelManagement.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +19,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
@@ -35,10 +39,8 @@ namespace HotelManagement
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers(setupAction =>
-            {
-                //setupAction.ReturnHttpNotAcceptable = true;
-            }).AddNewtonsoftJson(setupAction =>
+            services.AddControllers()
+                .AddNewtonsoftJson(setupAction =>
             {
                 setupAction.SerializerSettings.ContractResolver =
                    new CamelCasePropertyNamesContractResolver();
@@ -55,10 +57,13 @@ namespace HotelManagement
                 options.ValidatorOptions.LanguageManager.Enabled = false;
             });
 
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
             services.AddScoped<IClientsRepository, ClientsRepository>();
             services.AddScoped<IBookingsRepository, BookingsRepository>();
             services.AddScoped<IRoomsRepository, RoomsRepository>();
             services.AddScoped<IDbRepository, DbRepository>();
+            services.AddScoped<IIdentityRepository, IdentityRepository>();
 
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("HotelManagementConnection")));
@@ -66,6 +71,26 @@ namespace HotelManagement
             services.AddSwaggerGenNewtonsoftSupport();
             services.AddSwaggerGen();
             services.AddAutoMapper(typeof(Startup));
+
+            var key = Encoding.UTF8.GetBytes(Configuration.GetValue<string>("AppSettings:Secret"));
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+           .AddJwtBearer(x =>
+           {
+               x.RequireHttpsMetadata = false;
+               x.SaveToken = true;
+               x.TokenValidationParameters = new TokenValidationParameters
+               {
+                   ValidateIssuerSigningKey = true,
+                   IssuerSigningKey = new SymmetricSecurityKey(key),
+                   ValidateIssuer = false,
+                   ValidateAudience = false
+               };
+           });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,7 +109,12 @@ namespace HotelManagement
                 c.RoutePrefix = string.Empty;
             });
 
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
