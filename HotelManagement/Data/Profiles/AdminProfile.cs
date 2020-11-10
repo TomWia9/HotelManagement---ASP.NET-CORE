@@ -15,6 +15,8 @@ namespace HotelManagement.Data.Profiles
             CreateMap<AdminForCreationDTO, Admin>()
                 .ForMember(a => a.Password,
                 opt => opt.Ignore());
+
+            CreateMap<Admin, AdminDTO>();
         }
     }
 }
