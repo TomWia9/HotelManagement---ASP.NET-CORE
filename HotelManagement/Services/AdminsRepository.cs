@@ -54,7 +54,7 @@ namespace HotelManagement.Services
 
         public async Task<bool> IsEmailFree(string email)
         {
-             return await _context.Administrators.Where(a => a.Email == email).AnyAsync();
+             return !await _context.Administrators.Where(a => a.Email == email).AnyAsync();
         }
     }
 }

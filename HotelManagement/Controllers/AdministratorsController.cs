@@ -36,6 +36,11 @@ namespace HotelManagement.Controllers
         {
             try
             {
+                if(!await _adminsRepository.IsEmailFree(admin.Email))
+                {
+                    return Conflict();
+                }
+
                 var newAdmin = _mapper.Map<Admin>(admin);
                 newAdmin.Password = Hash.GetHash(admin.Password);
 
@@ -43,7 +48,6 @@ namespace HotelManagement.Controllers
 
                 if (await _dbRepository.SaveChangesAsync())
                 {
-                    //return Ok(token);
                     return Ok();
                 }
 
