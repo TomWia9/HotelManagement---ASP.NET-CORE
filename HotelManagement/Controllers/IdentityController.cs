@@ -18,43 +18,11 @@ namespace HotelManagement.Controllers
     [ApiController]
     public class IdentityController : ControllerBase
     {
-        private readonly IDbRepository _dbRepository;
         private readonly IIdentityRepository _identityRepository;
-        private readonly IMapper _mapper;
 
-        public IdentityController(IDbRepository dbRepository, IMapper mapper, IIdentityRepository identityRepository)
+        public IdentityController(IIdentityRepository identityRepository)
         {
-            _dbRepository = dbRepository;
-            _mapper = mapper;
             _identityRepository = identityRepository;
-        }
-
-
-        [Authorize]
-        [HttpPost("Register")]
-        public async Task<IActionResult> Register(AdminForCreationDTO admin)
-        {
-            try
-            {
-                var newAdmin = _mapper.Map<Admin>(admin);
-                newAdmin.Password = Hash.GetHash(admin.Password);
-
-                _dbRepository.Add(newAdmin);
-
-                if (await _dbRepository.SaveChangesAsync())
-                {
-                    //return Ok(token);
-                    return Ok();
-                }
-
-
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
-            }
-
-            return BadRequest();
         }
 
         [HttpPost("Authenticate")]
@@ -66,7 +34,7 @@ namespace HotelManagement.Controllers
 
                 if(response == null)
                 {
-                    return BadRequest(new { message = "Username or password is incorrect" });
+                    return BadRequest(new { message = "Email or password is incorrect" });
 
                 }
 

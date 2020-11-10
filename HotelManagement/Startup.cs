@@ -64,6 +64,7 @@ namespace HotelManagement
             services.AddScoped<IRoomsRepository, RoomsRepository>();
             services.AddScoped<IDbRepository, DbRepository>();
             services.AddScoped<IIdentityRepository, IdentityRepository>();
+            services.AddScoped<IAdminsRepository, AdminsRepository>();
 
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("HotelManagementConnection")));
