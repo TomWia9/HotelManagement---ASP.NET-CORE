@@ -34,6 +34,11 @@ namespace HotelManagement.Controllers
             _dbRepository = dbRepository;
         }
 
+        /// <summary>
+        /// Create a new client
+        /// </summary>
+        /// <param name="client">The client to create</param>
+        /// <returns>An ActionResult of type ClientDTO</returns>
         [HttpPost]
         public async Task<ActionResult<ClientDTO>> NewClient(ClientForCreationDTO client)
         {
@@ -61,6 +66,11 @@ namespace HotelManagement.Controllers
 
         }
 
+        /// <summary>
+        /// Get a client by his/her id
+        /// </summary>
+        /// <param name="clientId">The id of the client you want to get</param>
+        /// <returns>An ActionResult of type ClientDTO</returns>
         [HttpGet("{clientId}")]
         public async Task<ActionResult<ClientDTO>> GetClient(int clientId)
         {
@@ -80,6 +90,11 @@ namespace HotelManagement.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Get a list of clients
+        /// </summary>
+        /// <param name="clientsResourceParameters">Query parameters to apply</param>
+        /// <returns>An ActionResult of type IEnumerable</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable>> GetClients([FromQuery] ClientsResourceParameters clientsResourceParameters)
         {
@@ -99,6 +114,11 @@ namespace HotelManagement.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Delete the client with given id
+        /// </summary>
+        /// <param name="clientId">The id of the client you want to delete</param>
+        /// <returns>An IActionResult</returns>
         [HttpDelete("{clientId}")]
         public async Task<IActionResult> RemoveClient(int clientId)
         {
@@ -125,6 +145,12 @@ namespace HotelManagement.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// Update the client
+        /// </summary>
+        /// <param name="clientId">The id of the client to update</param>
+        /// <param name="client">The client with updated values</param>
+        /// <returns>An IActionResult</returns>
         [HttpPut("{clientId}")]
         public async Task<IActionResult> UpdateClient(int clientId, ClientForUpdateDTO client)
         {
@@ -154,6 +180,23 @@ namespace HotelManagement.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// Partially update a client
+        /// </summary>
+        /// <param name="clientId">The id of the client you want to get</param>
+        /// <param name="patchDocument">The set of operations to apply to the client</param>
+        /// <returns>An IActionResult</returns>
+        /// <remarks>
+        /// Sample request (this request updates the client's first name) \
+        /// PATCH /clients/id \
+        /// [ \
+        ///     { \
+        ///         "op": "replace", \
+        ///         "patch": "/firstname", \
+        ///         "value": "new first name" \
+        ///     } \
+        /// ] 
+        /// </remarks>
         [HttpPatch("{clientId}")]
         public async Task<IActionResult> PartiallyUpdateClient(int clientId, JsonPatchDocument<ClientForUpdateDTO> patchDocument)
         {

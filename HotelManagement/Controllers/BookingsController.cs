@@ -35,6 +35,11 @@ namespace HotelManagement.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Create a new booking
+        /// </summary>
+        /// <param name="booking">The booking to create</param>
+        /// <returns>An ActionResult of type BookingDTO</returns>
         [HttpPost]
         public async Task<ActionResult<BookingDTO>> NewBooking(BookingForCreationDTO booking)
         {
@@ -63,6 +68,11 @@ namespace HotelManagement.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// Get a booking by id
+        /// </summary>
+        /// <param name="bookingId">The id of the booking you want to get</param>
+        /// <returns>An ActionResult of type BookingDTO</returns>
         [HttpGet("{bookingId}")]
         public async Task<ActionResult<BookingDTO>> GetBooking(int bookingId)
         {
@@ -82,8 +92,13 @@ namespace HotelManagement.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Get a list of bookings
+        /// </summary>
+        /// <param name="bookingsResourceParameters">Query paramaters to apply</param>
+        /// <returns>An ActionResult of type IEnumerable of BookingDTO</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable>> GetBookings([FromQuery] BookingsResourceParameters bookingsResourceParameters)
+        public async Task<ActionResult<IEnumerable<BookingDTO>>> GetBookings([FromQuery] BookingsResourceParameters bookingsResourceParameters)
         {
             try
             {
@@ -101,6 +116,11 @@ namespace HotelManagement.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Delete the booking with given id
+        /// </summary>
+        /// <param name="bookingId">The id of the booking you want to delete</param>
+        /// <returns>An IActionResult</returns>
         [HttpDelete("{bookingId}")]
         public async Task<IActionResult> CancelBooking(int bookingId)
         {
@@ -125,6 +145,12 @@ namespace HotelManagement.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Update the booking
+        /// </summary>
+        /// <param name="bookingId">The id of the booking to update</param>
+        /// <param name="booking">The booking with updated values</param>
+        /// <returns>An IActionResult</returns>
         [HttpPut("{bookingId}")]
         public async Task<IActionResult> UpdateBooking(int bookingId, BookingForUpdateDTO booking)
         {

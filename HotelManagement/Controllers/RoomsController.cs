@@ -31,6 +31,11 @@ namespace HotelManagement.Controllers
             _dbRepository = dbRepository;
         }
 
+        /// <summary>
+        /// Create a new room
+        /// </summary>
+        /// <param name="room">The room to create</param>
+        /// <returns>An ActionResult of type RoomDTO</returns>
         [HttpPost]
         public async Task<ActionResult<RoomDTO>> NewRoom(RoomForCreationDTO room)
         {
@@ -55,6 +60,11 @@ namespace HotelManagement.Controllers
 
         }
 
+        /// <summary>
+        /// Get a room by id
+        /// </summary>
+        /// <param name="roomId">The id of the room you want to get</param>
+        /// <returns>An ActionResult of type RoomDTO</returns>
         [HttpGet("{roomId}")]
         public async Task<ActionResult<RoomDTO>> GetRoom(int roomId)
         {
@@ -74,8 +84,13 @@ namespace HotelManagement.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Get a list of rooms
+        /// </summary>
+        /// <param name="roomsResourceParameters">Query parametersto apply</param>
+        /// <returns>An ActionResult of type IEnumerable of RoomDTO</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable>> GetRooms([FromQuery] RoomsResourceParameters roomsResourceParameters)
+        public async Task<ActionResult<IEnumerable<RoomDTO>>> GetRooms([FromQuery] RoomsResourceParameters roomsResourceParameters)
         {
             try
             {
@@ -93,6 +108,11 @@ namespace HotelManagement.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Delete the room with given id
+        /// </summary>
+        /// <param name="roomId">The id of the room you want to remove</param>
+        /// <returns>An IActionResult</returns>
         [HttpDelete("{roomId}")]
         public async Task<IActionResult> RemoveRoom(int roomId)
         {
@@ -117,6 +137,12 @@ namespace HotelManagement.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// Update the room
+        /// </summary>
+        /// <param name="roomId">The id of the room to update</param>
+        /// <param name="room">The room with updated values</param>
+        /// <returns>An IActionResult</returns>
         [HttpPut("{roomId}")]
         public async Task<IActionResult> UpdateRoom(int roomId, RoomForUpdateDTO room)
         {
@@ -145,6 +171,23 @@ namespace HotelManagement.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// Partially update a room
+        /// </summary>
+        /// <param name="roomId">The id of the room you want to get</param>
+        /// <param name="patchDocument">The set of operations to apply to the room</param>
+        /// <returns>An IActionResult</returns>
+        /// <remarks>
+        /// Sample request (this request updates the rooms's description) \
+        /// PATCH /clients/id \
+        /// [ \
+        ///     { \
+        ///         "op": "replace", \
+        ///         "patch": "/description", \
+        ///         "value": "new description" \
+        ///     } \
+        /// ] 
+        /// </remarks>
         [HttpPatch("{roomId}")]
         public async Task<IActionResult> PartiallyUpdateRoom(int roomId, JsonPatchDocument<RoomForUpdateDTO> patchDocument)
         {
@@ -173,7 +216,6 @@ namespace HotelManagement.Controllers
             }
 
             return BadRequest();
-
 
         }
     }

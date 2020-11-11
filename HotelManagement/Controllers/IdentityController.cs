@@ -25,6 +25,11 @@ namespace HotelManagement.Controllers
             _identityRepository = identityRepository;
         }
 
+        /// <summary>
+        /// Authenticate the admin
+        /// </summary>
+        /// <param name="authenticateRequest">An email and password of administrator</param>
+        /// <returns>An ActionResult</returns>
         [HttpPost("Authenticate")]
         public async Task<ActionResult> Authenticate(AuthenticateRequest authenticateRequest)
         {

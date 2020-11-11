@@ -1,0 +1,547 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HotelManagement</name>
+    </assembly>
+    <members>
+        <member name="M:HotelManagement.Controllers.AdministratorsController.Register(HotelManagement.Data.DTO.AdminForCreationDTO)">
+            <summary>
+            Create a new administrator
+            </summary>
+            <param name="admin">The administrator to create</param>
+            <returns>An ActionResult</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.AdministratorsController.GetAdmin(System.Int32)">
+            <summary>
+            Get an administrator by his/her id
+            </summary>
+            <param name="adminId">The id of the administrator you want to get</param>
+            <returns>An ActionResult of type AdminDTO></returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.AdministratorsController.GetAdmins(HotelManagement.ResourceParameters.AdminsResourceParameters)">
+            <summary>
+            Get a list of administrators
+            </summary>
+            <param name="adminsResourceParameters">Query parameters to apply</param>
+            <returns>An ActionResult of type IEnumerable of AdminDTO</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.AdministratorsController.RemoveAdmin(System.Int32)">
+            <summary>
+            Delete the administrator with given id
+            </summary>
+            <param name="adminId">The id of the administrator you want to delete</param>
+            <returns>An IActionResult</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.AdministratorsController.UpdateAdmin(System.Int32,HotelManagement.Data.DTO.AdminForUpdateDTO)">
+            <summary>
+            Update the administrator
+            </summary>
+            <param name="adminId">The id of the administrator to update</param>
+            <param name="admin">The administrator with updated values</param>
+            <returns>An IActionResult</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.BookingsController.NewBooking(HotelManagement.Data.DTO.BookingForCreationDTO)">
+            <summary>
+            Create a new booking
+            </summary>
+            <param name="booking">The booking to create</param>
+            <returns>An ActionResult of type BookingDTO</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.BookingsController.GetBooking(System.Int32)">
+            <summary>
+            Get a booking by id
+            </summary>
+            <param name="bookingId">The id of the booking you want to get</param>
+            <returns>An ActionResult of type BookingDTO</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.BookingsController.GetBookings(HotelManagement.ResourceParameters.BookingsResourceParameters)">
+            <summary>
+            Get a list of bookings
+            </summary>
+            <param name="bookingsResourceParameters">Query paramaters to apply</param>
+            <returns>An ActionResult of type IEnumerable of BookingDTO</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.BookingsController.CancelBooking(System.Int32)">
+            <summary>
+            Delete the booking with given id
+            </summary>
+            <param name="bookingId">The id of the booking you want to delete</param>
+            <returns>An IActionResult</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.BookingsController.UpdateBooking(System.Int32,HotelManagement.Data.DTO.BookingForUpdateDTO)">
+            <summary>
+            Update the booking
+            </summary>
+            <param name="bookingId">The id of the booking to update</param>
+            <param name="booking">The booking with updated values</param>
+            <returns>An IActionResult</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.ClientsController.NewClient(HotelManagement.Data.DTO.ClientForCreationDTO)">
+            <summary>
+            Create a new client
+            </summary>
+            <param name="client">The client to create</param>
+            <returns>An ActionResult of type ClientDTO</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.ClientsController.GetClient(System.Int32)">
+            <summary>
+            Get a client by his/her id
+            </summary>
+            <param name="clientId">The id of the client you want to get</param>
+            <returns>An ActionResult of type ClientDTO</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.ClientsController.GetClients(HotelManagement.ResourceParameters.ClientsResourceParameters)">
+            <summary>
+            Get a list of clients
+            </summary>
+            <param name="clientsResourceParameters">Query parameters to apply</param>
+            <returns>An ActionResult of type IEnumerable</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.ClientsController.RemoveClient(System.Int32)">
+            <summary>
+            Delete the client with given id
+            </summary>
+            <param name="clientId">The id of the client you want to delete</param>
+            <returns>An IActionResult</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.ClientsController.UpdateClient(System.Int32,HotelManagement.Data.DTO.ClientForUpdateDTO)">
+            <summary>
+            Update the client
+            </summary>
+            <param name="clientId">The id of the client to update</param>
+            <param name="client">The client with updated values</param>
+            <returns>An IActionResult</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.ClientsController.PartiallyUpdateClient(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{HotelManagement.Data.DTO.ClientForUpdateDTO})">
+            <summary>
+            Partially update a client
+            </summary>
+            <param name="clientId">The id of the client you want to get</param>
+            <param name="patchDocument">The set of operations to apply to the client</param>
+            <returns>An IActionResult</returns>
+            <remarks>
+            Sample request (this request updates the client's first name) \
+            PATCH /clients/id \
+            [ \
+                { \
+                    "op": "replace", \
+                    "patch": "/firstname", \
+                    "value": "new first name" \
+                } \
+            ] 
+            </remarks>
+        </member>
+        <member name="M:HotelManagement.Controllers.IdentityController.Authenticate(HotelManagement.Data.Auth.AuthenticateRequest)">
+            <summary>
+            Authenticate the admin
+            </summary>
+            <param name="authenticateRequest">An email and password of administrator</param>
+            <returns>An ActionResult</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.RoomsController.NewRoom(HotelManagement.Data.DTO.RoomForCreationDTO)">
+            <summary>
+            Create a new room
+            </summary>
+            <param name="room">The room to create</param>
+            <returns>An ActionResult of type RoomDTO</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.RoomsController.GetRoom(System.Int32)">
+            <summary>
+            Get a room by id
+            </summary>
+            <param name="roomId">The id of the room you want to get</param>
+            <returns>An ActionResult of type RoomDTO</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.RoomsController.GetRooms(HotelManagement.ResourceParameters.RoomsResourceParameters)">
+            <summary>
+            Get a list of rooms
+            </summary>
+            <param name="roomsResourceParameters">Query parametersto apply</param>
+            <returns>An ActionResult of type IEnumerable of RoomDTO</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.RoomsController.RemoveRoom(System.Int32)">
+            <summary>
+            Delete the room with given id
+            </summary>
+            <param name="roomId">The id of the room you want to remove</param>
+            <returns>An IActionResult</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.RoomsController.UpdateRoom(System.Int32,HotelManagement.Data.DTO.RoomForUpdateDTO)">
+            <summary>
+            Update the room
+            </summary>
+            <param name="roomId">The id of the room to update</param>
+            <param name="room">The room with updated values</param>
+            <returns>An IActionResult</returns>
+        </member>
+        <member name="M:HotelManagement.Controllers.RoomsController.PartiallyUpdateRoom(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{HotelManagement.Data.DTO.RoomForUpdateDTO})">
+            <summary>
+            Partially update a room
+            </summary>
+            <param name="roomId">The id of the room you want to get</param>
+            <param name="patchDocument">The set of operations to apply to the room</param>
+            <returns>An IActionResult</returns>
+            <remarks>
+            Sample request (this request updates the rooms's description) \
+            PATCH /clients/id \
+            [ \
+                { \
+                    "op": "replace", \
+                    "patch": "/description", \
+                    "value": "new description" \
+                } \
+            ] 
+            </remarks>
+        </member>
+        <member name="T:HotelManagement.Data.DTO.AdminDTO">
+            <summary>
+            The administrator with Id, Email, FirstName and LastName fields
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.AdminDTO.Id">
+            <summary>
+            The id of the administrator
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.AdminDTO.Email">
+            <summary>
+            The email of the administrator 
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.AdminDTO.FirstName">
+            <summary>
+            The first name of the administrator
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.AdminDTO.LastName">
+            <summary>
+            The last name of the administrator
+            </summary>
+        </member>
+        <member name="T:HotelManagement.Data.DTO.AdminForCreationDTO">
+            <summary>
+            The administrator with Email, FirstName and LastName fields
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.AdminForManipulationDTO.Email">
+            <summary>
+            The email of the administrator 
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.AdminForManipulationDTO.FirstName">
+            <summary>
+            The first name of the administrator
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.AdminForManipulationDTO.LastName">
+            <summary>
+            the last name of the administrator
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.AdminForManipulationDTO.Password">
+            <summary>
+            the password of the administrator
+            </summary>
+        </member>
+        <member name="T:HotelManagement.Data.DTO.AdminForUpdateDTO">
+            <summary>
+            The administrator with Email, FirstName and LastName fields
+            </summary>
+        </member>
+        <member name="T:HotelManagement.Data.DTO.BookingDTO">
+            <summary>
+            The booking with Id, CheckInDate, CheckOutDate, NumberOfPerson, ClientId, RoomId and TotalPrice fields
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.BookingDTO.Id">
+            <summary>
+            The id of the booking
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.BookingDTO.CheckInDate">
+            <summary>
+            The check in date of the booking
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.BookingDTO.CheckOutDate">
+            <summary>
+            The check out date of the booking
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.BookingDTO.NumberOfPerson">
+            <summary>
+            The number of persons of the booking
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.BookingDTO.ClientId">
+            <summary>
+            The id of the client who wants to make a boooking
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.BookingDTO.RoomId">
+            <summary>
+            The id of the booking room
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.BookingDTO.TotalPrice">
+            <summary>
+            Total price of the booking
+            </summary>
+        </member>
+        <member name="T:HotelManagement.Data.DTO.BookingForCreationDTO">
+            <summary>
+            The booking with BookingDates, NumberOfPerson, ClientId and RoomId fields
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.BookingForManipulationDTO.NumberOfPerson">
+            <summary>
+            The number of persons of the booking
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.BookingForManipulationDTO.ClientId">
+            <summary>
+            The id of the client who wants to make a boooking
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.BookingForManipulationDTO.RoomId">
+            <summary>
+            Total price of the booking
+            </summary>
+        </member>
+        <member name="T:HotelManagement.Data.DTO.BookingForUpdateDTO">
+            <summary>
+            The booking with BookingDates, NumberOfPerson, ClientId and RoomId fields
+            </summary>
+        </member>
+        <member name="T:HotelManagement.Data.DTO.ClientForCreationDTO">
+            <summary>
+            The client with FirstName, LastName, Sex, Age, PhoneNumber, Email and Address fields
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.ClientForManipulationDTO.FirstName">
+            <summary>
+            The first name of the client
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.ClientForManipulationDTO.LastName">
+            <summary>
+            The last name of the client
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.ClientForManipulationDTO.Sex">
+            <summary>
+            The sex (gender) of the client
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.ClientForManipulationDTO.Age">
+            <summary>
+            The age of the client
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.ClientForManipulationDTO.PhoneNumber">
+            <summary>
+            The phone number of the client
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.ClientForManipulationDTO.Email">
+            <summary>
+            The email of the client
+            </summary>
+        </member>
+        <member name="T:HotelManagement.Data.DTO.ClientForUpdateDTO">
+            <summary>
+            The client with FirstName, LastName, Sex, Age, PhoneNumber, Email and Address fields
+            </summary>
+        </member>
+        <member name="T:HotelManagement.Data.DTO.DatesDTO">
+            <summary>
+            The dates of booking
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.DatesDTO.CheckInDate">
+            <summary>
+            The check in date of the booking
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.DatesDTO.CheckOutDate">
+            <summary>
+            The check out date of the booking
+            </summary>
+        </member>
+        <member name="T:HotelManagement.Data.DTO.RoomDTO">
+            <summary>
+            The room with Id, Type, Balcony, Description, PriceForDay and MaxNumberOfPerson fields
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.RoomDTO.Id">
+            <summary>
+            The id of the room
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.RoomDTO.Type">
+            <summary>
+            The type of the room
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.RoomDTO.Balcony">
+            <summary>
+            Room having a balcony (true or false)
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.RoomDTO.Description">
+            <summary>
+            The description of the room
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.RoomDTO.PriceForDay">
+            <summary>
+            The price of room per day
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.RoomDTO.MaxNumberOfPerson">
+            <summary>
+            The maximum number of person for the room
+            </summary>
+        </member>
+        <member name="T:HotelManagement.Data.DTO.RoomForCreationDTO">
+            <summary>
+            The room with Type, Balcony, Description, PriceForDay and MaxNumberOfPerson fields
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.RoomForManipulationDTO.Type">
+            <summary>
+            The type of the room
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.RoomForManipulationDTO.Balcony">
+            <summary>
+            Room having a balcony (true or false)
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.RoomForManipulationDTO.Description">
+            <summary>
+            The description of the room
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.RoomForManipulationDTO.PriceForDay">
+            <summary>
+            The price of room per day
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.RoomForManipulationDTO.MaxNumberOfPerson">
+            <summary>
+            The maximum number of person for the room
+            </summary>
+        </member>
+        <member name="T:HotelManagement.Data.DTO.RoomForUpdateDTO">
+            <summary>
+            The room with Type, Balcony, Description, PriceForDay and MaxNumberOfPerson fields
+            </summary>
+        </member>
+        <member name="T:HotelManagement.DTO.AddressDTO">
+            <summary>
+            An address with City, Street, HouseNumber and PostCode fields
+            </summary>
+        </member>
+        <member name="P:HotelManagement.DTO.AddressDTO.City">
+            <summary>
+            The city 
+            </summary>
+        </member>
+        <member name="P:HotelManagement.DTO.AddressDTO.Street">
+            <summary>
+            The street 
+            </summary>
+        </member>
+        <member name="P:HotelManagement.DTO.AddressDTO.HouseNumber">
+            <summary>
+            The house number 
+            </summary>
+        </member>
+        <member name="P:HotelManagement.DTO.AddressDTO.PostCode">
+            <summary>
+            The post code 
+            </summary>
+        </member>
+        <member name="T:HotelManagement.DTO.ClientDTO">
+            <summary>
+            The client with Id, FirstName, LastName, Sex, Age, PhoneNumber, Email and Address fields
+            </summary>
+        </member>
+        <member name="P:HotelManagement.DTO.ClientDTO.Id">
+            <summary>
+            The id of the client
+            </summary>
+        </member>
+        <member name="P:HotelManagement.DTO.ClientDTO.FirstName">
+            <summary>
+            The first name of the client
+            </summary>
+        </member>
+        <member name="P:HotelManagement.DTO.ClientDTO.LastName">
+            <summary>
+            The last name of the client
+            </summary>
+        </member>
+        <member name="P:HotelManagement.DTO.ClientDTO.Sex">
+            <summary>
+            The sex (gender) of the client
+            </summary>
+        </member>
+        <member name="P:HotelManagement.DTO.ClientDTO.Age">
+            <summary>
+            The age of the client
+            </summary>
+        </member>
+        <member name="P:HotelManagement.DTO.ClientDTO.PhoneNumber">
+            <summary>
+            The phone number of the client
+            </summary>
+        </member>
+        <member name="P:HotelManagement.DTO.ClientDTO.Email">
+            <summary>
+            The email of the client
+            </summary>
+        </member>
+        <member name="T:HotelManagement.Models.RoomType">
+            <summary>
+            The room type
+            </summary>
+        </member>
+        <member name="F:HotelManagement.Models.RoomType.Single">
+            <summary>
+            Single room
+            </summary>
+        </member>
+        <member name="F:HotelManagement.Models.RoomType.TwoPersonWithOneBigBed">
+            <summary>
+            Room with one big bed for two person
+            </summary>
+        </member>
+        <member name="F:HotelManagement.Models.RoomType.TwoPersonWithTwoBeds">
+            <summary>
+            Room with two beds for two person
+            </summary>
+        </member>
+        <member name="F:HotelManagement.Models.RoomType.ThreePerson">
+            <summary>
+            Room for three person
+            </summary>
+        </member>
+        <member name="T:HotelManagement.Models.Sex">
+            <summary>
+            The sex (gender)
+            </summary>
+        </member>
+        <member name="F:HotelManagement.Models.Sex.Male">
+            <summary>
+            A man
+            </summary>
+        </member>
+        <member name="F:HotelManagement.Models.Sex.Female">
+            <summary>
+            A woman
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -23,6 +25,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace HotelManagement
 {
@@ -50,6 +53,7 @@ namespace HotelManagement
             services.AddMvc(options =>
             {
                 options.Filters.Add(new ValidationFilter());
+
             })
             .AddFluentValidation(options =>
             {
@@ -70,7 +74,37 @@ namespace HotelManagement
                 options.UseSqlServer(Configuration.GetConnectionString("HotelManagementConnection")));
 
             services.AddSwaggerGenNewtonsoftSupport();
-            services.AddSwaggerGen();
+
+            services.AddSwaggerGen(setupAction => 
+            {
+                setupAction.SwaggerDoc(
+                    "HotelManagementOpenAPISepcification",
+                    new Microsoft.OpenApi.Models.OpenApiInfo()
+                    {
+                        Title = "HotelManagement API",
+                        Version = "1",
+                        Description = "Through this API you can access administrators of hotel, rooms, clients and thier bookings",
+                        Contact = new Microsoft.OpenApi.Models.OpenApiContact()
+                        {
+                            Email = "tomaszwiatrowski9@gmail.com",
+                            Name = "Tomasz Wiatrowski",
+                            Url = new Uri("https://www.linkedin.com/in/tomasz-wiatrowski-279b00176/")
+                        },
+                        License = new Microsoft.OpenApi.Models.OpenApiLicense()
+                        {
+                            Name = "MIT License",
+                            Url = new Uri("https://opensource.org/licenses/MIT")
+                        }
+                    });
+
+                var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+
+                setupAction.IncludeXmlComments(xmlCommentsFullPath);
+
+                setupAction.AddFluentValidationRules();
+            });
+
             services.AddAutoMapper(typeof(Startup));
 
             var key = Encoding.UTF8.GetBytes(Configuration.GetValue<string>("AppSettings:Secret"));
@@ -104,10 +138,10 @@ namespace HotelManagement
 
             app.UseSwagger();
 
-            app.UseSwaggerUI(c =>
+            app.UseSwaggerUI(setupAction => 
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "HotelManagement V1");
-                c.RoutePrefix = string.Empty;
+                setupAction.SwaggerEndpoint("/swagger/HotelManagementOpenAPISepcification/swagger.json", "HotelManagement API");
+                setupAction.RoutePrefix = "";
             });
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
