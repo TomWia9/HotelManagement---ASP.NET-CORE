@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HotelManagement.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Produces("application/json", "application/xml")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [Route("api/[controller]")]
@@ -42,7 +42,7 @@ namespace HotelManagement.Controllers
 
         [HttpPost]
         [Consumes("application/json")]
-       // [ProducesResponseType(StatusCodes.Status201OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> Register(AdminForCreationDTO admin)
         {
@@ -60,7 +60,7 @@ namespace HotelManagement.Controllers
 
                 if (await _dbRepository.SaveChangesAsync())
                 {
-                    return Ok();
+                    return CreatedAtAction(nameof(GetAdmin), new { adminId = newAdmin.Id }, _mapper.Map<AdminDTO>(newAdmin));
                 }
 
 
