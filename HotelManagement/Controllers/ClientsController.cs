@@ -18,6 +18,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelManagement.Controllers
 {
+    [Produces("application/json", "application/xml")]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -39,6 +41,9 @@ namespace HotelManagement.Controllers
         /// </summary>
         /// <param name="client">The client to create</param>
         /// <returns>An ActionResult of type ClientDTO</returns>
+        /// <response code="201">Creates and returns the created client</response>
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [HttpPost]
         public async Task<ActionResult<ClientDTO>> NewClient(ClientForCreationDTO client)
         {
@@ -71,6 +76,9 @@ namespace HotelManagement.Controllers
         /// </summary>
         /// <param name="clientId">The id of the client you want to get</param>
         /// <returns>An ActionResult of type ClientDTO</returns>
+        /// <response code="200">Returns the requested client</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{clientId}")]
         public async Task<ActionResult<ClientDTO>> GetClient(int clientId)
         {
@@ -95,6 +103,9 @@ namespace HotelManagement.Controllers
         /// </summary>
         /// <param name="clientsResourceParameters">Query parameters to apply</param>
         /// <returns>An ActionResult of type IEnumerable</returns>
+        /// <response code="200">Returns the requested list of clients</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable>> GetClients([FromQuery] ClientsResourceParameters clientsResourceParameters)
         {
@@ -119,6 +130,8 @@ namespace HotelManagement.Controllers
         /// </summary>
         /// <param name="clientId">The id of the client you want to delete</param>
         /// <returns>An IActionResult</returns>
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete("{clientId}")]
         public async Task<IActionResult> RemoveClient(int clientId)
         {
@@ -151,6 +164,8 @@ namespace HotelManagement.Controllers
         /// <param name="clientId">The id of the client to update</param>
         /// <param name="client">The client with updated values</param>
         /// <returns>An IActionResult</returns>
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPut("{clientId}")]
         public async Task<IActionResult> UpdateClient(int clientId, ClientForUpdateDTO client)
         {
@@ -197,6 +212,8 @@ namespace HotelManagement.Controllers
         ///     } \
         /// ] 
         /// </remarks>
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPatch("{clientId}")]
         public async Task<IActionResult> PartiallyUpdateClient(int clientId, JsonPatchDocument<ClientForUpdateDTO> patchDocument)
         {

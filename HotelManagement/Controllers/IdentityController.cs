@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HotelManagement.Controllers
 {
+    [Produces("application/json", "application/xml")]
     [Route("api/[controller]")]
     [ApiController]
     public class IdentityController : ControllerBase
@@ -30,6 +31,9 @@ namespace HotelManagement.Controllers
         /// </summary>
         /// <param name="authenticateRequest">An email and password of administrator</param>
         /// <returns>An ActionResult</returns>
+        /// <response code="200">Returns the administrator with token</response>
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpPost("Authenticate")]
         public async Task<ActionResult> Authenticate(AuthenticateRequest authenticateRequest)
         {

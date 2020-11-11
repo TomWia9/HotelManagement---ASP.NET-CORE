@@ -15,6 +15,8 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Controllers
 {
+    [Produces("application/json", "application/xml")]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -36,6 +38,9 @@ namespace HotelManagement.Controllers
         /// </summary>
         /// <param name="room">The room to create</param>
         /// <returns>An ActionResult of type RoomDTO</returns>
+        /// <response code="201">Creates and returns the created room</response>
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [HttpPost]
         public async Task<ActionResult<RoomDTO>> NewRoom(RoomForCreationDTO room)
         {
@@ -65,6 +70,9 @@ namespace HotelManagement.Controllers
         /// </summary>
         /// <param name="roomId">The id of the room you want to get</param>
         /// <returns>An ActionResult of type RoomDTO</returns>
+        /// <response code="200">Returns the requested room</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{roomId}")]
         public async Task<ActionResult<RoomDTO>> GetRoom(int roomId)
         {
@@ -89,6 +97,9 @@ namespace HotelManagement.Controllers
         /// </summary>
         /// <param name="roomsResourceParameters">Query parametersto apply</param>
         /// <returns>An ActionResult of type IEnumerable of RoomDTO</returns>
+        /// <response code="200">Returns the requested list of rooms</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RoomDTO>>> GetRooms([FromQuery] RoomsResourceParameters roomsResourceParameters)
         {
@@ -113,6 +124,8 @@ namespace HotelManagement.Controllers
         /// </summary>
         /// <param name="roomId">The id of the room you want to remove</param>
         /// <returns>An IActionResult</returns>
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete("{roomId}")]
         public async Task<IActionResult> RemoveRoom(int roomId)
         {
@@ -143,6 +156,8 @@ namespace HotelManagement.Controllers
         /// <param name="roomId">The id of the room to update</param>
         /// <param name="room">The room with updated values</param>
         /// <returns>An IActionResult</returns>
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPut("{roomId}")]
         public async Task<IActionResult> UpdateRoom(int roomId, RoomForUpdateDTO room)
         {
@@ -188,6 +203,8 @@ namespace HotelManagement.Controllers
         ///     } \
         /// ] 
         /// </remarks>
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPatch("{roomId}")]
         public async Task<IActionResult> PartiallyUpdateRoom(int roomId, JsonPatchDocument<RoomForUpdateDTO> patchDocument)
         {

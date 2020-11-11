@@ -15,7 +15,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HotelManagement.Controllers
 {
-    [Authorize]
+    //[Authorize]
+    [Produces("application/json", "application/xml")]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [Route("api/[controller]")]
     [ApiController]
     public class AdministratorsController : ControllerBase
@@ -36,7 +38,12 @@ namespace HotelManagement.Controllers
         /// </summary>
         /// <param name="admin">The administrator to create</param>
         /// <returns>An ActionResult</returns>
+        ///<response code="201">Creates and returns the created administrator</response>
+
         [HttpPost]
+        [Consumes("application/json")]
+       // [ProducesResponseType(StatusCodes.Status201OK)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> Register(AdminForCreationDTO admin)
         {
             try
@@ -71,13 +78,16 @@ namespace HotelManagement.Controllers
         /// </summary>
         /// <param name="adminId">The id of the administrator you want to get</param>
         /// <returns>An ActionResult of type AdminDTO></returns>
+        /// <response code="200">Returns the requested administrator</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{adminId}")]
         public async Task<ActionResult<AdminDTO>> GetAdmin(int adminId)
         {
             try
             {
                 var admin = await _adminsRepository.GetAdminAsync(adminId);
-                if (admin != null)
+                if (admin == null)
                 {
                     return Ok(_mapper.Map<AdminDTO>(admin));
                 }
@@ -95,6 +105,9 @@ namespace HotelManagement.Controllers
         /// </summary>
         /// <param name="adminsResourceParameters">Query parameters to apply</param>
         /// <returns>An ActionResult of type IEnumerable of AdminDTO</returns>
+        /// <response code="200">Returns the requested list of administrators</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AdminDTO>>> GetAdmins([FromQuery] AdminsResourceParameters adminsResourceParameters)
         {
@@ -119,6 +132,8 @@ namespace HotelManagement.Controllers
         /// </summary>
         /// <param name="adminId">The id of the administrator you want to delete</param>
         /// <returns>An IActionResult</returns>
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete("{adminId}")]
         public async Task<IActionResult> RemoveAdmin(int adminId)
         {
@@ -151,6 +166,9 @@ namespace HotelManagement.Controllers
         /// <param name="adminId">The id of the administrator to update</param>
         /// <param name="admin">The administrator with updated values</param>
         /// <returns>An IActionResult</returns>
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpPut("{adminId}")]
         public async Task<IActionResult> UpdateAdmin(int adminId, AdminForUpdateDTO admin)
         {

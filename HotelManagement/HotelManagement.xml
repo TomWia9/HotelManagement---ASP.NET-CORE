@@ -5,11 +5,12 @@
     </assembly>
     <members>
         <member name="M:HotelManagement.Controllers.AdministratorsController.Register(HotelManagement.Data.DTO.AdminForCreationDTO)">
-            <summary>
-            Create a new administrator
-            </summary>
-            <param name="admin">The administrator to create</param>
-            <returns>An ActionResult</returns>
+             <summary>
+             Create a new administrator
+             </summary>
+             <param name="admin">The administrator to create</param>
+             <returns>An ActionResult</returns>
+            <response code="201">Creates and returns the created administrator</response>
         </member>
         <member name="M:HotelManagement.Controllers.AdministratorsController.GetAdmin(System.Int32)">
             <summary>
@@ -17,6 +18,7 @@
             </summary>
             <param name="adminId">The id of the administrator you want to get</param>
             <returns>An ActionResult of type AdminDTO></returns>
+            <response code="200">Returns the requested administrator</response>
         </member>
         <member name="M:HotelManagement.Controllers.AdministratorsController.GetAdmins(HotelManagement.ResourceParameters.AdminsResourceParameters)">
             <summary>
@@ -24,6 +26,7 @@
             </summary>
             <param name="adminsResourceParameters">Query parameters to apply</param>
             <returns>An ActionResult of type IEnumerable of AdminDTO</returns>
+            <response code="200">Returns the requested list of administrators</response>
         </member>
         <member name="M:HotelManagement.Controllers.AdministratorsController.RemoveAdmin(System.Int32)">
             <summary>
@@ -46,6 +49,7 @@
             </summary>
             <param name="booking">The booking to create</param>
             <returns>An ActionResult of type BookingDTO</returns>
+            <response code="201">Creates and returns the created booking</response>
         </member>
         <member name="M:HotelManagement.Controllers.BookingsController.GetBooking(System.Int32)">
             <summary>
@@ -53,6 +57,7 @@
             </summary>
             <param name="bookingId">The id of the booking you want to get</param>
             <returns>An ActionResult of type BookingDTO</returns>
+            <response code="200">Returns the requested booking</response>
         </member>
         <member name="M:HotelManagement.Controllers.BookingsController.GetBookings(HotelManagement.ResourceParameters.BookingsResourceParameters)">
             <summary>
@@ -60,6 +65,7 @@
             </summary>
             <param name="bookingsResourceParameters">Query paramaters to apply</param>
             <returns>An ActionResult of type IEnumerable of BookingDTO</returns>
+            <response code="200">Returns the requested list of bookings</response>
         </member>
         <member name="M:HotelManagement.Controllers.BookingsController.CancelBooking(System.Int32)">
             <summary>
@@ -82,6 +88,7 @@
             </summary>
             <param name="client">The client to create</param>
             <returns>An ActionResult of type ClientDTO</returns>
+            <response code="201">Creates and returns the created client</response>
         </member>
         <member name="M:HotelManagement.Controllers.ClientsController.GetClient(System.Int32)">
             <summary>
@@ -89,6 +96,7 @@
             </summary>
             <param name="clientId">The id of the client you want to get</param>
             <returns>An ActionResult of type ClientDTO</returns>
+            <response code="200">Returns the requested client</response>
         </member>
         <member name="M:HotelManagement.Controllers.ClientsController.GetClients(HotelManagement.ResourceParameters.ClientsResourceParameters)">
             <summary>
@@ -96,6 +104,7 @@
             </summary>
             <param name="clientsResourceParameters">Query parameters to apply</param>
             <returns>An ActionResult of type IEnumerable</returns>
+            <response code="200">Returns the requested list of clients</response>
         </member>
         <member name="M:HotelManagement.Controllers.ClientsController.RemoveClient(System.Int32)">
             <summary>
@@ -137,6 +146,7 @@
             </summary>
             <param name="authenticateRequest">An email and password of administrator</param>
             <returns>An ActionResult</returns>
+            <response code="200">Returns the administrator with token</response>
         </member>
         <member name="M:HotelManagement.Controllers.RoomsController.NewRoom(HotelManagement.Data.DTO.RoomForCreationDTO)">
             <summary>
@@ -144,6 +154,7 @@
             </summary>
             <param name="room">The room to create</param>
             <returns>An ActionResult of type RoomDTO</returns>
+            <response code="201">Creates and returns the created room</response>
         </member>
         <member name="M:HotelManagement.Controllers.RoomsController.GetRoom(System.Int32)">
             <summary>
@@ -151,6 +162,7 @@
             </summary>
             <param name="roomId">The id of the room you want to get</param>
             <returns>An ActionResult of type RoomDTO</returns>
+            <response code="200">Returns the requested room</response>
         </member>
         <member name="M:HotelManagement.Controllers.RoomsController.GetRooms(HotelManagement.ResourceParameters.RoomsResourceParameters)">
             <summary>
@@ -158,6 +170,7 @@
             </summary>
             <param name="roomsResourceParameters">Query parametersto apply</param>
             <returns>An ActionResult of type IEnumerable of RoomDTO</returns>
+            <response code="200">Returns the requested list of rooms</response>
         </member>
         <member name="M:HotelManagement.Controllers.RoomsController.RemoveRoom(System.Int32)">
             <summary>
@@ -533,14 +546,20 @@
             The sex (gender)
             </summary>
         </member>
-        <member name="F:HotelManagement.Models.Sex.Male">
+        <member name="T:HotelManagement.Properties.Resources">
             <summary>
-            A man
+              A strongly-typed resource class, for looking up localized strings, etc.
             </summary>
         </member>
-        <member name="F:HotelManagement.Models.Sex.Female">
+        <member name="P:HotelManagement.Properties.Resources.ResourceManager">
             <summary>
-            A woman
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
             </summary>
         </member>
     </members>

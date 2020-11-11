@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Routing;
 
 namespace HotelManagement.Controllers
 {
+    [Produces("application/json", "application/xml")]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -40,6 +42,10 @@ namespace HotelManagement.Controllers
         /// </summary>
         /// <param name="booking">The booking to create</param>
         /// <returns>An ActionResult of type BookingDTO</returns>
+        /// <response code="201">Creates and returns the created booking</response>
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [HttpPost]
         public async Task<ActionResult<BookingDTO>> NewBooking(BookingForCreationDTO booking)
         {
@@ -73,6 +79,9 @@ namespace HotelManagement.Controllers
         /// </summary>
         /// <param name="bookingId">The id of the booking you want to get</param>
         /// <returns>An ActionResult of type BookingDTO</returns>
+        /// <response code="200">Returns the requested booking</response>
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("{bookingId}")]
         public async Task<ActionResult<BookingDTO>> GetBooking(int bookingId)
         {
@@ -97,6 +106,10 @@ namespace HotelManagement.Controllers
         /// </summary>
         /// <param name="bookingsResourceParameters">Query paramaters to apply</param>
         /// <returns>An ActionResult of type IEnumerable of BookingDTO</returns>
+        /// <response code="200">Returns the requested list of bookings</response>
+
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BookingDTO>>> GetBookings([FromQuery] BookingsResourceParameters bookingsResourceParameters)
         {
@@ -121,6 +134,8 @@ namespace HotelManagement.Controllers
         /// </summary>
         /// <param name="bookingId">The id of the booking you want to delete</param>
         /// <returns>An IActionResult</returns>
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpDelete("{bookingId}")]
         public async Task<IActionResult> CancelBooking(int bookingId)
         {
@@ -142,7 +157,7 @@ namespace HotelManagement.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
 
-            return NotFound();
+            return BadRequest();
         }
 
         /// <summary>
@@ -151,6 +166,9 @@ namespace HotelManagement.Controllers
         /// <param name="bookingId">The id of the booking to update</param>
         /// <param name="booking">The booking with updated values</param>
         /// <returns>An IActionResult</returns>
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpPut("{bookingId}")]
         public async Task<IActionResult> UpdateBooking(int bookingId, BookingForUpdateDTO booking)
         {
