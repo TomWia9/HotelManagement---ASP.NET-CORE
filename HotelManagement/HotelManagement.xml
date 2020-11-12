@@ -206,6 +206,41 @@
             ] 
             </remarks>
         </member>
+        <member name="T:HotelManagement.Data.Auth.AuthenticateRequest">
+            <summary>
+            Administrator's email and password
+            </summary>
+        </member>
+        <member name="T:HotelManagement.Data.Auth.AuthenticateResponse">
+            <summary>
+            The administrator with Id, Email, FirstName, LastName and Token fields
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.Auth.AuthenticateResponse.Id">
+            <summary>
+            The id of the administrator
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.Auth.AuthenticateResponse.Email">
+            <summary>
+            The email of the administrator 
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.Auth.AuthenticateResponse.FirstName">
+            <summary>
+            The first name of the administrator
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.Auth.AuthenticateResponse.LastName">
+            <summary>
+            The last name of the administrator
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.Auth.AuthenticateResponse.Token">
+            <summary>
+            The token
+            </summary>
+        </member>
         <member name="T:HotelManagement.Data.DTO.AdminDTO">
             <summary>
             The administrator with Id, Email, FirstName and LastName fields

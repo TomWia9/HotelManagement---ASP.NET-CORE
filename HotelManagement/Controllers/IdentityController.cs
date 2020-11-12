@@ -35,7 +35,7 @@ namespace HotelManagement.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpPost("Authenticate")]
-        public async Task<ActionResult> Authenticate(AuthenticateRequest authenticateRequest)
+        public async Task<ActionResult<AuthenticateResponse>> Authenticate(AuthenticateRequest authenticateRequest)
         {
             try
             {

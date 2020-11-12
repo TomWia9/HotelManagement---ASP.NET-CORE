@@ -44,7 +44,7 @@ namespace HotelManagement.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> Register(AdminForCreationDTO admin)
+        public async Task<ActionResult<AdminDTO>> Register(AdminForCreationDTO admin)
         {
             try
             {
@@ -87,7 +87,7 @@ namespace HotelManagement.Controllers
             try
             {
                 var admin = await _adminsRepository.GetAdminAsync(adminId);
-                if (admin == null)
+                if (admin != null)
                 {
                     return Ok(_mapper.Map<AdminDTO>(admin));
                 }

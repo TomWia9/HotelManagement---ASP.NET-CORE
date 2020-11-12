@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Data.Auth
 {
+    /// <summary>
+    /// Administrator's email and password
+    /// </summary>
     public class AuthenticateRequest
     {
         public string Email { get; set; }
