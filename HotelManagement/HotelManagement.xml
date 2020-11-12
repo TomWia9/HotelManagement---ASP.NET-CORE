@@ -129,15 +129,16 @@
             <param name="patchDocument">The set of operations to apply to the client</param>
             <returns>An IActionResult</returns>
             <remarks>
-            Sample request (this request updates the client's first name) \
-            PATCH /clients/id \
-            [ \
-                { \
-                    "op": "replace", \
-                    "patch": "/firstname", \
-                    "value": "new first name" \
-                } \
-            ] 
+            Sample request (this request updates the client's **first name**)  
+            
+                PATCH /clients/clientId 
+                [ 
+                    { 
+                        "op": "replace", 
+                        "patch": "/firstname", 
+                        "value": "new first name" 
+                    } 
+                ] 
             </remarks>
         </member>
         <member name="M:HotelManagement.Controllers.IdentityController.Authenticate(HotelManagement.Data.Auth.AuthenticateRequest)">
@@ -188,23 +189,24 @@
             <returns>An IActionResult</returns>
         </member>
         <member name="M:HotelManagement.Controllers.RoomsController.PartiallyUpdateRoom(System.Int32,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{HotelManagement.Data.DTO.RoomForUpdateDTO})">
-            <summary>
-            Partially update a room
-            </summary>
-            <param name="roomId">The id of the room you want to get</param>
-            <param name="patchDocument">The set of operations to apply to the room</param>
-            <returns>An IActionResult</returns>
-            <remarks>
-            Sample request (this request updates the rooms's description) \
-            PATCH /clients/id \
-            [ \
-                { \
-                    "op": "replace", \
-                    "patch": "/description", \
-                    "value": "new description" \
-                } \
-            ] 
-            </remarks>
+             <summary>
+             Partially update a room
+             </summary>
+             <param name="roomId">The id of the room you want to get</param>
+             <param name="patchDocument">The set of operations to apply to the room</param>
+             <returns>An IActionResult</returns>
+             <remarks>
+             Sample request (this request updates the rooms's **description**)
+            
+                 PATCH /rooms/roomId 
+                 [ 
+                     { 
+                         "op": "replace", 
+                         "patch": "/description", 
+                         "value": "new description" 
+                     } 
+                 ]
+             </remarks>
         </member>
         <member name="T:HotelManagement.Data.Auth.AuthenticateRequest">
             <summary>

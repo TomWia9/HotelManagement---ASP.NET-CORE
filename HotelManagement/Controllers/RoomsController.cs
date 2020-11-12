@@ -193,15 +193,16 @@ namespace HotelManagement.Controllers
         /// <param name="patchDocument">The set of operations to apply to the room</param>
         /// <returns>An IActionResult</returns>
         /// <remarks>
-        /// Sample request (this request updates the rooms's description) \
-        /// PATCH /clients/id \
-        /// [ \
-        ///     { \
-        ///         "op": "replace", \
-        ///         "patch": "/description", \
-        ///         "value": "new description" \
-        ///     } \
-        /// ] 
+        /// Sample request (this request updates the rooms's **description**)
+        ///
+        ///     PATCH /rooms/roomId 
+        ///     [ 
+        ///         { 
+        ///             "op": "replace", 
+        ///             "patch": "/description", 
+        ///             "value": "new description" 
+        ///         } 
+        ///     ]
         /// </remarks>
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

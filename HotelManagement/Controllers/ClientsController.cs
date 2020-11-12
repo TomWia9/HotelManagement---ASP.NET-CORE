@@ -202,15 +202,16 @@ namespace HotelManagement.Controllers
         /// <param name="patchDocument">The set of operations to apply to the client</param>
         /// <returns>An IActionResult</returns>
         /// <remarks>
-        /// Sample request (this request updates the client's first name) \
-        /// PATCH /clients/id \
-        /// [ \
-        ///     { \
-        ///         "op": "replace", \
-        ///         "patch": "/firstname", \
-        ///         "value": "new first name" \
-        ///     } \
-        /// ] 
+        /// Sample request (this request updates the client's **first name**)  
+        /// 
+        ///     PATCH /clients/clientId 
+        ///     [ 
+        ///         { 
+        ///             "op": "replace", 
+        ///             "patch": "/firstname", 
+        ///             "value": "new first name" 
+        ///         } 
+        ///     ] 
         /// </remarks>
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

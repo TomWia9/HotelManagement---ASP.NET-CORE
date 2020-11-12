@@ -177,6 +177,10 @@ namespace HotelManagement
             {
                 setupAction.SwaggerEndpoint("/swagger/HotelManagementOpenAPISepcification/swagger.json", "HotelManagement API");
                 setupAction.RoutePrefix = "";
+
+                setupAction.DefaultModelExpandDepth(2);
+                setupAction.DefaultModelRendering(Swashbuckle.AspNetCore.SwaggerUI.ModelRendering.Model);
+                setupAction.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
             });
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());

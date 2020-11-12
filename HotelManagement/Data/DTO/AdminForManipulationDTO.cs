@@ -20,7 +20,7 @@ namespace HotelManagement.Data.DTO
         /// </summary>
         public string LastName { get; set; }
         /// <summary>
-        /// the password of the administrator
+        /// The password of the administrator
         /// </summary>
         public string Password { get; set; }
     }
