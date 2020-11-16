@@ -11,7 +11,7 @@ namespace HotelManagement.Validators
     {
         public RoomValidator()
         {
-            RuleFor(room => room.Balcony).NotEmpty();
+            RuleFor(room => room.HasBalcony).NotEmpty();
             RuleFor(room => room.Type).NotNull().IsInEnum();
             RuleFor(room => room.Description).NotEmpty().Length(10, 250);
             RuleFor(room => room.PriceForDay).NotEmpty().GreaterThan(0);

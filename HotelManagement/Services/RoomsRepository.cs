@@ -57,7 +57,7 @@ namespace HotelManagement.Services
                 throw new ArgumentNullException(nameof(roomsResourceParameters));
             }
 
-            if (roomsResourceParameters.Balcony == null
+            if (roomsResourceParameters.HasBalcony == null
                  && roomsResourceParameters.RoomType == null
                  && roomsResourceParameters.VacancyInDays == null
                  && roomsResourceParameters.PriceLessThan == null
@@ -69,10 +69,9 @@ namespace HotelManagement.Services
 
             var collection = _context.Rooms as IQueryable<Room>;
 
-            if (!(roomsResourceParameters.Balcony == null))
+            if (!(roomsResourceParameters.HasBalcony == null))
             {
-                var balcony = roomsResourceParameters.Balcony;
-                collection = collection.Where(r => r.Balcony == balcony);
+                collection = collection.Where(r => r.HasBalcony == roomsResourceParameters.HasBalcony);
             }
 
             if (!(roomsResourceParameters.RoomType == null))

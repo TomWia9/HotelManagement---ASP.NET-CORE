@@ -9,7 +9,7 @@ namespace HotelManagement.Models
     {
         public int Id { get; set; }
         public RoomType Type { get; set; }
-        public bool Balcony { get; set; }
+        public bool HasBalcony { get; set; }
         public string Description { get; set; }
         public decimal PriceForDay { get; set; }
         public int MaxNumberOfPerson { get; set; }

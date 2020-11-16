@@ -290,7 +290,7 @@
         </member>
         <member name="P:HotelManagement.Data.DTO.AdminForManipulationDTO.Password">
             <summary>
-            the password of the administrator
+            The password of the administrator
             </summary>
         </member>
         <member name="T:HotelManagement.Data.DTO.AdminForUpdateDTO">
@@ -433,7 +433,7 @@
             The type of the room
             </summary>
         </member>
-        <member name="P:HotelManagement.Data.DTO.RoomDTO.Balcony">
+        <member name="P:HotelManagement.Data.DTO.RoomDTO.HasBalcony">
             <summary>
             Room having a balcony (true or false)
             </summary>
@@ -463,7 +463,7 @@
             The type of the room
             </summary>
         </member>
-        <member name="P:HotelManagement.Data.DTO.RoomForManipulationDTO.Balcony">
+        <member name="P:HotelManagement.Data.DTO.RoomForManipulationDTO.HasBalcony">
             <summary>
             Room having a balcony (true or false)
             </summary>

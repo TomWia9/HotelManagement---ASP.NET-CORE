@@ -21,7 +21,7 @@ namespace HotelManagement.Data.EntityConfiguration
             builder.Property(r => r.Type)
               .IsRequired();
 
-            builder.Property(r => r.Balcony)
+            builder.Property(r => r.HasBalcony)
               .IsRequired();
 
             builder.Property(r => r.Description)

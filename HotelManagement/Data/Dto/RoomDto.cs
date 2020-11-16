@@ -22,7 +22,7 @@ namespace HotelManagement.Data.DTO
         /// <summary>
         /// Room having a balcony (true or false)
         /// </summary>
-        public bool Balcony { get; set; }
+        public bool HasBalcony { get; set; }
         /// <summary>
         /// The description of the room
         /// </summary>
