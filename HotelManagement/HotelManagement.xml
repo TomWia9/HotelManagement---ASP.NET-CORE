@@ -420,7 +420,7 @@
         </member>
         <member name="T:HotelManagement.Data.DTO.RoomDTO">
             <summary>
-            The room with Id, Type, Balcony, Description, PriceForDay and MaxNumberOfPerson fields
+            The room with Id, Type, HasBalcony, Description, PriceForDay and MaxNumberOfPerson fields
             </summary>
         </member>
         <member name="P:HotelManagement.Data.DTO.RoomDTO.Id">

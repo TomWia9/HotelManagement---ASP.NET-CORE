@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace HotelManagement.Data.DTO
 {
     /// <summary>
-    /// The room with Id, Type, Balcony, Description, PriceForDay and MaxNumberOfPerson fields
+    /// The room with Id, Type, HasBalcony, Description, PriceForDay and MaxNumberOfPerson fields
     /// </summary>
     public class RoomDTO
     {
