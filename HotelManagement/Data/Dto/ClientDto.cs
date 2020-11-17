@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HotelManagement.DTO
+namespace HotelManagement.Data.DTO
 {
     /// <summary>
     /// The client with Id, FirstName, LastName, Sex, Age, PhoneNumber, Email and Address fields

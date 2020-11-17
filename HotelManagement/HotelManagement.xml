@@ -208,6 +208,30 @@
                  ]
              </remarks>
         </member>
+        <member name="M:HotelManagement.Controllers.StatisticsController.GetRoomsByPopularity(System.Nullable{System.UInt32})">
+            <summary>
+            Get a list of the most popular rooms
+            </summary>
+            <param name="numberOfRooms">Query parameter to define number of returned rooms</param>
+            <returns>An ActionResult of type IEnumerable of RoomDTO</returns>
+            <response code="200">Returns the requested list of the most popular rooms</response>
+        </member>
+        <member name="M:HotelManagement.Controllers.StatisticsController.GetClientsByBookingsNumbers(System.Nullable{System.UInt32})">
+            <summary>
+            Get a list of the clients who made the most bookings
+            </summary>
+            <param name="numberOfClients">Query parameter to define number of returned clients</param>
+            <returns>An ActionResult of type IEnumerable</returns>
+            <response code="200">Returns the requested list of the clients who made the most bookings</response>
+        </member>
+        <member name="M:HotelManagement.Controllers.StatisticsController.GetTotalEarnedMoney(System.Nullable{System.UInt32})">
+            <summary>
+            Get a total earned money from bookings from peroid defined in queryParameter
+            </summary>
+            <param name="peroid">Query parameter to define peroid of earned money</param>
+            <returns>An ActionResult of type decimal</returns>
+            <response code="200">Returns the requested total earned money</response>
+        </member>
         <member name="T:HotelManagement.Data.Auth.AuthenticateRequest">
             <summary>
             Administrator's email and password
@@ -241,6 +265,31 @@
         <member name="P:HotelManagement.Data.Auth.AuthenticateResponse.Token">
             <summary>
             The token
+            </summary>
+        </member>
+        <member name="T:HotelManagement.Data.DTO.AddressDTO">
+            <summary>
+            An address with City, Street, HouseNumber and PostCode fields
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.AddressDTO.City">
+            <summary>
+            The city 
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.AddressDTO.Street">
+            <summary>
+            The street 
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.AddressDTO.HouseNumber">
+            <summary>
+            The house number 
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.AddressDTO.PostCode">
+            <summary>
+            The post code 
             </summary>
         </member>
         <member name="T:HotelManagement.Data.DTO.AdminDTO">
@@ -361,6 +410,46 @@
         <member name="T:HotelManagement.Data.DTO.BookingForUpdateDTO">
             <summary>
             The booking with BookingDates, NumberOfPerson, ClientId and RoomId fields
+            </summary>
+        </member>
+        <member name="T:HotelManagement.Data.DTO.ClientDTO">
+            <summary>
+            The client with Id, FirstName, LastName, Sex, Age, PhoneNumber, Email and Address fields
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.ClientDTO.Id">
+            <summary>
+            The id of the client
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.ClientDTO.FirstName">
+            <summary>
+            The first name of the client
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.ClientDTO.LastName">
+            <summary>
+            The last name of the client
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.ClientDTO.Sex">
+            <summary>
+            The sex (gender) of the client
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.ClientDTO.Age">
+            <summary>
+            The age of the client
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.ClientDTO.PhoneNumber">
+            <summary>
+            The phone number of the client
+            </summary>
+        </member>
+        <member name="P:HotelManagement.Data.DTO.ClientDTO.Email">
+            <summary>
+            The email of the client
             </summary>
         </member>
         <member name="T:HotelManagement.Data.DTO.ClientForCreationDTO">
@@ -486,71 +575,6 @@
         <member name="T:HotelManagement.Data.DTO.RoomForUpdateDTO">
             <summary>
             The room with Type, Balcony, Description, PriceForDay and MaxNumberOfPerson fields
-            </summary>
-        </member>
-        <member name="T:HotelManagement.DTO.AddressDTO">
-            <summary>
-            An address with City, Street, HouseNumber and PostCode fields
-            </summary>
-        </member>
-        <member name="P:HotelManagement.DTO.AddressDTO.City">
-            <summary>
-            The city 
-            </summary>
-        </member>
-        <member name="P:HotelManagement.DTO.AddressDTO.Street">
-            <summary>
-            The street 
-            </summary>
-        </member>
-        <member name="P:HotelManagement.DTO.AddressDTO.HouseNumber">
-            <summary>
-            The house number 
-            </summary>
-        </member>
-        <member name="P:HotelManagement.DTO.AddressDTO.PostCode">
-            <summary>
-            The post code 
-            </summary>
-        </member>
-        <member name="T:HotelManagement.DTO.ClientDTO">
-            <summary>
-            The client with Id, FirstName, LastName, Sex, Age, PhoneNumber, Email and Address fields
-            </summary>
-        </member>
-        <member name="P:HotelManagement.DTO.ClientDTO.Id">
-            <summary>
-            The id of the client
-            </summary>
-        </member>
-        <member name="P:HotelManagement.DTO.ClientDTO.FirstName">
-            <summary>
-            The first name of the client
-            </summary>
-        </member>
-        <member name="P:HotelManagement.DTO.ClientDTO.LastName">
-            <summary>
-            The last name of the client
-            </summary>
-        </member>
-        <member name="P:HotelManagement.DTO.ClientDTO.Sex">
-            <summary>
-            The sex (gender) of the client
-            </summary>
-        </member>
-        <member name="P:HotelManagement.DTO.ClientDTO.Age">
-            <summary>
-            The age of the client
-            </summary>
-        </member>
-        <member name="P:HotelManagement.DTO.ClientDTO.PhoneNumber">
-            <summary>
-            The phone number of the client
-            </summary>
-        </member>
-        <member name="P:HotelManagement.DTO.ClientDTO.Email">
-            <summary>
-            The email of the client
             </summary>
         </member>
         <member name="T:HotelManagement.Models.RoomType">

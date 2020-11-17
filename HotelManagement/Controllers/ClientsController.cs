@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation.Results;
 using HotelManagement.Data.DTO;
-using HotelManagement.DTO;
 using HotelManagement.Models;
 using HotelManagement.ResourceParameters;
 using HotelManagement.Services;

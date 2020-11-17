@@ -1,5 +1,4 @@
-﻿using HotelManagement.DTO;
-using HotelManagement.Models;
+﻿using HotelManagement.Models;
 using HotelManagement.ResourceParameters;
 using System;
 using System.Collections.Generic;

@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using HotelManagement.DTO;
+using HotelManagement.Data.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;

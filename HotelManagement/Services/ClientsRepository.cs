@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using HotelManagement.DTO;
 using HotelManagement.Models;
 using HotelManagement.ResourceParameters;
 using Microsoft.EntityFrameworkCore;

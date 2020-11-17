@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using HotelManagement.Data.DTO;
-using HotelManagement.DTO;
 using HotelManagement.Models;
 using System;
 using System.Collections.Generic;
