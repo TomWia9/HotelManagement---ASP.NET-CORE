@@ -1,13 +1,9 @@
 ﻿using AutoMapper;
-using HotelManagement.Data.DTO;
 using HotelManagement.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HotelManagement.Controllers

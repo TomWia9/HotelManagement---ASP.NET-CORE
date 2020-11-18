@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using HotelManagement.Data.DTO;
 using HotelManagement.Models;
 using HotelManagement.ResourceParameters;
@@ -12,6 +7,9 @@ using HotelManagement.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HotelManagement.Controllers
 {
@@ -48,7 +46,7 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                if(!await _adminsRepository.IsEmailFree(admin.Email))
+                if (!await _adminsRepository.IsEmailFree(admin.Email))
                 {
                     return Conflict();
                 }
@@ -176,7 +174,7 @@ namespace HotelManagement.Controllers
             {
                 var adminFromRepo = await _adminsRepository.GetAdminAsync(adminId);
 
-                if(! await _adminsRepository.IsEmailFree(admin.Email) && admin.Email != adminFromRepo.Email)
+                if (!await _adminsRepository.IsEmailFree(admin.Email) && admin.Email != adminFromRepo.Email)
                 {
                     return Conflict();
                 }

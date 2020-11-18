@@ -36,7 +36,7 @@ namespace HotelManagement.Services
 
             foreach (var room in rooms)
             {
-                if(await _bookingsRepository.IsRoomVacancyAsync(room.Id, dates))
+                if (await _bookingsRepository.IsRoomVacancyAsync(room.Id, dates))
                 {
                     roomsIds.Add(room.Id);
                 }
@@ -96,7 +96,7 @@ namespace HotelManagement.Services
                 {
                     return null;
                 }
-                   
+
                 var roomsIds = await GetVacancyRoomsAsync(roomsResourceParameters.VacancyInDays);
                 collection = collection.Where(r => roomsIds.Contains(r.Id));
             }

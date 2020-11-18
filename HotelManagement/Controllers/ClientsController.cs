@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
-using FluentValidation.Results;
+﻿using AutoMapper;
 using HotelManagement.Data.DTO;
 using HotelManagement.Models;
 using HotelManagement.ResourceParameters;
 using HotelManagement.Services;
-using HotelManagement.Validators;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HotelManagement.Controllers
 {
@@ -48,14 +45,14 @@ namespace HotelManagement.Controllers
         {
             try
             {
-                
+
                 var newClient = _mapper.Map<Client>(client);
 
                 _dbRepository.Add(newClient);
 
                 if (await _dbRepository.SaveChangesAsync())
                 {
-                     return CreatedAtAction(nameof(GetClient), new { clientId = newClient.Id }, _mapper.Map<ClientDTO>(newClient));
+                    return CreatedAtAction(nameof(GetClient), new { clientId = newClient.Id }, _mapper.Map<ClientDTO>(newClient));
                 }
 
 
@@ -136,18 +133,18 @@ namespace HotelManagement.Controllers
         {
             try
             {
-               var clientToRemove = await _clientsRepository.GetClientAsync(clientId);
+                var clientToRemove = await _clientsRepository.GetClientAsync(clientId);
 
-               if(clientToRemove == null)
-               {
-                  return NotFound();
-               }
+                if (clientToRemove == null)
+                {
+                    return NotFound();
+                }
 
-               _dbRepository.Remove(clientToRemove);
-               if (await _dbRepository.SaveChangesAsync())
-               {
-                  return NoContent();
-               }
+                _dbRepository.Remove(clientToRemove);
+                if (await _dbRepository.SaveChangesAsync())
+                {
+                    return NoContent();
+                }
             }
             catch (Exception)
             {
@@ -172,7 +169,7 @@ namespace HotelManagement.Controllers
             {
                 var clientFromRepo = await _clientsRepository.GetClientAsync(clientId);
 
-                if(clientFromRepo == null)
+                if (clientFromRepo == null)
                 {
                     return NotFound();
                 }
@@ -180,7 +177,7 @@ namespace HotelManagement.Controllers
                 _mapper.Map(client, clientFromRepo);
                 _clientsRepository.UpdateClient(clientFromRepo);
 
-                if(await _dbRepository.SaveChangesAsync())
+                if (await _dbRepository.SaveChangesAsync())
                 {
                     return NoContent();
                 }

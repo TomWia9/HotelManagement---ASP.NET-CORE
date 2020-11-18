@@ -8,9 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HotelManagement.Controllers
@@ -132,15 +130,15 @@ namespace HotelManagement.Controllers
             try
             {
                 var bookingToRemove = await _roomsRepository.GetRoomAsync(roomId);
-                if(bookingToRemove == null)
+                if (bookingToRemove == null)
                 {
                     return NotFound();
                 }
-                 _dbRepository.Remove(bookingToRemove);
-                 if (await _dbRepository.SaveChangesAsync())
-                 {
+                _dbRepository.Remove(bookingToRemove);
+                if (await _dbRepository.SaveChangesAsync())
+                {
                     return NoContent();
-                 }
+                }
             }
             catch (Exception)
             {

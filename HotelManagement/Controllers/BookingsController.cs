@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using HotelManagement.Data.DTO;
 using HotelManagement.Models;
 using HotelManagement.ResourceParameters;
 using HotelManagement.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace HotelManagement.Controllers
 {
@@ -52,13 +50,13 @@ namespace HotelManagement.Controllers
             {
                 if (!await _bookingsRepository.IsRoomVacancyAsync(booking.RoomId, booking.BookingDates))
                 {
-                    return Conflict(); 
+                    return Conflict();
                 }
 
                 Booking newBooking = _mapper.Map<Booking>(booking);
                 newBooking.TotalPrice = await _bookingsRepository.CalculateTotalPrice(booking.RoomId, (int)booking.NumberOfPerson, booking.BookingDates);
                 _dbRepository.Add(newBooking);
-              
+
                 if (await _dbRepository.SaveChangesAsync())
                 {
                     return CreatedAtAction(nameof(GetBooking), new { bookingId = newBooking.Id }, _mapper.Map<BookingDTO>(newBooking));
@@ -141,14 +139,14 @@ namespace HotelManagement.Controllers
             try
             {
                 var bookingToRemove = await _bookingsRepository.GetBookingAsync(bookingId);
-                if(bookingToRemove == null)
+                if (bookingToRemove == null)
                 {
                     return NotFound();
                 }
                 _dbRepository.Remove(bookingToRemove);
                 if (await _dbRepository.SaveChangesAsync())
                 {
-                   return NoContent();
+                    return NoContent();
                 }
             }
             catch (Exception)

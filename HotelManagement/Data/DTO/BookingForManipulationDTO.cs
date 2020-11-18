@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace HotelManagement.Data.DTO
+﻿namespace HotelManagement.Data.DTO
 {
     public abstract class BookingForManipulationDTO
     {
-        
+
         public DatesDTO BookingDates { get; set; }
         /// <summary>
         /// The number of persons of the booking

@@ -68,7 +68,7 @@ namespace HotelManagement.Services
                 return true;
 
             //if given dates colidate with current bookings then this room isn't vacany for these dates
-            if (await _context.Bookings.Where(b => b.RoomId == roomId && b.Id != bookingId).AnyAsync(b => !( dates.CheckOutDate.Date < b.CheckInDate.Date || dates.CheckInDate.Date > b.CheckOutDate.Date)))
+            if (await _context.Bookings.Where(b => b.RoomId == roomId && b.Id != bookingId).AnyAsync(b => !(dates.CheckOutDate.Date < b.CheckInDate.Date || dates.CheckInDate.Date > b.CheckOutDate.Date)))
                 return false;
 
             return true;

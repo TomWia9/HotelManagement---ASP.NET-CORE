@@ -1,9 +1,6 @@
-﻿using HotelManagement.Data.DTO;
-using HotelManagement.Models;
+﻿using HotelManagement.Models;
 using HotelManagement.ResourceParameters;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HotelManagement.Services

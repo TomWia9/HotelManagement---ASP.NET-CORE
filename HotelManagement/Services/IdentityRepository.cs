@@ -4,9 +4,6 @@ using HotelManagement.Models;
 using HotelManagement.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HotelManagement.Services
@@ -26,7 +23,7 @@ namespace HotelManagement.Services
         {
             var admin = await _context.Administrators.SingleOrDefaultAsync(a => a.Email == authenticateRequest.Email && a.Password == Hash.GetHash(authenticateRequest.Password));
 
-            if(admin == null)
+            if (admin == null)
             {
                 return null;
             }

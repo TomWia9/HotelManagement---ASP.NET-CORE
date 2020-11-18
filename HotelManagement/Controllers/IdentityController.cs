@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using HotelManagement.Data.Auth;
-using HotelManagement.Data.DTO;
-using HotelManagement.Models;
+﻿using HotelManagement.Data.Auth;
 using HotelManagement.Services;
-using HotelManagement.Shared;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace HotelManagement.Controllers
 {
@@ -41,7 +34,7 @@ namespace HotelManagement.Controllers
             {
                 var response = await _identityRepository.Authenticate(authenticateRequest);
 
-                if(response == null)
+                if (response == null)
                 {
                     return BadRequest(new { message = "Email or password is incorrect" });
 
@@ -52,7 +45,7 @@ namespace HotelManagement.Controllers
             }
             catch (Exception)
             {
-                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
 
         }

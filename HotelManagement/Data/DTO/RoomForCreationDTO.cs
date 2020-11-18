@@ -1,16 +1,10 @@
-﻿using HotelManagement.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace HotelManagement.Data.DTO
+﻿namespace HotelManagement.Data.DTO
 {
     /// <summary>
     /// The room with Type, Balcony, Description, PriceForDay and MaxNumberOfPerson fields
     /// </summary>
     public class RoomForCreationDTO : RoomForManipulationDTO
     {
-        
+
     }
 }

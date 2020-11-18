@@ -1,12 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using HotelManagement.Filters;
@@ -24,10 +15,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.IO;
+using System.Reflection;
+using System.Text;
 
 namespace HotelManagement
 {
@@ -86,7 +79,7 @@ namespace HotelManagement
 
             services.AddSwaggerGenNewtonsoftSupport();
 
-            services.AddSwaggerGen(setupAction => 
+            services.AddSwaggerGen(setupAction =>
             {
                 setupAction.SwaggerDoc(
                     "HotelManagementOpenAPISepcification",
@@ -174,7 +167,7 @@ namespace HotelManagement
 
             app.UseSwagger();
 
-            app.UseSwaggerUI(setupAction => 
+            app.UseSwaggerUI(setupAction =>
             {
                 setupAction.SwaggerEndpoint("/swagger/HotelManagementOpenAPISepcification/swagger.json", "HotelManagement API");
                 setupAction.RoutePrefix = "";

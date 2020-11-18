@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace HotelManagement.Data.DTO
+﻿namespace HotelManagement.Data.DTO
 {
     /// <summary>
     /// An address with City, Street, HouseNumber and PostCode fields

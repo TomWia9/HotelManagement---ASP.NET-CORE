@@ -1,9 +1,4 @@
-﻿using FluentValidation;
-using HotelManagement.Data.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using HotelManagement.Data.DTO;
 
 namespace HotelManagement.Validators
 {

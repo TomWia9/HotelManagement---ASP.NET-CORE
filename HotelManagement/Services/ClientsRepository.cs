@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using HotelManagement.Models;
+﻿using HotelManagement.Models;
 using HotelManagement.ResourceParameters;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Services
 {
-    public class ClientsRepository: IClientsRepository
+    public class ClientsRepository : IClientsRepository
     {
         private readonly DatabaseContext _context;
 
